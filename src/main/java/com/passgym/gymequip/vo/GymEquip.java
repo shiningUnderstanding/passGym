@@ -1,9 +1,14 @@
 package com.passgym.gymequip.vo;
 
+import com.passgym.equip.vo.Equip;
+
 public class GymEquip {
 	private int ownerNo;
 	private int equipNo;
 	private int equipCount;
+	//
+	private Equip equip; 
+	//
 	
 	public GymEquip() {}
 
@@ -36,6 +41,16 @@ public class GymEquip {
 
 	public void setEquipCount(int equipCount) {
 		this.equipCount = equipCount;
+	}
+	
+	
+
+	public Equip getEquip() {
+		return equip;
+	}
+
+	public void setEquip(Equip equip) {
+		this.equip = equip;
 	}
 
 	@Override

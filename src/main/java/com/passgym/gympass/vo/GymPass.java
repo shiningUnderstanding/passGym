@@ -2,6 +2,8 @@ package com.passgym.gympass.vo;
 
 import java.util.Date;
 
+import com.passgym.payment.vo.Payment;
+
 public class GymPass {
 	private int paymentNo;
 	private int ownerNo;
@@ -12,7 +14,9 @@ public class GymPass {
 	private int pauseCount;
 	private int pauseDate;
 	private int status;
-	
+	//
+	private Payment payment;
+	//
 	public GymPass() {}
 
 	public GymPass(int paymentNo, int ownerNo, int passNo, int userNo, Date startDate, Date endDate, int pauseCount,
@@ -99,6 +103,14 @@ public class GymPass {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
 	}
 
 	@Override

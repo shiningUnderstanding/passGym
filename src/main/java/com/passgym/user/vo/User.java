@@ -1,5 +1,11 @@
 package com.passgym.user.vo;
 
+import java.util.List;
+
+import com.passgym.gym.vo.Gym;
+import com.passgym.gympass.vo.GymPass;
+import com.passgym.userqna.vo.UserQna;
+
 public class User {
 	private int userNo; //사용자고유번호 
 	private String id; //사용자아이디
@@ -10,7 +16,12 @@ public class User {
 	private String addr; //지번주소
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
-	
+	//
+	private List<GymPass> gymPasses;
+	//private List<Zzim> zzims;
+	private List<UserQna> userQnas;
+	//private List<Gym> gyms;
+	//
 	public User() {}
 	
 	public User(int userNo, String id, String name, String pwd, String phoneNo, int zipcode, String addr,
@@ -97,6 +108,22 @@ public class User {
 
 	public void setSns(String sns) {
 		this.sns = sns;
+	}
+	
+	public List<GymPass> getGymPasses() {
+		return gymPasses;
+	}
+
+	public void setGymPasses(List<GymPass> gymPasses) {
+		this.gymPasses = gymPasses;
+	}
+
+	public List<UserQna> getUserQnas() {
+		return userQnas;
+	}
+
+	public void setUserQnas(List<UserQna> userQnas) {
+		this.userQnas = userQnas;
 	}
 
 	@Override
