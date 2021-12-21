@@ -17,6 +17,8 @@ public class Gym {
 	private int totalMember; //총인원수
 	private double lat; //위도 latitude 
 	private double lon; //경도 longitude
+	
+
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, int zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
