@@ -15,10 +15,10 @@ public class GymPass {
 	private int pauseCount;
 	private int pauseDate;
 	private int status;
-	//
+	
 	private Payment payment;
 	private Star star;
-	//
+	
 	public GymPass() {}
 
 	public GymPass(int paymentNo, int ownerNo, int passNo, int userNo, Date startDate, Date endDate, int pauseCount,
@@ -113,6 +113,14 @@ public class GymPass {
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	
+	public Star getStar() {
+		return star;
+	}
+
+	public void setStar(Star star) {
+		this.star = star;
 	}
 
 	@Override
