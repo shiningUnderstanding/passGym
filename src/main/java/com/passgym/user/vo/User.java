@@ -20,8 +20,7 @@ public class User {
 	private List<GymPass> gymPasses;
 	private List<UserQna> userQnas;
 	private List<Zzim> zzims;
-	//private List<Gym> zzims;
-	//
+	
 	public User() {}
 	
 	public User(int userNo, String id, String name, String pwd, String phoneNo, int zipcode, String addr,
