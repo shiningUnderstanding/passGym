@@ -26,8 +26,8 @@ public class Gym {
 	//
 	private List<Pass> passes;
 	private List<GymEquip> gymequips;
+	private List<Zzim> zzims;
 	//private Zzim zzim;
-	//private List<Zzim> zzims;
 	//
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, int zipcode, String addr, String addrDetail, String introduce,

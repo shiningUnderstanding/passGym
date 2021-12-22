@@ -2,9 +2,9 @@ package com.passgym.user.vo;
 
 import java.util.List;
 
-import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.userqna.vo.UserQna;
+import com.passgym.zzim.vo.Zzim;
 
 public class User {
 	private int userNo; //사용자고유번호 
@@ -19,9 +19,8 @@ public class User {
 	//
 	private List<GymPass> gymPasses;
 	private List<UserQna> userQnas;
-	//private Zzim zzim;
-	//private List<Zzim> zzims;
-	//private List<Gym> gyms;
+	private List<Zzim> zzims;
+	//private List<Gym> zzims;
 	//
 	public User() {}
 	

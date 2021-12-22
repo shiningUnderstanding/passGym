@@ -3,6 +3,7 @@ package com.passgym.gympass.vo;
 import java.util.Date;
 
 import com.passgym.payment.vo.Payment;
+import com.passgym.star.vo.Star;
 
 public class GymPass {
 	private int paymentNo;
@@ -16,6 +17,7 @@ public class GymPass {
 	private int status;
 	//
 	private Payment payment;
+	private Star star;
 	//
 	public GymPass() {}
 
