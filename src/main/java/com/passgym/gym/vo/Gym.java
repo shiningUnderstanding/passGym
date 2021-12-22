@@ -26,6 +26,7 @@ public class Gym {
 	//
 	private List<Pass> passes;
 	private List<GymEquip> gymequips;
+	//private Zzim zzim;
 	//private List<Zzim> zzims;
 	//
 	public Gym() {}

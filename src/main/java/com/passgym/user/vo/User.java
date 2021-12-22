@@ -18,8 +18,9 @@ public class User {
 	private String sns; //sns(회원가입정보)
 	//
 	private List<GymPass> gymPasses;
-	//private List<Zzim> zzims;
 	private List<UserQna> userQnas;
+	//private Zzim zzim;
+	//private List<Zzim> zzims;
 	//private List<Gym> gyms;
 	//
 	public User() {}

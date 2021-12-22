@@ -8,6 +8,7 @@ public class Owner {
 	private String pwd;
 	
 	//
+	
 	//private Gym gym;
 	//
 	
