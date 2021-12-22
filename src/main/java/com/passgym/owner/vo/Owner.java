@@ -3,7 +3,7 @@ package com.passgym.owner.vo;
 import com.passgym.gym.vo.Gym;
 
 public class Owner {
-	private int owner_no;
+	private int ownerNo;
 	private String id;
 	private String pwd;
 	
