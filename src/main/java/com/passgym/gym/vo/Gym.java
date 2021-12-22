@@ -1,5 +1,11 @@
 package com.passgym.gym.vo;
 
+import java.util.List;
+
+import com.passgym.gymequip.vo.GymEquip;
+import com.passgym.pass.vo.Pass;
+import com.passgym.zzim.vo.Zzim;
+
 public class Gym {
 	private int ownerNo; //사업자번호
 	private String name; //헬스장이름
@@ -17,8 +23,12 @@ public class Gym {
 	private int totalMember; //총인원수
 	private double lat; //위도 latitude 
 	private double lon; //경도 longitude
-	
-
+	//
+	private List<Pass> passes;
+	private List<GymEquip> gymequips;
+	//private Zzim zzim;
+	//private List<Zzim> zzims;
+	//
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, int zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
@@ -137,6 +147,19 @@ public class Gym {
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
+	public List<Pass> getPasses() {
+		return passes;
+	}
+	public void setPasses(List<Pass> passes) {
+		this.passes = passes;
+	}
+	public List<GymEquip> getGymequips() {
+		return gymequips;
+	}
+	public void setGymequips(List<GymEquip> gymequips) {
+		this.gymequips = gymequips;
+	}
+	//가지고 있는 리스트의 멤버를 가져오는 get함수도 추가해야하나?
 	@Override
 	public String toString() {
 		return "Gym [ownerNo=" + ownerNo + ", name=" + name + ", phoneNo=" + phoneNo + ", zipcode=" + zipcode

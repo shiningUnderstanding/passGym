@@ -1,9 +1,16 @@
 package com.passgym.owner.vo;
 
+import com.passgym.gym.vo.Gym;
+
 public class Owner {
 	private int owner_no;
 	private String id;
 	private String pwd;
+	
+	//
+	
+	//private Gym gym;
+	//
 	
 	public Owner() {}
 
@@ -37,6 +44,8 @@ public class Owner {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	
 
 	@Override
 	public String toString() {

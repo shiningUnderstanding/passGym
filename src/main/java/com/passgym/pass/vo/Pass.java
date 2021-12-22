@@ -13,6 +13,12 @@ public class Pass {
 	private int pauseCount;
 	private int pauseDate;
 	private String remarks;
+	
+<<<<<<< Updated upstream
+=======
+	
+	
+>>>>>>> Stashed changes
 	public Pass() {}
 	public Pass(int ownerNo, int passNo, String passName, int passPrice, Date passDate, int passStatus, int passMonth,
 			int pauseCount, int pauseDate, String remarks) {

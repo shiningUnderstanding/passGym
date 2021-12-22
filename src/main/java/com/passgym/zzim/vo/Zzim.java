@@ -1,9 +1,18 @@
 package com.passgym.zzim.vo;
 
+import java.util.List;
+
+import com.passgym.gym.vo.Gym;
+import com.passgym.user.vo.User;
+
 public class Zzim {
 	private int userNo;
 	private int ownerNo;
 	
+	//
+	private List<User> users;
+	private List<Gym> gyms;
+	//
 	public Zzim() {}
 
 	public Zzim(int userNo, int ownerNo) {
@@ -26,6 +35,22 @@ public class Zzim {
 
 	public void setOwnerNo(int ownerNo) {
 		this.ownerNo = ownerNo;
+	}
+	
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Gym> getGyms() {
+		return gyms;
+	}
+
+	public void setGyms(List<Gym> gyms) {
+		this.gyms = gyms;
 	}
 
 	@Override
