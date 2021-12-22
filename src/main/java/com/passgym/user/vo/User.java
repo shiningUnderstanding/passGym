@@ -16,11 +16,11 @@ public class User {
 	private String addr; //지번주소
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
-	//
+
 	private List<GymPass> gymPasses;
 	private List<UserQna> userQnas;
 	private List<Zzim> zzims;
-	
+
 	public User() {}
 	
 	public User(int userNo, String id, String name, String pwd, String phoneNo, int zipcode, String addr,
@@ -123,6 +123,14 @@ public class User {
 
 	public void setUserQnas(List<UserQna> userQnas) {
 		this.userQnas = userQnas;
+	}
+
+	public List<Zzim> getZzims() {
+		return zzims;
+	}
+
+	public void setZzims(List<Zzim> zzims) {
+		this.zzims = zzims;
 	}
 
 	@Override
