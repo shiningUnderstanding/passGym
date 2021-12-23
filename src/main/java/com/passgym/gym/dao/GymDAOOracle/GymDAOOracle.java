@@ -100,7 +100,7 @@ public class GymDAOOracle implements GymDAOInterface {
 				
 //				p.payment_no, p.payment_price, p.bank_name, p.payment_date  
 				Payment pay = new Payment();
-				pay.setPaymentNo(rs.getInt("payment_no"));
+				pay.setPaymentNo(rs.getString("payment_no"));
 				pay.setPaymentPrice(rs.getInt("payment_price"));
 				pay.setBankName(rs.getString("bank_name"));
 				pay.setPaymentDate(rs.getDate("payment_date"));
