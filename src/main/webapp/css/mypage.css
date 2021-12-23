@@ -1,0 +1,431 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import "reset.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans kr", sans-serif;
+}
+
+header,
+section,
+footer {
+  width: 100%;
+}
+
+.login {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__container {
+  width: 1000px;
+  max-width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.loginBtn {
+  background-color: white;
+  border: none;
+  cursor: pointer;
+  width: 100px;
+  padding: 5px 10px 5px 10px;
+  text-align: center;
+}
+
+.myPageBtn {
+  text-decoration: none;
+  color: #252525;
+}
+
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f5ef;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav__container {
+  margin: 0 20px;
+  width: 1000px;
+  max-width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__main a {
+  font-size: 40px;
+  text-decoration: none;
+  color: darkslategray;
+  display: flex;
+  align-items: center;
+}
+
+.nav-bar__logo {
+  width: 50px;
+}
+
+.nav-bar__links {
+  width: 300px;
+  max-width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar__links a {
+  font-size: 20px;
+  color: darkslategray;
+  text-decoration: none;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10vh 0;
+}
+
+.profile {
+  width: 800px;
+  max-width: 100%;
+  padding: 40px 0;
+  margin-bottom: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 10px;
+}
+
+.profile__img {
+  width: 150px;
+  margin-left: 40px;
+}
+
+.profile__img img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.profile__info {
+  width: 500px;
+  padding-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__edit {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.profile__editBtn {
+  width: 100%;
+  padding: 5px;
+}
+
+.gympass {
+  width: 800px;
+  max-width: 100%;
+  height: 600px;
+  padding: 40px 20px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  overflow: scroll;
+}
+
+.gympass__list {
+  width: 100%;
+}
+
+.gympass__detail {
+  width: 100%;
+  padding: 0 15px;
+  margin-bottom: 30px;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gympass__infos {
+  width: 100%;
+  max-width: 80%;
+}
+
+.gympass__info-top {
+  width: 180px;
+  max-width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.gympass__info-mid {
+  width: 400px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gympass__gym {
+  width: 200px;
+  max-width: 50%;
+  padding: 5px 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+.star {
+  width: 200px;
+  max-width: 50%;
+  padding-left: 10px;
+}
+
+.gympass__info-bot {
+  width: 400px;
+  max-width: 100%;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gympass__btns {
+  width: 100px;
+  max-width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gympass__btn {
+  width: 100px;
+  max-width: 100%;
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.zzim {
+  width: 800px;
+  max-width: 100%;
+  height: 600px;
+  padding: 40px 20px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  overflow: scroll;
+}
+
+.zzim__list {
+  width: 100%;
+}
+
+.zzim__detail {
+  width: 100%;
+  height: 150px;
+  padding-right: 15px;
+  margin-bottom: 30px;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.zzim__gymImg {
+  width: 200px;
+  max-width: 40%;
+  height: 100%;
+}
+
+.zzim__gymImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.zzim__infos {
+  width: 400px;
+  max-width: 50%;
+}
+
+.zzim__info-top {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.zzim__star {
+  margin-left: 20px;
+}
+
+.zzim__gymPhone {
+  margin-bottom: 5px;
+}
+
+.zzim__btns {
+  width: 100px;
+  max-width: 20%;
+}
+
+.zzim__deleteBtn {
+  width: 100px;
+  padding: 5px;
+}
+
+.qna {
+  width: 800px;
+  max-width: 100%;
+  height: 600px;
+  padding: 40px 20px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  overflow: scroll;
+}
+
+.qna__list {
+  width: 100%;
+}
+
+.qna__detail {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.qna__infos {
+  width: 100%;
+}
+
+.qna__info-show {
+  width: 100%;
+  height: 50px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid;
+}
+
+.qna__info-hidden {
+  display: none;
+}
+
+.qna_content {
+  border: 1px solid;
+  padding: 10px;
+}
+
+.qna__reply {
+  border: 1px solid;
+  padding: 10px;
+}
+
+.question__btn {
+  width: 100px;
+  padding: 5px;
+}
+
+.footer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #302f2b;
+  color: white;
+}
+
+.footer__leaf {
+  position: absolute;
+  top: -34px;
+  width: 50px;
+}
+
+.footer__info {
+  width: 750px;
+  height: 28vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__logo img {
+  width: 130px;
+  margin-bottom: 1vh;
+}
+
+.footer__logo h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.info__category {
+  color: #cfa972;
+}
+
+.footer__info-detail {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.info__category {
+  margin-right: 10px;
+}
+
+.footer__contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer__link {
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.footer__link img {
+  height: 23px;
+  margin-left: 10px;
+}
+
+.copyright {
+  text-align: center;
+  width: 100%;
+  font-size: 11px;
+  font-weight: 100;
+  background-color: #252525;
+  padding: 10px 0;
+}
