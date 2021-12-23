@@ -65,5 +65,6 @@ public class UserLoginServlet extends HttpServlet {
 		//5. Viewer로 이동
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
+
 	}
 }
