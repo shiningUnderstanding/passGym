@@ -138,7 +138,6 @@ public class GymDAOOracle implements GymDAOInterface {
 				System.out.println(p);
 				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
 				System.out.println("id : name : paymentNo :paymentPrice");
-				
 				for(GymPass gp: p.getGympasses()) {
 					User u = gp.getUser();
 					Payment pay = gp.getPayment();
