@@ -12,7 +12,7 @@ public class User {
 	private String name; //사용자이름
 	private String pwd; //비밀번호
 	private String phoneNo; //핸드폰번호
-	private int zipcode; //우편번호
+	private String zipcode; //우편번호
 	private String addr; //지번주소
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
@@ -23,7 +23,7 @@ public class User {
 
 	public User() {}
 	
-	public User(int userNo, String id, String name, String pwd, String phoneNo, int zipcode, String addr,
+	public User(int userNo, String id, String name, String pwd, String phoneNo, String zipcode, String addr,
 			String addrDetail, String sns) {
 		super();
 		this.userNo = userNo;
@@ -77,11 +77,11 @@ public class User {
 		this.phoneNo = phoneNo;
 	}
 
-	public int getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
 
-	public void setZipcode(int zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 

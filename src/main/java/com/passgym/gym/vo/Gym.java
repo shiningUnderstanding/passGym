@@ -11,7 +11,7 @@ public class Gym {
 	private int ownerNo; //사업자번호
 	private String name; //헬스장이름
 	private String phoneNo; //헬스장전화번호
-	private int zipcode; //우편번호
+	private String zipcode; //우편번호
 	private String addr; //주소
 	private String addrDetail; //상세주소
 	private String introduce; //헬스장 소개
@@ -31,7 +31,7 @@ public class Gym {
 	private List<Zzim> zzims;
 	
 	public Gym() {}
-	public Gym(int ownerNo, String name, String phoneNo, int zipcode, String addr, String addrDetail, String introduce,
+	public Gym(int ownerNo, String name, String phoneNo, String zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
 			int totalStar, int totalMember, double lat, double lon) {
 		super();
@@ -70,10 +70,10 @@ public class Gym {
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
-	public int getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
-	public void setZipcode(int zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 	public String getAddr() {
