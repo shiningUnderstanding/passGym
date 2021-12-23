@@ -1,11 +1,16 @@
 package com.passgym.user.service;
 
+import com.passgym.exception.FindException;
+import com.passgym.user.dao.UserDAOOracle;
 import com.passgym.user.vo.User;
 
 public class UserService {
 	private UserDAOOracle dao = UserDAOOracle.getInstance();
+	
 	private static UserService service = new UserService();
+	
 	private UserService() {}
+	
 	public static UserService getInstance() {
 		return service;
 	}
@@ -21,5 +26,8 @@ public class UserService {
 			throw new FindException("로그인 실패");
 		}
 	}
-	public void 
+	
+	public User mypageFindByNo() throws FindException{
+		return null;
+	}
 }

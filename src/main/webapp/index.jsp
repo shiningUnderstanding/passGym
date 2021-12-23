@@ -18,12 +18,12 @@
 		$menuObj.click(function() {
 			let menuHref = $(this).attr("href");
 			let ajaxUrl = "";
-			let ajaxmethod = "";
+			let ajaxMethod = "";
 			switch (menuHref) {
 			case "mypage":
 				//AJAX요청, 응답
 				ajaxUrl = menuHref;
-				ajaxmethod = "post";
+				ajaxMethod = "post";
 				let userNo = 2;
 				$("section>div.articles").empty();
 				//( String responseText, String textStatus, jqXHR jqXHR)
@@ -31,7 +31,7 @@
 					url : ajaxUrl,
 					method : ajaxMethod,
 					data : {
-						userNo : prodNo
+						userNo : userNo
 					}, 
 					success : function(responseData) {
 						$("section").html(responseData);

@@ -78,6 +78,7 @@ footer {
   align-items: center;
   border: 1px solid;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .gympass__list {
@@ -164,6 +165,7 @@ footer {
   align-items: center;
   border: 1px solid;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .zzim__list {
@@ -233,6 +235,7 @@ footer {
   align-items: center;
   border: 1px solid;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .qna__list {
