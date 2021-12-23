@@ -30,4 +30,5 @@ public class UserService {
 	public User mypageFindByNo() throws FindException{
 		return null;
 	}
+
 }
