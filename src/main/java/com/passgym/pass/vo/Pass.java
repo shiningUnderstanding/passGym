@@ -95,6 +95,14 @@ public class Pass {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
+	
+	public List<GymPass> getGympasses() {
+		return gympasses;
+	}
+	public void setGympasses(List<GymPass> gympasses) {
+		this.gympasses = gympasses;
+	}
+	
 	@Override
 	public String toString() {
 		return "Pass [ownerNo=" + ownerNo + ", passNo=" + passNo + ", passName=" + passName + ", passPrice=" + passPrice

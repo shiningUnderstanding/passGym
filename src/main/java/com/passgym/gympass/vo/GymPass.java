@@ -25,4 +25,21 @@ public class GymPass {
 	private Star star;
 	
 	public GymPass() {}
+
+	public GymPass(int paymentNo, Pass pass, User user, Date startDate, Date endDate, int pauseCount, int pauseDate,
+			int status, Payment payment, Star star) {
+		super();
+		this.paymentNo = paymentNo;
+		this.pass = pass;
+		this.user = user;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.pauseCount = pauseCount;
+		this.pauseDate = pauseDate;
+		this.status = status;
+		this.payment = payment;
+		this.star = star;
+	}
+	
+	
 }

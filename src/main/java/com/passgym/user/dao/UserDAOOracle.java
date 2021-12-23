@@ -213,8 +213,8 @@ public class UserDAOOracle implements UserDAOInterface {
 				int pauseCount = rs.getInt("pause_count");
 				int pauseDate = rs.getInt("pause_date");
 				int status = rs.getInt("status");
-				GymPass gymPass = new GymPass(paymentNo, ownerNo, passNo, userNo ,startDate, endDate, pauseCount, pauseDate, status);
-				gymPassList.add(gymPass);
+				//GymPass gymPass = new GymPass(paymentNo, ownerNo, passNo, userNo ,startDate, endDate, pauseCount, pauseDate, status);
+				//gymPassList.add(gymPass);
 			}
 			if(gymPassList.size() == 0) {
 				throw new FindException("결제한 헬스장이 존재하지 않습니다");
