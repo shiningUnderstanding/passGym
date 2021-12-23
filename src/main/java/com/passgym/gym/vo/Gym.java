@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.passgym.gymequip.vo.GymEquip;
 import com.passgym.pass.vo.Pass;
+import com.passgym.paymentmethod.vo.PaymentMethod;
 import com.passgym.zzim.vo.Zzim;
 
-public class Gym {
+public class Gym {   
 	private int ownerNo; //사업자번호
 	private String name; //헬스장이름
 	private String phoneNo; //헬스장전화번호
@@ -23,12 +24,12 @@ public class Gym {
 	private int totalMember; //총인원수
 	private double lat; //위도 latitude 
 	private double lon; //경도 longitude
-	//
+	
+	private List<PaymentMethod> paymentMethods;
 	private List<Pass> passes;
 	private List<GymEquip> gymequips;
 	private List<Zzim> zzims;
-	//private Zzim zzim;
-	//
+	
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, int zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
@@ -147,6 +148,13 @@ public class Gym {
 	public void setLon(double lon) {
 		this.lon = lon;
 	}
+
+	public List<PaymentMethod> getPaymentMethods() {
+		return paymentMethods;
+	}
+	public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
+		this.paymentMethods = paymentMethods;
+	}
 	public List<Pass> getPasses() {
 		return passes;
 	}
@@ -159,7 +167,13 @@ public class Gym {
 	public void setGymequips(List<GymEquip> gymequips) {
 		this.gymequips = gymequips;
 	}
-	//가지고 있는 리스트의 멤버를 가져오는 get함수도 추가해야하나?
+
+	public List<Zzim> getZzims() {
+		return zzims;
+	}
+	public void setZzims(List<Zzim> zzims) {
+		this.zzims = zzims;
+	}
 	@Override
 	public String toString() {
 		return "Gym [ownerNo=" + ownerNo + ", name=" + name + ", phoneNo=" + phoneNo + ", zipcode=" + zipcode

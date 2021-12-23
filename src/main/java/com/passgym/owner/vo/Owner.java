@@ -7,26 +7,21 @@ public class Owner {
 	private String id;
 	private String pwd;
 	
-	//
-	
-	//private Gym gym;
-	//
-	
 	public Owner() {}
 
-	public Owner(int owner_no, String id, String pwd) {
+	public Owner(int ownerNo, String id, String pwd) {
 		super();
-		this.owner_no = owner_no;
+		this.ownerNo = ownerNo;
 		this.id = id;
 		this.pwd = pwd;
 	}
 
 	public int getOwner_no() {
-		return owner_no;
+		return ownerNo;
 	}
 
 	public void setOwner_no(int owner_no) {
-		this.owner_no = owner_no;
+		this.ownerNo = owner_no;
 	}
 
 	public String getId() {
@@ -49,6 +44,6 @@ public class Owner {
 
 	@Override
 	public String toString() {
-		return "Owner [owner_no=" + owner_no + ", id=" + id + ", pwd=" + pwd + "]";
+		return "Owner [owner_no=" + ownerNo + ", id=" + id + ", pwd=" + pwd + "]";
 	}
 }
