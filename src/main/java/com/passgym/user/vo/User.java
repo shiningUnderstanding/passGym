@@ -2,9 +2,9 @@ package com.passgym.user.vo;
 
 import java.util.List;
 
-import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.userqna.vo.UserQna;
+import com.passgym.zzim.vo.Zzim;
 
 public class User {
 	private int userNo; //사용자고유번호 
@@ -12,20 +12,18 @@ public class User {
 	private String name; //사용자이름
 	private String pwd; //비밀번호
 	private String phoneNo; //핸드폰번호
-	private int zipcode; //우편번호
+	private String zipcode; //우편번호
 	private String addr; //지번주소
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
-	//
+
 	private List<GymPass> gymPasses;
 	private List<UserQna> userQnas;
-	//private Zzim zzim;
-	//private List<Zzim> zzims;
-	//private List<Gym> gyms;
-	//
+	private List<Zzim> zzims;
+
 	public User() {}
 	
-	public User(int userNo, String id, String name, String pwd, String phoneNo, int zipcode, String addr,
+	public User(int userNo, String id, String name, String pwd, String phoneNo, String zipcode, String addr,
 			String addrDetail, String sns) {
 		super();
 		this.userNo = userNo;
@@ -79,11 +77,11 @@ public class User {
 		this.phoneNo = phoneNo;
 	}
 
-	public int getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
 
-	public void setZipcode(int zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 
@@ -125,6 +123,14 @@ public class User {
 
 	public void setUserQnas(List<UserQna> userQnas) {
 		this.userQnas = userQnas;
+	}
+
+	public List<Zzim> getZzims() {
+		return zzims;
+	}
+
+	public void setZzims(List<Zzim> zzims) {
+		this.zzims = zzims;
 	}
 
 	@Override

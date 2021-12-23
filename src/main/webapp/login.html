@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>passGym : 로그인</title>
+        <meta charset="UTF-8">
+        <style>
+            *{
+                box-sizing: border-box;
+                text-align: center;
+            }
+            body{
+                margin: auto;
+                width: 100%;
+                padding: 10px;
+            }
+            header {
+                width: 100%;                
+            }
+            header>h1 {
+                width: 100%;
+                height: 100%;
+                border: gainsboro 1px solid;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./js/login.js"></script>
+        <script>
+            
+            $(function(){
+            	loginClick();
+            });
+            
+        </script>
+    </head>
+
+    <body>
+        <div class="header">
+            <header>
+                <h1 class="login"> 로그인
+                    <!-- <a href="index.html" class="logo" >passGym</a> -->
+                </h1>
+            </header>
+        </div>
+        <div class="contents">
+            <div class="login">
+                <form method="post" id="loginform" action="">
+                    <div>
+                        <label><input type="radio" name="check" id="userChk" value="user">사용자</label>
+                        <label><input type="radio" name="check" id="ownerChk" value="owner">사업자</label><br>
+                    </div>
+                    <div class="input">
+                    <input type="email" name="id" required placeholder="이메일">
+                    <br>
+                    <input type="password" name="pwd" required placeholder="비밀번호">
+                    <br>
+                    <button type="submit" value="로그인">로그인</button><br>
+                    </div>
+                </form>
+            </div>
+
+            <div class="find">
+                <!-- <button type="button" value="이메일/비밀번호 찾기">이메일/비밀번호 찾기</button> -->
+                <a href="findemail.html">이메일 찾기</a>
+                <a href="findpassword.html">비밀번호 찾기</a>
+            </div>
+
+            <div class="sns_login">
+                <button class="kakao">카카오로그인</button>
+                <button class="naver">네이버로그인</button>
+                <button class="google">구글로그인</button>
+            </div>
+        
+
+        <div class="signin">
+            <button type="button" value="사용자용">사용자 회원가입</button>
+            <button type="button" value="법인용">법인 회원가입</button>
+        </div>
+        </div>
+    </body>
+</html>

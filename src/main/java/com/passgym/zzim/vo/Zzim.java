@@ -6,55 +6,36 @@ import com.passgym.gym.vo.Gym;
 import com.passgym.user.vo.User;
 
 public class Zzim {
-	private int userNo;
-	private int ownerNo;
+
+	private User user;
+	private Gym gym;
 	
-	//
-	private List<User> users;
-	private List<Gym> gyms;
-	//
 	public Zzim() {}
 
-	public Zzim(int userNo, int ownerNo) {
+	public Zzim(User user, Gym gym) {
 		super();
-		this.userNo = userNo;
-		this.ownerNo = ownerNo;
+		this.user = user;
+		this.gym = gym;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public int getOwnerNo() {
-		return ownerNo;
+	public Gym getGym() {
+		return gym;
 	}
 
-	public void setOwnerNo(int ownerNo) {
-		this.ownerNo = ownerNo;
-	}
-	
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public List<Gym> getGyms() {
-		return gyms;
-	}
-
-	public void setGyms(List<Gym> gyms) {
-		this.gyms = gyms;
+	public void setGym(Gym gym) {
+		this.gym = gym;
 	}
 
 	@Override
 	public String toString() {
-		return "Zzim [userNo=" + userNo + ", ownerNo=" + ownerNo + "]";
+		return "Zzim [user=" + user + ", gym=" + gym + "]";
 	}
 }

@@ -6,9 +6,9 @@ public class GymEquip {
 	private int ownerNo;
 	private int equipNo;
 	private int equipCount;
-	//객체가 아닌 그냥 String 써보기?
+
 	private Equip equip; 
-	//
+
 	
 	public GymEquip() {}
 
@@ -43,8 +43,6 @@ public class GymEquip {
 		this.equipCount = equipCount;
 	}
 	
-	
-
 	public Equip getEquip() {
 		return equip;
 	}

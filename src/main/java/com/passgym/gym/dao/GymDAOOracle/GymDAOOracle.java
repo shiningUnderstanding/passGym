@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +24,7 @@ public class GymDAOOracle implements GymDAOInterface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-	 
-		
+
 		try {
 			con = PassGymConnection.getConnection();
 			String selectPassByOwnerNo = "select \r\n"
