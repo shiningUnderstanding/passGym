@@ -41,14 +41,14 @@ public class UserLoginServlet extends HttpServlet {
 		session.removeAttribute("userLoginInfo"); //초기화
 		
 		String path = "jsonresult.jsp";
-		
+		UserService service = UserService.getInstance();
 		//2. 비지니스로직 호출
 		User u;
 		try {
 			u = service.login(idValue, pwdValue);
 			System.out.println("로그인 성공");
 			session.setAttribute("userLoginInfo", u);
-			
+
 			//3. 응답결과만들기
 			resultMsg = "";
 			request.setAttribute("status", 1);
@@ -65,7 +65,6 @@ public class UserLoginServlet extends HttpServlet {
 		//5. Viewer로 이동
 		RequestDispatcher rd = request.getRequestDispatcher(path);
 		rd.forward(request, response);
-		
-	}
 
+	}
 }
