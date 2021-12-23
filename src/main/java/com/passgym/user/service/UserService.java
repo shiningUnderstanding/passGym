@@ -23,7 +23,4 @@ public class UserService {
 			throw new FindException("로그인 실패");
 		}
 	}
-	public void iddupchk(String id) throws FindException{
-		dao.findByUserId(id);
-	}
 }

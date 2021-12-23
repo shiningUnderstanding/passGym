@@ -2,8 +2,11 @@ package com.passgym.user.control;
 
 import java.io.IOException;
 
+import com.passgym.exception.FindException;
+import com.passgym.user.service.UserService;
 import com.passgym.user.vo.User;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,6 +28,7 @@ public class UserLoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    private UserService service = UserService.getInstance();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1. 요청전달데이터 id, pwd 값 얻기
 		String idValue = request.getParameter("id");
@@ -39,9 +43,29 @@ public class UserLoginServlet extends HttpServlet {
 		String path = "jsonresult.jsp";
 		
 		//2. 비지니스로직 호출
-		User u = service.login(idValue, pwdValue);
-		System.out.println("로그인 성공");
-		session.setAttribute("userLoginInfo", u);
+		User u;
+		try {
+			u = service.login(idValue, pwdValue);
+			System.out.println("로그인 성공");
+			session.setAttribute("userLoginInfo", u);
+			
+			//3. 응답결과만들기
+			resultMsg = "";
+			request.setAttribute("status", 1);
+		} catch (FindException e) {
+			System.out.println(e.getMessage());
+			//3. 응답결과만들기
+			resultMsg = "로그인 실패";
+			request.setAttribute("status", 0);
+		}
+		
+		//4. 응답결과를 요청속성으로 설정하기
+		request.setAttribute("msg", resultMsg);
+		
+		//5. Viewer로 이동
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
+		
 	}
 
 }
