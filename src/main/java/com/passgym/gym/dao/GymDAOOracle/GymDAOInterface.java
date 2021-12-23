@@ -24,8 +24,4 @@ public interface GymDAOInterface {
 	// 반환시 날짜를 기준으로 이용을 등록한 날짜 기준으로 반환
 	public List<Pass> findByDate(Date at) throws FindException;
 
-	 * @param ownerNo 사업자번호
-	 * @return
-	 */
-	List<Pass> findByOwnerNo(int ownerNo) throws FindException;
 }
