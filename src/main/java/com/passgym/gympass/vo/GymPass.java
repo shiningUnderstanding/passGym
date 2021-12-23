@@ -20,10 +20,9 @@ public class GymPass {
 	private int pauseCount;
 	private int pauseDate;
 	private int status;
-	//
+	
 	private Payment payment;
 	private Star star;
-	//
+	
 	public GymPass() {}
-
 }
