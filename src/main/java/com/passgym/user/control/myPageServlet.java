@@ -6,6 +6,7 @@ import com.passgym.exception.FindException;
 import com.passgym.user.service.UserService;
 import com.passgym.user.vo.User;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,43 +14,42 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/userlogin")
-public class UserLoginServlet extends HttpServlet {
+/**
+ * Servlet implementation class myPageServlet
+ */
+@WebServlet("/mypage")
+public class myPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
-     * Default constructor. 
-     */
-    public UserLoginServlet() {
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//1. 요청전달데이터 id, pwd 값 얻기
-		String idValue = request.getParameter("id");
-		String pwdValue = request.getParameter("pwd");
-		System.out.println("UserLoginServlet의 doPost() id=" + idValue + ", pwd=" + pwdValue);
-		
-		String resultMsg = "";
-		
+		//세션의 유저정보 받아오기
 		HttpSession session = request.getSession();
-		session.removeAttribute("userLoginInfo"); //초기화
-		
-		String path = "jsonresult.jsp";
+		User sessionUser = (User)session.getAttribute("userLoginInfo");
+		String path = "";
+		String resultMsg = "";
+		//서비스 받아오기
 		UserService service = UserService.getInstance();
-		//2. 비지니스로직 호출
-		User u;
+		
 		try {
-			u = service.login(idValue, pwdValue);
-			System.out.println("로그인 성공");
-			session.setAttribute("userLoginInfo", u);
+			//서비스 호출
+			User requestUser = service.mypageFindByNo();
+			System.out.println("마이페이지가 호출되었습니다.");
+			request.setAttribute("user", requestUser);
+			path="mypage.jsp";
+			
+			//응답결과 만들기
 		} catch (FindException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
+			//응답결과 만들기
+			path="index.jsp";
 		}
+		
+		//viewer로 이동
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
 	}
 
 }

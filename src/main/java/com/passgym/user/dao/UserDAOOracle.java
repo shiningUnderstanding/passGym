@@ -39,7 +39,7 @@ public class UserDAOOracle implements UserDAOInterface {
 			pstmt.setString(3, user.getName());
 			pstmt.setString(4, user.getPwd());
 			pstmt.setString(5, user.getPhoneNo());
-			pstmt.setInt(6, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+			pstmt.setString(6, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 			pstmt.setString(7, user.getAddr());
 			pstmt.setString(8, user.getAddrDetail());
 			pstmt.setString(9, user.getSns());
@@ -77,7 +77,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				String name = rs.getString("name");
 				String pwd = rs.getString("pwd");
 				String phoneNo = rs.getString("phone_no");
-				int zipcode = rs.getInt("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = rs.getString("sns");
@@ -112,7 +112,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				String name = rs.getString("name");
 				String pwd = rs.getString("pwd");
 				String phoneNo = rs.getString("phone_no");
-				int zipcode = rs.getInt("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = rs.getString("sns");
@@ -128,7 +128,13 @@ public class UserDAOOracle implements UserDAOInterface {
 		}
 		return u;//사용자 번호에 해당하는 사용자객체 반환
 	}
-
+	
+	@Override
+	public User mypageFindByNo(int userNo) throws FindException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public List<User> findByUserName(String word) throws FindException {//단어를 포함하는 이름으로 사용자 찾기
 		List<User> userList = new ArrayList<>();//word로 찾은 User객체를 list에 담기
@@ -147,7 +153,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				String name = rs.getString("name");
 				String pwd = rs.getString("pwd");
 				String phoneNo = rs.getString("phone_no");
-				int zipcode = rs.getInt("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = rs.getString("sns");

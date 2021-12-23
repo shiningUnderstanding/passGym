@@ -33,6 +33,8 @@ public interface UserDAOInterface {
 	 */
 	public User findByUserNo(int userNo) throws FindException;
 	
+	public User mypageFindByNo(int userNo) throws FindException;
+	
 	/**
 	 * 단어를 포함한 이름을 갖는 사용자들을 반환한다
 	 * @param word 단어
