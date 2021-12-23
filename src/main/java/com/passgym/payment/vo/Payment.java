@@ -3,7 +3,7 @@ package com.passgym.payment.vo;
 import java.util.Date;
 
 public class Payment {
-	private int paymentNo;
+	private String paymentNo;
 	private int paymentPrice;
 	private int paymentType;
 	private String bankName;
@@ -11,7 +11,7 @@ public class Payment {
 	
 	public Payment() {}
 
-	public Payment(int paymentNo, int paymentPrice, int paymentType, String bankName, Date paymentDate) {
+	public Payment(String paymentNo, int paymentPrice, int paymentType, String bankName, Date paymentDate) {
 		super();
 		this.paymentNo = paymentNo;
 		this.paymentPrice = paymentPrice;
@@ -20,11 +20,11 @@ public class Payment {
 		this.paymentDate = paymentDate;
 	}
 
-	public int getPaymentNo() {
+	public String getPaymentNo() {
 		return paymentNo;
 	}
 
-	public void setPaymentNo(int paymentNo) {
+	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
 	}
 

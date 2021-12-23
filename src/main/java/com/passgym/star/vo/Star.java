@@ -1,22 +1,22 @@
 package com.passgym.star.vo;
 
 public class Star {
-	private int paymentNo;
+	private String paymentNo;
 	private int star;
 	
 	public Star() {}
 
-	public Star(int paymentNo, int star) {
+	public Star(String paymentNo, int star) {
 		super();
 		this.paymentNo = paymentNo;
 		this.star = star;
 	}
 
-	public int getPaymentNo() {
+	public String getPaymentNo() {
 		return paymentNo;
 	}
 
-	public void setPaymentNo(int paymentNo) {
+	public void setPaymentNo(String paymentNo) {
 		this.paymentNo = paymentNo;
 	}
 
