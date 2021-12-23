@@ -17,7 +17,7 @@ public class User {
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
 	//
-	private List<GymPass> gymPasses;
+	private List<GymPass> gymPasses;  
 	private List<UserQna> userQnas;
 	private List<Zzim> zzims;
 	//private List<Gym> zzims;

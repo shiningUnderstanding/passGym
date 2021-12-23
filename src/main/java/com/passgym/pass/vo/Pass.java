@@ -1,6 +1,9 @@
 package com.passgym.pass.vo;
 
 import java.util.Date;
+import java.util.List;
+
+import com.passgym.gympass.vo.GymPass;
 
 public class Pass {
 	private int ownerNo;
@@ -14,6 +17,8 @@ public class Pass {
 	private int pauseDate;
 	private String remarks;
 	
+	private List<GymPass> gympasses;
+	//private List<User> users; 
 
 	public Pass() {}
 	public Pass(int ownerNo, int passNo, String passName, int passPrice, Date passDate, int passStatus, int passMonth,
