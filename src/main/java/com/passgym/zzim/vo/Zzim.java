@@ -6,6 +6,7 @@ import com.passgym.gym.vo.Gym;
 import com.passgym.user.vo.User;
 
 public class Zzim {
+
 	private User user;
 	private Gym gym;
 	

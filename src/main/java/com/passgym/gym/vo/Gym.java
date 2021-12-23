@@ -7,7 +7,7 @@ import com.passgym.pass.vo.Pass;
 import com.passgym.paymentmethod.vo.PaymentMethod;
 import com.passgym.zzim.vo.Zzim;
 
-public class Gym {
+public class Gym {   
 	private int ownerNo; //사업자번호
 	private String name; //헬스장이름
 	private String phoneNo; //헬스장전화번호
