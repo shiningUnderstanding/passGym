@@ -9,7 +9,7 @@ import com.passgym.star.vo.Star;
 import com.passgym.user.vo.User;
 
 public class GymPass {
-	private String paymentNo;
+	private int paymentNo;
   
 	//private int ownerNo;
 	private Pass pass;
@@ -28,7 +28,7 @@ public class GymPass {
 	
 	public GymPass() {}
 
-	public GymPass(String paymentNo, Pass pass, User user, Date startDate, Date endDate, int pauseCount, int pauseDate,
+	public GymPass(int paymentNo, Pass pass, User user, Date startDate, Date endDate, int pauseCount, int pauseDate,
 			int status, Payment payment, Star star) {
 		super();
 		this.paymentNo = paymentNo;
@@ -43,11 +43,11 @@ public class GymPass {
 		this.star = star;
 	}
 
-	public String getPaymentNo() {
+	public int getPaymentNo() {
 		return paymentNo;
 	}
 
-	public void setPaymentNo(String paymentNo) {
+	public void setPaymentNo(int paymentNo) {
 		this.paymentNo = paymentNo;
 	}
 
