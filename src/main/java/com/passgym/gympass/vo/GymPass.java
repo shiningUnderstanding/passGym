@@ -4,14 +4,16 @@ import java.util.Date;
 
 import com.passgym.pass.vo.Pass;
 import com.passgym.payment.vo.Payment;
+
 import com.passgym.star.vo.Star;
 import com.passgym.user.vo.User;
 
 public class GymPass {
 	private int paymentNo;
+  
 	//private int ownerNo;
-	public Pass pass;
-	public User user;
+	private Pass pass;
+	private User user;
 	//private int passNo;
 	//private int userNo;
 
@@ -25,21 +27,5 @@ public class GymPass {
 	private Star star;
 	
 	public GymPass() {}
-
-	public GymPass(int paymentNo, Pass pass, User user, Date startDate, Date endDate, int pauseCount, int pauseDate,
-			int status, Payment payment, Star star) {
-		super();
-		this.paymentNo = paymentNo;
-		this.pass = pass;
-		this.user = user;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.pauseCount = pauseCount;
-		this.pauseDate = pauseDate;
-		this.status = status;
-		this.payment = payment;
-		this.star = star;
-	}
-	
 	
 }
