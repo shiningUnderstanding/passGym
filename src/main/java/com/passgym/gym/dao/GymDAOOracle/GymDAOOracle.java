@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.my.passgym.sql.PassgymConnection;
 import com.passgym.exception.FindException;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.payment.vo.Payment;
-import com.passgym.sql.PassGymConnection;
+ 
 import com.passgym.user.vo.User;
 
 public class GymDAOOracle implements GymDAOInterface {
@@ -26,7 +27,7 @@ public class GymDAOOracle implements GymDAOInterface {
 		
 
 		try {
-			con = PassGymConnection.getConnection();
+			con = PassgymConnection.getConnection();
 			String selectPassByOwnerNo = "select \r\n"
 					+ "pass.pass_no, pass_name, pass_price, pass_date, pass_status, pass_month, pass.pause_count, pass.pause_date, remarks,\r\n"
 					+ "g.user_no, g.start_date, g.end_date, g.status, g.pause_count g_pause_count, g.pause_date g_pause_date,\r\n"
@@ -69,12 +70,18 @@ public class GymDAOOracle implements GymDAOInterface {
 				
 				if(oldPassNo != passNo) { //이전행의 회원권번호와 현재행의 회원권번호가 다르면 생성
 					pass = new Pass();  
-					pass.setOwnerNo(ownerNo);
+					pass.setPassNo(ownerNo);
+					pass.setPassName(passName);
+					pass.setPassPrice(passPrice);
 					pass.setPassDate(passDate);
-					gympasses = new ArrayList<>();  //?
-					pass.setGympasses(gympasses);
 					pass.setPassStatus(passStatus);
-					//:
+					pass.setPassMonth(passMonth);
+					pass.setPauseCount(pauseCount);
+					pass.setPauseDate(pauseDate);
+					
+					pass.setGympasses(gympasses);   ///  ??
+					gympasses = new ArrayList<>();  //?
+					
 					passes.add(pass);
 					oldPassNo = passNo;
 				}
@@ -115,15 +122,12 @@ public class GymDAOOracle implements GymDAOInterface {
 			e.printStackTrace();
 			throw new FindException(e.getMessage());
 		}finally {
-			PassGymConnection.close(rs, pstmt,con);
+			PassgymConnection.close(rs, pstmt,con);
 		}
 		
 	}
 
-	@Override
-	public List<Pass> findByDate(Date at) throws FindException {
-		return null;
-	}
+ 
 	
 	public static void main(String[] args) {
 		
@@ -151,5 +155,5 @@ public class GymDAOOracle implements GymDAOInterface {
 			e.printStackTrace();
 		}
 	 
-;	}
+ 	}
 }
