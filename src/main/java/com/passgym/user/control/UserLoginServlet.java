@@ -41,16 +41,14 @@ public class UserLoginServlet extends HttpServlet {
 		session.removeAttribute("userLoginInfo"); //초기화
 		
 		String path = "jsonresult.jsp";
-		UserService service = UserService.getInstance();
 		//2. 비지니스로직 호출
-		User u;
 		try {
-			u = service.login(idValue, pwdValue);
+			User u = service.login(idValue, pwdValue);
 			System.out.println("로그인 성공");
 			session.setAttribute("userLoginInfo", u);
 
 			//3. 응답결과만들기
-			resultMsg = "";
+			resultMsg = "로그인 성공";
 			request.setAttribute("status", 1);
 		} catch (FindException e) {
 			System.out.println(e.getMessage());

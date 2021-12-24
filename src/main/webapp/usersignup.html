@@ -4,6 +4,13 @@
         <title>passGym : 사용자 회원가입</title>
         <meta charset="UTF-8">
         <style>
+            .usersignup__header{
+                width: 100px;
+                text-align: center;
+            }
+            .usersignup__mainLogo{
+                width: 100%;
+            }
             .usersignup__hr{
                 display: flex;
                 flex-basis: 100%;
@@ -29,6 +36,14 @@
                 margin: 10px;
             }
         </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./js/usersignup.js"></script>
+        <script>
+            $(function(){
+            	userSignupClick();
+            });
+            
+        </script>
     </head>
 
     <body>
@@ -45,7 +60,7 @@
                 </header>
             </div>
             <div class="usersignup__container">
-                <form class="usersignup__form" method="post" action="./usersignup">
+                <form class="usersignup__form" id="usersignupform" method="post" action="./usersignup">
                     <div class="usersignup__idpwd">
                         <input type="email" placeholder="아이디(이메일)">
                         <button type="button" class="usersignup__iddupchk">아이디(이메일)중복확인</button>
