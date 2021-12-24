@@ -27,7 +27,7 @@ public class UserService {
 		}
 	}
 	
-	public User mypageFindByNo() throws FindException{
+	public User mypageFindByNo(int userNo) throws FindException{
 		return null;
 	}
 
