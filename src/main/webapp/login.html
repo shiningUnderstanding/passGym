@@ -26,6 +26,30 @@
             .login__mainLogo{
                 width: 100%;
             }
+            .login__hr{
+                display: flex;
+                flex-basis: 100%;
+                align-content: center;
+                color: rgba(0, 0, 0, 0.35);
+                font-size: 12px;
+                margin: 8px 0px;
+            }
+            .login__hr::before,
+            .login__hr::after{
+                content: "";
+                flex-grow: 1;
+                background-color: rgba(0, 0, 0, 0.35);
+                height: 1px;
+                font-size: 0px;
+                line-height: 0px;
+                margin: 0px 16px;
+            }
+            .login__sns{
+                width: 50px;
+                display: flex;
+                justify-content: space-between;
+                margin: 10px;
+            }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="./js/login.js"></script>
@@ -76,12 +100,15 @@
                 <a href="./findpassword.html">비밀번호 찾기</a>
             </div>
             </form>
-            <div class="login__sns">
-                <button class="login__kakao">카카오로그인</button>
-                <button class="login__naver">네이버로그인</button>
-                <button class="login__google">구글로그인</button>
-            </div>
-
+            <div class="login__hr">간편로그인</div>
+                <div class="login__sns">
+                    <a href="./index.html" >
+                    <img src="./images/kakao.png" class="login__sns" alt="카카오톡으로 로그인"></a>
+                    <a href="./index.html">
+                    <img src="./images/naver.png" class="login__sns" alt="네이버로 로그인"></a>
+                </div>
+            
+            
             <div class="login__signup">
                 <a href="./usersignup.html" class="login__userSignup" value="사용자용">사용자 회원가입</a>
                 <a href="./ownersignup.html" class="login__ownerSignup" value="법인용">법인 회원가입</a>
