@@ -6,20 +6,47 @@
     </head>
 
     <body>
-        <div class="header">
-            <header>
-                <a href="index.html" class="logo">passGym</a>
-            </header>
-        </div>
-        <div class="contents">
-            <div class="input">
-                <div class="idpwd">
-                    <input type="email" placeholder="아이디(이메일)">
-                    <input type="password" placeholder="비밀번호">
-                    <input type="password" placeholder="비밀번호 확인">
-                </div>
-                <div class="namemobile">
-                    <input type="text" placeholder="이름">
+        <div class="usersignup">
+            <div class="usersignup__header">
+                <header>
+                    <h1 class="usersignup__main">
+                        <!--로고이미지-->
+                        <a href="index.html">
+                        <span>패스짐</span>
+                        <img class="usersignup__mainLogo" src="./images/logo.png"/>
+                        </a>
+                    </h1>
+                </header>
+            </div>
+            <div class="usersignup__container">
+                <form class="usersignup__form" method="post" action="./usersignup">
+                    <div class="usersignup__idpwd">
+                        <input type="email" placeholder="아이디(이메일)">
+                        <button type="button" class="usersignup__iddupchk">아이디(이메일)중복확인</button>
+                        <br>
+                        <input type="password" placeholder="비밀번호"><br>
+                        <input type="password" placeholder="비밀번호 확인">
+                    </div>
+                    <div class="usersignup__namemobile">
+                        <input type="text" placeholder="이름"><br>
+                        <input type="text" placeholder="핸드폰번호">
+                        <button type="button" class="usersignup__phonenochk">인증</button><br>
+                        <input type="text" placeholder="인증번호 입력">
+                    </div>
+                    <div class="usersignup__addr">
+                        <input type="text" class="usersignup__zipcode" readonly size="5" placeholder="우편번호">
+                        <button type="button" class="usersignup__searchzip">우편번호 찾기</button>
+                        <input type="text" class="usersignup__addr1" readonly size="50"><br>
+                        <input type="text" class="usersignup__addr2" placeholder="상세주소 입력">
+                        <br>
+                    </div>
+                    <button type="submit" class="usersignup__submit">회원가입</button>
+                </form>
+                <div class="usersignup__sns">
+                    <a href="./index.html" >
+                    <img src="./images/kakao.png" alt="카카오톡으로 가입"></a>
+                    <a href="./index.html">
+                    <img src="./images/naver.png" alt="네이버로 가입"></a>
                 </div>
             </div>
         </div>
