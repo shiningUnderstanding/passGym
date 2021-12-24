@@ -11,9 +11,13 @@ import java.util.List;
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.exception.ModifyException;
+import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
+import com.passgym.pass.vo.Pass;
 import com.passgym.sql.PassGymConnection;
 import com.passgym.user.vo.User;
+import com.passgym.userqna.vo.UserQna;
+import com.passgym.zzim.vo.Zzim;
 
 public class UserDAOOracle implements UserDAOInterface {
 	private static UserDAOOracle dao = new UserDAOOracle();
@@ -131,8 +135,119 @@ public class UserDAOOracle implements UserDAOInterface {
 	
 	@Override
 	public User mypageFindByNo(int userNo) throws FindException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = PassGymConnection.getConnection();
+			String mypageSQL = "SELECT u.user_no , u.id, u.name u_name, u.addr, u.addr_detail, \r\n"
+					+ "gp.payment_no, gp.owner_no gp_owner_no, gp.status gp_status, g1.name g1_name, p.pass_name pass_name, g1.total_star, g1.total_member , gp.start_date, gp.end_date,\r\n"
+					+ "CASE WHEN end_date < SYSDATE THEN 0\r\n"
+					+ "     WHEN start_date <= SYSDATE AND end_date >= SYSDATE THEN ROUND((gp.end_date - SYSDATE), 0)\r\n"
+					+ "     ELSE -1\r\n"
+					+ "END AS remain, -1 z_user_no, -1 z_owner_no, '' g2_name,\r\n"
+					+ "-1 qna_no, '' title, '' content, '' reply, -1 reply_status, null qna_date\r\n"
+					+ "FROM user_info u LEFT OUTER JOIN gym_pass gp ON (u.user_no = gp.user_no)\r\n"
+					+ "                 LEFT OUTER JOIN gym g1 ON (gp.owner_no = g1.owner_no)\r\n"
+					+ "                 JOIN pass p ON (gp.owner_no = p.owner_no AND gp.pass_no = p.pass_no)\r\n"
+					+ "WHERE u.user_no = ?\r\n"
+					+ "UNION ALL\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1,'', '', -1 , -1, null, null,\r\n"
+					+ "-2 , z.user_no, z.owner_no z_owner_no, g2.name g2_name,\r\n"
+					+ "-1, '', '', '', -1, null\r\n"
+					+ "FROM user_info u LEFT OUTER JOIN zzim z ON (u.user_no = z.user_no)\r\n"
+					+ "                 LEFT OUTER JOIN gym g2 ON (z.owner_no = g2.owner_no)\r\n"
+					+ "WHERE u.user_no = ?\r\n"
+					+ "UNION ALL\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1, '', '', -1, -1, null, null,\r\n"
+					+ "-2, -1, -1, '',\r\n"
+					+ "uq.qna_no, uq.title, uq.content, uq.reply, uq.reply_status, uq.qna_date\r\n"
+					+ "FROM user_info u LEFT OUTER JOIN user_qna uq ON (u.user_no = uq.user_no)\r\n"
+					+ "WHERE u.user_no = ?";
+			pstmt = con.prepareStatement(mypageSQL);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(3, userNo);
+			rs = pstmt.executeQuery();
+			
+			User user = new User();
+			List<GymPass> gympassList = new ArrayList<>();
+			GymPass gympass;
+			Pass pass;
+			Gym gpGym;
+			List<Zzim> zzimList = new ArrayList<>();
+			Zzim zzim;
+			Gym zGym;
+			List<UserQna> userQnaList = new ArrayList<>();
+			UserQna userQna;
+			
+			int count = 0;
+			while(rs.next()) {
+				//user
+				System.out.println("-------------");
+				if(count == 0) {
+					user.setUserNo(rs.getInt("user_no"));
+					user.setId(rs.getString("id"));
+					user.setName(rs.getString("u_name"));
+					user.setAddr(rs.getString("addr"));
+					user.setAddr(rs.getString("addr_detail"));
+					gympassList = new ArrayList<>();
+					count++;
+				}
+
+				//gympassList
+				String payment_no = rs.getString("payment_no");
+				if( payment_no != null) {
+					gympass = new GymPass();
+					gympass.setPaymentNo(payment_no);//set gympass -> gympassList에 추가
+					pass = new Pass();
+					pass.setOwnerNo(rs.getInt("gp_owner_no"));
+					gpGym = new Gym();
+					gpGym.setName(rs.getString("g1_name"));//gympass의 gym이름
+					gpGym.setTotalStar(rs.getInt("total_star"));
+					gpGym.setTotalStar(rs.getInt("total_member"));
+					pass.setGym(gpGym);
+					pass.setPassName(rs.getString("pass_name"));
+					gympass.setPass(pass);
+					gympass.setStatus(rs.getInt("gp_status"));
+					gympass.setStartDate(rs.getDate("start_date"));
+					gympass.setEndDate(rs.getDate("end_date"));
+					gympass.setRemain(rs.getInt("remain"));
+					gympassList.add(gympass);
+				}
+				
+				//zzimList
+				int z_user_no = rs.getInt("z_user_no");
+				if(z_user_no != -1) {
+					zzim = new Zzim();
+					zGym = new Gym();
+					zGym.setName(rs.getString("g2_name"));
+					zzim.setGym(zGym);
+					zzimList.add(zzim);
+				}
+				
+				//userQna_list
+				int qna_no = rs.getInt("qna_no");
+				if(qna_no != -1) {
+					userQna = new UserQna();
+					userQna.setReplyStatus(qna_no);
+					userQna.setTitle(rs.getString("title"));
+					userQna.setContent(rs.getString("content"));
+					userQna.setReply(rs.getString("reply"));
+					userQna.setReplyStatus(rs.getInt("reply_status"));
+					userQna.setQnaDate(rs.getDate("qna_date"));
+					userQnaList.add(userQna);
+				}
+			}
+			user.setGymPasses(gympassList);
+			user.setZzims(zzimList);
+			user.setUserQnas(userQnaList);
+			return user;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException("해당값을 찾지 못했습니다.");
+		}
 	}
 	
 	@Override
@@ -289,5 +404,24 @@ public class UserDAOOracle implements UserDAOInterface {
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
+		UserDAOOracle dao = UserDAOOracle.getInstance();
+		try {
+			User user = dao.mypageFindByNo(2);
+			System.out.println(user);
+			for(GymPass gp: user.getGymPasses()) {
+				System.out.println(gp);
+				System.out.println(gp.getPass());
+				System.out.println(gp.getPass().getGym());
+			}
+			for(Zzim z : user.getZzims()) {
+				System.out.println(z);
+				System.out.println(z.getGym());
+			}
+			for(UserQna uq : user.getUserQnas()) {
+				System.out.println(uq);
+			}
+		} catch (FindException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -22,6 +22,7 @@ public class GymPass {
 	private int pauseCount;
 	private int pauseDate;
 	private int status;
+	private int remain;
 	
 	private Payment payment;
 	private Star star;
@@ -29,7 +30,7 @@ public class GymPass {
 	public GymPass() {}
 
 	public GymPass(String paymentNo, Pass pass, User user, Date startDate, Date endDate, int pauseCount, int pauseDate,
-			int status, Payment payment, Star star) {
+			int status,int remain, Payment payment, Star star) {
 		super();
 		this.paymentNo = paymentNo;
 		this.pass = pass;
@@ -39,6 +40,7 @@ public class GymPass {
 		this.pauseCount = pauseCount;
 		this.pauseDate = pauseDate;
 		this.status = status;
+		this.remain = remain;
 		this.payment = payment;
 		this.star = star;
 	}
@@ -105,6 +107,14 @@ public class GymPass {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getRemain() {
+		return remain;
+	}
+
+	public void setRemain(int remain) {
+		this.remain = remain;
 	}
 
 	public Payment getPayment() {
