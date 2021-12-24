@@ -40,6 +40,15 @@
         <script src="./js/usersignup.js"></script>
         <script>
             $(function(){
+                let idObj = $('div.usersignup>div.usersignup__container>usersignup_idpwd>input[name=id]');
+
+                //아이디(이메일) 중복확인 클릭
+                let $iddupchkBtObj = $('div.usersignup>div.usersignup__container>form.usersignup__form>div.usersignup__idpwd>button.usersignup__iddupchk');
+                idDupChk($idObj, $iddupchkBtObj);
+
+                //우편번호 찾기 클릭
+                searchZip();
+
             	userSignupClick();
             });
             
@@ -62,11 +71,11 @@
             <div class="usersignup__container">
                 <form class="usersignup__form" id="usersignupform" method="post" action="./usersignup">
                     <div class="usersignup__idpwd">
-                        <input type="email" placeholder="아이디(이메일)">
+                        <input type="email" class="usersingup_id" name="id" placeholder="아이디(이메일)">
                         <button type="button" class="usersignup__iddupchk">아이디(이메일)중복확인</button>
                         <br>
-                        <input type="password" placeholder="비밀번호"><br>
-                        <input type="password" placeholder="비밀번호 확인">
+                        <input type="password" class="usersingup_pwd" name="pwd1" placeholder="비밀번호"><br>
+                        <input type="password" class="usersingup_pwd" name="pwd2" placeholder="비밀번호 확인">
                     </div>
                     <div class="usersignup__namemobile">
                         <input type="text" placeholder="이름"><br>
