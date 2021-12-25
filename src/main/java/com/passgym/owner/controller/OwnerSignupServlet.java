@@ -36,8 +36,8 @@ public class OwnerSignupServlet extends HttpServlet {
 		double lon = 0.0;
 		
 		Owner owner = new Owner(ownerNo, id, pwd);
-		Gym gym = new Gym(ownerNo, gymName, phoneNo, zipCode, addr, addrDetail, null, null, null, null, null, null, 0, 0, lat, lon);
-		String resultMsg = "";
+		Gym gym = new Gym(ownerNo, gymName, phoneNo, zipCode, 
+							addr, addrDetail, null, null, null, null, null, null, 0, 0, lat, lon);
 		
 		OwnerService service = new OwnerService();
 		
@@ -48,12 +48,12 @@ public class OwnerSignupServlet extends HttpServlet {
 		
 		try {
 			service.ownerSignup(owner);
-			session.setAttribute("signupInfo", owner);
+			session.setAttribute("signupInfo", gym);
 			out.print("1");
 			
 			//Owner 확인용
-			Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
-			System.out.println("세션저장객체 : " + sessionOwner.toString());
+			Gym sessionGym = (Gym)session.getAttribute("signupInfo");
+			System.out.println("세션저장객체 : " + sessionGym.toString());
 			
 		} catch (AddException e) {
 			out.print("0");

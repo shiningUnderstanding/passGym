@@ -15,10 +15,10 @@
 <%
 Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
 %>
-¼¼¼ÇID : <%=session.getId() %><br>
-¼¼¼Ç³»¿ë : <%=sessionOwner.getOwnerNo() %><br>
-¼¼¼ÇIS NEW : <%=session.isNew() %><br>
-¼¼¼Ç ÃÖÁ¾»ç¿ë½Ã°£: <%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(session.getLastAccessedTime())) %>
+ï¿½ï¿½ï¿½ï¿½ID : <%=session.getId() %><br>
+ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ : <%=sessionOwner.getOwnerNo() %><br>
+ï¿½ï¿½ï¿½ï¿½IS NEW : <%=session.isNew() %><br>
+ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½: <%=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(session.getLastAccessedTime())) %>
 <div class="regist">
         <form class="regist__form" method="post" action="./gymregist">
             <div class="regist__header">
@@ -26,10 +26,11 @@ Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
                 <div class="regist__gymname">
                 <%= %>
                 </div>
-                <input class="regist__gymname" type="text" name="name" value="Çï½ºÀå ÀÌ¸§" required><br>
-                <input class="regist__gymaddr" type="text" name="addr" value="ÁÖ¼Ò" required><br>
+                <input class="regist__gymname" type="text" name="name" value="ï¿½ï½ºï¿½ï¿½ ï¿½Ì¸ï¿½" required><br>
+                <input class="regist__gymaddr" type="text" name="addr" value="ï¿½Ö¼ï¿½" required><br>
             </div>
             <input class="regist__gymintroduce" type="text" name="introduce"><br>
+            <input class="regist__gymnotice" type="text" name="notice"><br>
             <div class="regist__operationinfo">
                 <input class="regist__gymoperatingtime" type="text" name="goperatingtime"><br>
                 <input class="regist__gymoperatingprogram" type="text" name="operatingprogram"><br>
@@ -37,7 +38,7 @@ Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
                 <input class="regist__etc" type="text" name="etc"><br>
             </div>
             <a href="./login.html">
-                <button type="submit" class="regist__gymsubmit">ÀúÀå</button>
+                <button type="submit" class="regist__gymsubmit">ï¿½ï¿½ï¿½ï¿½</button>
             </a>
         </form>
     </div>

@@ -3,7 +3,9 @@ package com.passgym.gym.dao.GymDAOOracle;
 import java.util.Date;
 import java.util.List;
 
+import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
+import com.passgym.gym.vo.Gym;
 import com.passgym.pass.vo.Pass;
 
 public interface GymDAOInterface {
@@ -23,5 +25,12 @@ public interface GymDAOInterface {
 	 */
 	// 반환시 날짜를 기준으로 이용을 등록한 날짜 기준으로 반환
 	public List<Pass> findByDate(Date at) throws FindException;
+	
+	/**
+	 * 회원가입 후 헬스장 정보를 등록한다.
+	 * @param gym 등록할 헬스장 정보
+	 * @throws AddException
+	 */
+	public void add(Gym gym) throws AddException;
 
 }

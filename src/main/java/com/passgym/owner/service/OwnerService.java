@@ -13,6 +13,7 @@ public class OwnerService {
 	public void ownerSignup(Owner owner) throws AddException{
 		ownerDAO = new OwnerDAOOracle();
 		ownerDAO.add(owner);
+		
 	}
 
 	public void findByOwnerNo(int ownerNo) throws AddException{

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
+import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.payment.vo.Payment;
@@ -152,4 +154,38 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 	 
 ;	}
+
+	@Override
+	public void add(Gym gym) throws AddException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
+				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(insertSQL);
+			pstmt.setInt(1, gym.getOwnerNo());
+			pstmt.setString(2, gym.getName());
+			pstmt.setString(3, gym.getPhoneNo());
+			pstmt.setString(4, gym.getZipcode());
+			pstmt.setString(5, gym.getAddr());
+			pstmt.setString(6, gym.getAddrDetail());
+			pstmt.setString(7, gym.getIntroduce());
+			pstmt.setString(8, gym.getNotice());
+			pstmt.setString(9, gym.getOperatingTime());
+			pstmt.setString(10, gym.getOperatingProgram());
+			pstmt.setString(11, gym.getExtraService());
+			pstmt.setString(12, gym.getEtc());
+			pstmt.setDouble(15, gym.getLat());
+			pstmt.setDouble(16, gym.getLon());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			int errorCode = e.getErrorCode();
+			
+		}finally {
+			PassGymConnection.close(pstmt, con);
+		}
+		
+	}
 }
