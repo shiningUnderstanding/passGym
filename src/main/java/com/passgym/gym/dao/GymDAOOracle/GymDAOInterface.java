@@ -17,6 +17,7 @@ public interface GymDAOInterface {
 	 */
 	public List<Pass> findByOwnerNo(int ownerNo) throws FindException;
 	
+
 	/**
 	 * 등록일자별로 회원권을 검색한다.
 	 * @param at  등록한 날짜
@@ -32,5 +33,6 @@ public interface GymDAOInterface {
 	 * @throws AddException
 	 */
 	public void add(Gym gym) throws AddException;
+
 
 }

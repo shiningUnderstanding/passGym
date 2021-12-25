@@ -1,5 +1,5 @@
 function loginClick(){
-    let $loginFormObj = $('div.login>form');
+    let $loginFormObj = $('form#loginform');
     let $userLoginObj = $('input#userChk');
     let $ownerLoginObj = $('input#ownerChk');
 

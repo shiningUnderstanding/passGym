@@ -10,12 +10,13 @@ import java.util.Date;
 import java.util.List;
 
 import com.passgym.exception.AddException;
+import com.passgym.sql.PassGymConnection;
 import com.passgym.exception.FindException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.payment.vo.Payment;
-import com.passgym.sql.PassGymConnection;
+ 
 import com.passgym.user.vo.User;
 
 public class GymDAOOracle implements GymDAOInterface {
@@ -71,12 +72,18 @@ public class GymDAOOracle implements GymDAOInterface {
 				
 				if(oldPassNo != passNo) { //이전행의 회원권번호와 현재행의 회원권번호가 다르면 생성
 					pass = new Pass();  
-					pass.setOwnerNo(ownerNo);
+					pass.setPassNo(ownerNo);
+					pass.setPassName(passName);
+					pass.setPassPrice(passPrice);
 					pass.setPassDate(passDate);
-					gympasses = new ArrayList<>();  //?
-					pass.setGympasses(gympasses);
 					pass.setPassStatus(passStatus);
-					//:
+					pass.setPassMonth(passMonth);
+					pass.setPauseCount(pauseCount);
+					pass.setPauseDate(pauseDate);
+					
+					pass.setGympasses(gympasses);   ///  ??
+					gympasses = new ArrayList<>();  //?
+					
 					passes.add(pass);
 					oldPassNo = passNo;
 				}
@@ -122,10 +129,7 @@ public class GymDAOOracle implements GymDAOInterface {
 		
 	}
 
-	@Override
-	public List<Pass> findByDate(Date at) throws FindException {
-		return null;
-	}
+ 
 	
 	public static void main(String[] args) {
 		
@@ -152,8 +156,7 @@ public class GymDAOOracle implements GymDAOInterface {
 		} catch (FindException e) {
 			e.printStackTrace();
 		}
-	 
-;	}
+	}
 
 	@Override
 	public void add(Gym gym) throws AddException {
@@ -186,6 +189,5 @@ public class GymDAOOracle implements GymDAOInterface {
 		}finally {
 			PassGymConnection.close(pstmt, con);
 		}
-		
 	}
 }
