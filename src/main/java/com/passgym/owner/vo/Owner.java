@@ -16,11 +16,11 @@ public class Owner {
 		this.pwd = pwd;
 	}
 
-	public int getOwner_no() {
+	public int getOwnerNo() {
 		return ownerNo;
 	}
 
-	public void setOwner_no(int owner_no) {
+	public void setOwnerNo(int owner_no) {
 		this.ownerNo = owner_no;
 	}
 

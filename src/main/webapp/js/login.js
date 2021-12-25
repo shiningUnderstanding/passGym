@@ -10,6 +10,7 @@ function loginClick(){
         let ajaxMethod = $(this).attr('method');
         let idValue = $(this).find('input[name=id]').val();
         let pwdValue = $(this).find('input[name=pwd]').val();
+
         
         if($userLoginObj.prop('checked') == true){
             $("#loginform").attr("action", "./userlogin");   
