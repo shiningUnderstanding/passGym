@@ -1,6 +1,7 @@
 package com.passgym.owner.dao;
 
 import com.passgym.exception.AddException;
+import com.passgym.gym.vo.Gym;
 import com.passgym.owner.vo.Owner;
 
 public interface OwnerDAOInterface {
@@ -19,4 +20,5 @@ public interface OwnerDAOInterface {
 	 * 추가할 때 판매자 번호를 부여하고 이를 사용해서 로그인을 한다. id대신 사용됨
 	 */
 	public void add(Owner owner) throws AddException;
+	
 }

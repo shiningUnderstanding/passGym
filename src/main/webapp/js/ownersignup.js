@@ -15,7 +15,7 @@ function formSubmitted(){
 
         let ajaxUrl = $(this).attr('action');
         let ajaxMethod = $(this).attr('method');
-        let sendData = $('ownersignup__form').serialize();
+        let sendData = $(this).serialize();
         alert("전송데이터:" + sendData);
 
         $.ajax({
@@ -23,13 +23,13 @@ function formSubmitted(){
             method: ajaxMethod,
             data:sendData,
             success:function(responseData){
-                let resultNum = parseInt(responseData.trim());
-                alert(responseData);
+                let resultNum = parseInt(responseData.trim()); 
+                //2021/12/25 현재 가입성공이 뜨지 않음. resultNum에 값이 없는 것으로 판단 -> reponse를 Servlet에 추가해줌
                 if(resultNum == 0){
                     alert("가입실패");
                 }else if(resultNum == 1){
                     alert("가입성공");
-                    location.href="./login.html";
+                    location.href="./gymregist.jsp";
                 }
                 }, error:function(xhr){
                     alert("응답실패:" + xhr.status);
