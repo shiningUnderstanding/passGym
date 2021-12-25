@@ -42,7 +42,7 @@ public class GymRegistServlet extends HttpServlet {
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
 							addr, addrDetail, introduce, notice, 
 							operatingTime, operatingProgram, extraService, etc, 
-							0, 0, lat, lon);
+							0, 0, 0,lat, lon);
 		
 		GymService service = new GymService();
 		

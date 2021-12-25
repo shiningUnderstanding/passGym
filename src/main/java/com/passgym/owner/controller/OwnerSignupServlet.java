@@ -37,7 +37,7 @@ public class OwnerSignupServlet extends HttpServlet {
 		
 		Owner owner = new Owner(ownerNo, id, pwd);
 		Gym gym = new Gym(ownerNo, gymName, phoneNo, zipCode, 
-							addr, addrDetail, null, null, null, null, null, null, 0, 0, lat, lon);
+							addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon);
 		
 		OwnerService service = new OwnerService();
 		
