@@ -13,7 +13,15 @@ User user = (User) request.getAttribute("user");
 <script>
 	$(function() {
 		//----------------------------------
-
+		let $qnaContentObj = $(".qna__contentBtn");
+		$qnaContentObj.click(function(){
+			$(this).parent().siblings().toggle();
+			if($(this).children().html() == "내용보기"){
+				$(this).children().html("내용감추기");
+			}else{
+				$(this).children().html("내용보기");
+			}
+		})
 		//-----------------------------------
 	});
 </script>
@@ -144,7 +152,7 @@ User user = (User) request.getAttribute("user");
 			<div class="qna_infos">
 				<div class="qna__info-show">
 					<div class="qna__detailTitle">
-						<span>문의 제목 : </span><%=uq.getTitle()%>
+						<span>제목 : </span><%=uq.getTitle()%>
 					</div>
 					<div class="qna__date">
 						<span>문의 날짜 : </span><%=uq.getQnaDate()%>
@@ -183,7 +191,6 @@ User user = (User) request.getAttribute("user");
 						<%
 						}
 						%>
-
 					</div>
 				</div>
 			</div>
@@ -192,7 +199,7 @@ User user = (User) request.getAttribute("user");
 	<%
 	}
 	%>
-	<div class="question">
-		<button class="question__btn">문의하기</button>
-	</div>
+</div>
+<div class="question">
+	<button class="question__btn">문의하기</button>
 </div>
