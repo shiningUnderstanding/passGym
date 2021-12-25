@@ -28,7 +28,6 @@ public class UserService {
 	}
 	
 	public User mypageFindByNo(int userNo) throws FindException{
-		return null;
+		return dao.mypageFindByNo(userNo);
 	}
-
 }

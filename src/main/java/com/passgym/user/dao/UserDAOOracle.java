@@ -15,6 +15,7 @@ import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.sql.PassGymConnection;
+import com.passgym.star.vo.Star;
 import com.passgym.user.vo.User;
 import com.passgym.userqna.vo.UserQna;
 import com.passgym.zzim.vo.Zzim;
@@ -141,27 +142,32 @@ public class UserDAOOracle implements UserDAOInterface {
 		
 		try {
 			con = PassGymConnection.getConnection();
-			String mypageSQL = "SELECT u.user_no , u.id, u.name u_name, u.addr, u.addr_detail, \r\n"
-					+ "gp.payment_no, gp.owner_no gp_owner_no, gp.status gp_status, g1.name g1_name, p.pass_name pass_name, g1.total_star, g1.total_member , gp.start_date, gp.end_date,\r\n"
+			String mypageSQL = "SELECT u.user_no , u.id, u.name u_name, u.zipcode u_zipcode, u.addr u_addr, u.addr_detail u_addr_detail, \r\n"
+					+ "gp.payment_no, gp.owner_no gp_owner_no, gp.status gp_status, g1.name g1_name, \r\n"
+					+ "p.pass_name pass_name, g1.total_star g1_total_star, g1.total_member g1_total_member, ROUND((g1.total_star / g1.total_member), 2) AS g1_avg_star, \r\n"
+					+ "gp.start_date, gp.end_date, s.star,\r\n"
 					+ "CASE WHEN end_date < SYSDATE THEN 0\r\n"
 					+ "     WHEN start_date <= SYSDATE AND end_date >= SYSDATE THEN ROUND((gp.end_date - SYSDATE), 0)\r\n"
 					+ "     ELSE -1\r\n"
-					+ "END AS remain, -1 z_user_no, -1 z_owner_no, '' g2_name,\r\n"
+					+ "END AS remain, -1 z_user_no, -1 z_owner_no, '' g2_name, '' g2_phone_no, '' g2_zipcode, '' g2_addr, '' g2_addr_detail,\r\n"
+					+ "0 g2_total_star, 0 g2_total_member, 0 g2_avg_star,\r\n"
 					+ "-1 qna_no, '' title, '' content, '' reply, -1 reply_status, null qna_date\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN gym_pass gp ON (u.user_no = gp.user_no)\r\n"
 					+ "                 LEFT OUTER JOIN gym g1 ON (gp.owner_no = g1.owner_no)\r\n"
+					+ "                 LEFT OUTER JOIN star s ON (gp.payment_no = s.payment_no)\r\n"
 					+ "                 JOIN pass p ON (gp.owner_no = p.owner_no AND gp.pass_no = p.pass_no)\r\n"
 					+ "WHERE u.user_no = ?\r\n"
 					+ "UNION ALL\r\n"
-					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1,'', '', -1 , -1, null, null,\r\n"
-					+ "-2 , z.user_no, z.owner_no z_owner_no, g2.name g2_name,\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.zipcode, u.addr, u.addr_detail, '', -1, -1,'', '', 0, 0, 0, null, null, 0,\r\n"
+					+ "-2 , z.user_no, z.owner_no z_owner_no, g2.name g2_name, g2.phone_no g2_phone_no, g2.zipcode g2_zipcode, g2.addr g2_addr, g2.addr_detail g2_addr_detail,\r\n"
+					+ "g2.total_star g2_total_star, g2.total_member g2_total_member, ROUND((g2.total_star / g2.total_member), 2) g2_avg_star,\r\n"
 					+ "-1, '', '', '', -1, null\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN zzim z ON (u.user_no = z.user_no)\r\n"
 					+ "                 LEFT OUTER JOIN gym g2 ON (z.owner_no = g2.owner_no)\r\n"
 					+ "WHERE u.user_no = ?\r\n"
 					+ "UNION ALL\r\n"
-					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1, '', '', -1, -1, null, null,\r\n"
-					+ "-2, -1, -1, '',\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.zipcode, u.addr, u.addr_detail, '', -1, -1, '', '', 0, 0, 0, null, null, 0,\r\n"
+					+ "-2, -1, -1, '', '', '', '', '', 0, 0, 0,\r\n"
 					+ "uq.qna_no, uq.title, uq.content, uq.reply, uq.reply_status, uq.qna_date\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN user_qna uq ON (u.user_no = uq.user_no)\r\n"
 					+ "WHERE u.user_no = ?";
@@ -176,6 +182,7 @@ public class UserDAOOracle implements UserDAOInterface {
 			GymPass gympass;
 			Pass pass;
 			Gym gpGym;
+			Star star;
 			List<Zzim> zzimList = new ArrayList<>();
 			Zzim zzim;
 			Gym zGym;
@@ -185,13 +192,13 @@ public class UserDAOOracle implements UserDAOInterface {
 			int count = 0;
 			while(rs.next()) {
 				//user
-				System.out.println("-------------");
 				if(count == 0) {
 					user.setUserNo(rs.getInt("user_no"));
 					user.setId(rs.getString("id"));
 					user.setName(rs.getString("u_name"));
-					user.setAddr(rs.getString("addr"));
-					user.setAddr(rs.getString("addr_detail"));
+					user.setZipcode(rs.getString("u_zipcode"));
+					user.setAddr(rs.getString("u_addr"));
+					user.setAddrDetail(rs.getString("u_addr_detail"));
 					gympassList = new ArrayList<>();
 					count++;
 				}
@@ -205,11 +212,15 @@ public class UserDAOOracle implements UserDAOInterface {
 					pass.setOwnerNo(rs.getInt("gp_owner_no"));
 					gpGym = new Gym();
 					gpGym.setName(rs.getString("g1_name"));//gympass의 gym이름
-					gpGym.setTotalStar(rs.getInt("total_star"));
-					gpGym.setTotalStar(rs.getInt("total_member"));
+					gpGym.setTotalStar(rs.getInt("g1_total_star"));
+					gpGym.setTotalMember(rs.getInt("g1_total_member"));
+					gpGym.setAvgStar(rs.getDouble("g1_avg_star"));
 					pass.setGym(gpGym);
 					pass.setPassName(rs.getString("pass_name"));
 					gympass.setPass(pass);
+					star = new Star();
+					star.setStar(rs.getInt("star"));
+					gympass.setStar(star);
 					gympass.setStatus(rs.getInt("gp_status"));
 					gympass.setStartDate(rs.getDate("start_date"));
 					gympass.setEndDate(rs.getDate("end_date"));
@@ -222,7 +233,15 @@ public class UserDAOOracle implements UserDAOInterface {
 				if(z_user_no != -1) {
 					zzim = new Zzim();
 					zGym = new Gym();
+					zGym.setOwnerNo(rs.getInt("z_owner_no"));
 					zGym.setName(rs.getString("g2_name"));
+					zGym.setPhoneNo(rs.getString("g2_phone_no"));
+					zGym.setZipcode(rs.getString("g2_zipcode"));
+					zGym.setAddr(rs.getString("g2_addr"));
+					zGym.setAddrDetail(rs.getString("g2_addr_detail"));
+					zGym.setTotalStar(rs.getInt("g2_total_star"));
+					zGym.setTotalMember(rs.getInt("g2_total_member"));
+					zGym.setAvgStar(rs.getDouble("g2_avg_star"));
 					zzim.setGym(zGym);
 					zzimList.add(zzim);
 				}
@@ -240,6 +259,9 @@ public class UserDAOOracle implements UserDAOInterface {
 					userQnaList.add(userQna);
 				}
 			}
+			if(user.getUserNo() == -1) {
+				throw new FindException("사용자정보가 존재하지 않습니다.");
+			}
 			user.setGymPasses(gympassList);
 			user.setZzims(zzimList);
 			user.setUserQnas(userQnaList);
@@ -247,6 +269,8 @@ public class UserDAOOracle implements UserDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new FindException("해당값을 찾지 못했습니다.");
+		}finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 	}
 	
@@ -412,6 +436,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				System.out.println(gp);
 				System.out.println(gp.getPass());
 				System.out.println(gp.getPass().getGym());
+				System.out.println(gp.getStar());
 			}
 			for(Zzim z : user.getZzims()) {
 				System.out.println(z);
