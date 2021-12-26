@@ -80,7 +80,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
-				String sns = rs.getString("sns");
+				String sns = "";
 				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
 			}else {
 				throw new FindException("아이디에 해당하는 사용자가 없습니다");

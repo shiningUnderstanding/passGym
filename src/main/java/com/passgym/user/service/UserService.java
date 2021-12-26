@@ -27,6 +27,9 @@ public class UserService {
 		}
 	}
 	
+	public void useriddupchk(String id) throws FindException{
+		dao.findByUserId(id);
+	}
 	public User mypageFindByNo() throws FindException{
 		return null;
 	}

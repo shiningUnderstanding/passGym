@@ -1,9 +1,21 @@
+<%@page import="com.passgym.user.vo.User" %>
+<%@page import="com.passgym.owner.vo.Owner" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <div class="login">
 	<div class="login__container">
-		<a class="loginBtn link" href="">로그아웃</button>
-		<a class="myPageBtn link" href="mypage">마이페이지</a>
+	<%
+	User u = (User)session.getAttribute("userLoginInfo");
+	Owner o = (Owner)session.getAttribute("ownerLoginInfo");
+	if(u == null || o == null) {
+	%>
+		<a class="loginBtn link" href="">로그인</button>
+	<%
+	} else {
+	%> 
+		<%=u.getName() %>님 반갑습니다. <a class="loginBtn link" href="logout">로그아웃</button>
+		<a class="myPageBtn link" href="mypage">마이페이지</a> 
+		<%} %>
 	</div>
 </div>
 <nav class="nav">
