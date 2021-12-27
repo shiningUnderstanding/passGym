@@ -85,7 +85,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
-				String sns = rs.getString("sns");
+				String sns = "";
 				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
 			}else {
 				throw new FindException("아이디에 해당하는 사용자가 없습니다");
@@ -396,6 +396,41 @@ public class UserDAOOracle implements UserDAOInterface {
 	public void modifyUserAddr(int zipcode, String addr, String addrDetail) throws ModifyException {
 		
 	}
+	
+	public User findByPhoneNo(String phoneNo) throws FindException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User u = null;
+		String selectSQL = "SELECT * FROM user_info WHERE phone_no = ?";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setString(1, phoneNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {//아이디는 단일값이니 while이 아닌 if문
+				int userNo = rs.getInt("user_no");
+				phoneNo = rs.getString("phoneNo");
+				String id = rs.getString("id");
+				String name = rs.getString("name");				
+				String pwd = rs.getString("pwd");
+				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+				String addr = rs.getString("addr");
+				String addrDetail = rs.getString("addr_detail");
+				String sns = "";
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+			}else {
+				throw new FindException("아이디에 해당하는 사용자가 없습니다");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
+		return u;//사용자 아이디에 해당하는 사용자객체 반환
+	}
+	
 	public static void main(String[] args) {
 //		User u = new User(7, "id7", "name7", "pwd7", "01077777777", 17787, "서울특별시 관악구 남부순환로 218길", "777호", "");
 //		try {//사용자 추가하기
@@ -428,6 +463,7 @@ public class UserDAOOracle implements UserDAOInterface {
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
+
 		UserDAOOracle dao = UserDAOOracle.getInstance();
 		try {
 			User user = dao.mypageFindByNo(2);
