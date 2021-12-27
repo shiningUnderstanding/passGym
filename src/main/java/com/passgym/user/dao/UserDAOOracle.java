@@ -230,7 +230,7 @@ public class UserDAOOracle implements UserDAOInterface {
 				
 				//zzimList
 				int z_user_no = rs.getInt("z_user_no");
-				if(z_user_no != -1) {
+				if(z_user_no > 0) {
 					zzim = new Zzim();
 					zGym = new Gym();
 					zGym.setOwnerNo(rs.getInt("z_owner_no"));

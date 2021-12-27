@@ -8,8 +8,6 @@
 User user = (User) request.getAttribute("user");
 %>
 <link rel="stylesheet" href="./css/mypage.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(function() {
 		//----------------zzim삭제 시작------------------
@@ -29,8 +27,8 @@ User user = (User) request.getAttribute("user");
 					console.log("응답성공");
 					if(responseObj.status == 1){
 						console.log("삭제성공");
-						$("#" + ownerNo).parent().remove();
-						//$("#mypageLink").trigger("click");
+						//$("#" + ownerNo).parent().remove();
+						$("#mypageLink").trigger("click");
 					}else{
 						alert(responseObj.status);
 					}
@@ -103,7 +101,7 @@ User user = (User) request.getAttribute("user");
 					<%
 					if (gp.getStar().getStar() == 0) {
 					%>
-					<div class="star"><a id="1" href="mypage">☆</a><a id="2" href="mypage">☆</a><a id="3" href="mypage">☆</a><a id="4" href="mypage">☆</a><a id="5" href="mypage">☆</a> 별점을 주세요</div>
+					<div class="star"><span id="1">☆</span><span id="2">☆</span><span id="3">☆</span><span id="4">☆</span><span id="5">☆</span> 별점을 주세요</div>
 					<%
 					} else {
 					%>
@@ -137,6 +135,7 @@ User user = (User) request.getAttribute("user");
 <div class="zzim">
 	<%
 	for (Zzim z : user.getZzims()) {
+		System.out.println(z);
 	%>
 	<div class="zzim__list">
 		<div id="<%=z.getGym().getOwnerNo() %>" class="zzim__detail">
