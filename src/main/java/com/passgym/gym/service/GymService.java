@@ -2,7 +2,7 @@ package com.passgym.gym.service;
 
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
-import com.passgym.gym.dao.GymDAOOracle.GymDAOOracle;
+import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 
 public class GymService {

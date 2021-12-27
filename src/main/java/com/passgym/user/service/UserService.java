@@ -34,8 +34,6 @@ public class UserService {
 	public void phonenumdupchk(String phoneNo) throws FindException{
 		dao.findByPhoneNo(phoneNo);
 	}
-	public User mypageFindByNo() throws FindException{
-		return null;
 
 	public User mypageFindByNo(int userNo) throws FindException{
 		return dao.mypageFindByNo(userNo);

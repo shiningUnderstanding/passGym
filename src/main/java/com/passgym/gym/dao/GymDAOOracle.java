@@ -1,4 +1,4 @@
-package com.passgym.gym.dao.GymDAOOracle;
+package com.passgym.gym.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -161,15 +161,6 @@ public class GymDAOOracle implements GymDAOInterface {
 		
 		return gyms;
 	}
-	
-
-	@Override
-	public double printAvgStar(int ownerNo) throws FindException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
- 
 	
 	public static void main(String[] args) {
 		

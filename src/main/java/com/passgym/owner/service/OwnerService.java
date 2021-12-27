@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
-import com.passgym.gym.dao.GymDAOOracle.GymDAOOracle;
-
+import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 import com.passgym.owner.dao.OwnerDAOOracle;
 import com.passgym.owner.vo.Owner;
