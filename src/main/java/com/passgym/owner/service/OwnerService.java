@@ -13,10 +13,13 @@ import com.passgym.pass.vo.Pass;
 
 public class OwnerService {
   private OwnerDAOOracle ownerDAO;
+  private GymDAOOracle gymDAO;
   
-  public void ownerSignup(Owner owner) throws AddException{
+  public void ownerSignup(Owner owner, Gym gym) throws AddException{
 		ownerDAO = new OwnerDAOOracle();
+		gymDAO = new GymDAOOracle();
 		ownerDAO.add(owner);		
+		gymDAO.signupAdd(gym);
 	}
   
 	public  List<Pass> findByOwnerNo(int ownerNo) throws FindException {
