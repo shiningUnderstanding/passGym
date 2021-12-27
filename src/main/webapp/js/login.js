@@ -29,7 +29,6 @@ function loginClick(){
             method: ajaxMethod,
             data: {id:idValue, pwd:pwdValue},
             success: function(responseObj){
-                // let resultNum = parseInt(responseData.trim());
                 if(responseObj.status == 0){
                     alert("로그인 실패");
                 }else if(responseObj.status == 1){

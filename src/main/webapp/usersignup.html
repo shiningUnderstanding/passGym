@@ -40,17 +40,17 @@
         <script src="./js/usersignup.js"></script>
         <script>
             $(function(){
-                let idObj = $('div.usersignup>div.usersignup__container>form.usersignup__form>div.usersignup__idpwd>input[name=id]');
+                let idObj = $('.usersingup_id');
 
                 //아이디(이메일) 중복확인 클릭
-                let $iddupchkBtObj = $('div.usersignup>div.usersignup__container>form.usersignup__form>div.usersignup__idpwd>button.usersignup__iddupchk');
+                let $iddupchkBtObj = $('.usersignup__iddupchk');
                 idDupChk($idObj, $iddupchkBtObj);
 
             	userSignupClick();
             });
             
         </script>
-        
+
         <!-- 카카오 우편번호 검색 api -->
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>

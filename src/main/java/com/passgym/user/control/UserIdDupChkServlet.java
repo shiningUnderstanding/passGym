@@ -41,11 +41,11 @@ public class UserIdDupChkServlet extends HttpServlet {
 		try {
 			service.useriddupchk(idValue);
 			//3. 응답결과 계산
-			resultMsg = "이미 사용중인 아이디입니다";
+			resultMsg = "이미 사용중인 이메일입니다";
 			request.setAttribute("status", 0);
 		} catch (FindException e) {
 			//3. 응답결과 계산
-			resultMsg = "사용가능한 아이디입니다";
+			resultMsg = "사용가능한 이메일입니다";
 			request.setAttribute("status", 1);
 		}
 		
