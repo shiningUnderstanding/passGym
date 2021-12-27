@@ -3,7 +3,7 @@
 <div class="login">
 	<div class="login__container">
 		<a class="loginBtn link" href="">로그아웃</button>
-		<a class="myPageBtn link" href="mypage">마이페이지</a>
+		<a id="mypageLink" class="mypageBtn link" href="mypage">마이페이지</a>
 	</div>
 </div>
 <nav class="nav">
@@ -11,7 +11,7 @@
 		<!--머리말-->
 		<h1 class="nav__main">
 			<!--로고이미지-->
-			<a href="index.html"><span>패스짐</span><img class="nav-bar__logo link"
+			<a href="index.jsp"><span>패스짐</span><img class="nav-bar__logo link"
 				src="./images/logo.png" /></a>
 		</h1>
 		<div class="nav-bar__links">
