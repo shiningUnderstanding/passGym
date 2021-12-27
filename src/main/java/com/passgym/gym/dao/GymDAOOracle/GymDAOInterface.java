@@ -23,6 +23,15 @@ public interface GymDAOInterface {
 	 * @throws AddException
 	 */
 	public void add(Gym gym) throws AddException;
-
+	/**
+	 * 거리순으로 헬스장 정보를 출력한다
+	 * @param latitude 위도
+	 * @param longitude 경도
+	 * @return 거리순 헬스장
+	 * @throws FindException
+	 */
+	public List<Gym> findByDistance(double latitude, double longitude) throws FindException;
+	
+	public double printAvgStar(int ownerNo) throws FindException; 
 
 }

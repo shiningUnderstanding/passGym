@@ -128,6 +128,46 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 		
 	}
+	
+	@Override
+	public List<Gym> findByDistance(double latitude, double longitude) throws FindException {
+		List<Gym> gyms = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String selectSQL = "SELECT g.owner_no, g.name, g.addr, ROUND((g.total_star / g.total_member), 2) AS avg_star,\r\n"
+				+ "NVL((POWER(g.total_star, 7) / POWER(g.total_member, 6)), 0) AS best, DISTANCE_WGS84(?, ?, g.lat, g.lon) AS distance\r\n"
+				+ "FROM gym g\r\n"
+				+ "ORDER BY distance, best DESC";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setDouble(1, latitude);
+			pstmt.setDouble(2, longitude);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int ownerNo = rs.getInt("owner_no");
+				String gymName = rs.getString("name");
+				String gymAddr = rs.getString("addr");
+				double distance = rs.getDouble("distance");
+				double avgStar = rs.getDouble("avg_star");
+				Gym g = new Gym(ownerNo, gymName, gymAddr, distance, avgStar);
+				gyms.add(g);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return gyms;
+	}
+	
+
+	@Override
+	public double printAvgStar(int ownerNo) throws FindException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
  
 	
