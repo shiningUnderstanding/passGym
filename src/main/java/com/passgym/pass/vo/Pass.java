@@ -3,6 +3,7 @@ package com.passgym.pass.vo;
 import java.util.Date;
 import java.util.List;
 
+import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 
 public class Pass {
@@ -17,7 +18,9 @@ public class Pass {
 	private int pauseDate;
 	private String remarks;
 	
+	private Gym gym;
 	private List<GymPass> gympasses;
+	
 	//private List<User> users; 
 
 	public Pass() {}
@@ -96,6 +99,12 @@ public class Pass {
 		this.remarks = remarks;
 	}
 	
+	public Gym getGym() {
+		return gym;
+	}
+	public void setGym(Gym gym) {
+		this.gym = gym;
+	}
 	public List<GymPass> getGympasses() {
 		return gympasses;
 	}

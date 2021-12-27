@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./js/ownersignup.js"></script>
+        <script>  
+        $(function(){
+            formSubmitted();
+        })
+        </script>
+    </head>
+    <meta charset="UTF-8">
+    <body>
+    <div class="ownersignup">
+        <h1>고객가입</h1>
+        <form class="ownersignup__form" method="post" action="./ownersignup" autocomplete="off">
+            <label>아이디:</label>
+            <input class="ownersignup__idinput" type="text" name="id" required>
+            <button class="ownersiginup__iddupchk" type="button">아이디중복확인</button>
+            <br>
+            <label>업체이름:</label>
+            <input type="text" class="ownersignup__gymname" name="name" required>
+            <br>
+            <label>업체전화번호:</label>
+            <input type="text" class="ownersignup__gymphone" name="phoneno" required>
+            <br>
+            <label>사업자등록번호:</label>
+            <input type="text" class="ownersignup__registno" name="registno" required>
+            <button class="ownersignup__registchk" type="button">사업자인증</button>
+            <br>
+            <label>비밀번호:</label>
+            <input type="password" class="ownersignup__pwd" name="pwd" required>
+            <br>
+            <label>비밀번호확인:</label>
+            <input type="password" class="ownersignup__pwdchk" name="pwd2" required>
+            <br>  
+            주소: 
+            <!-- <input type="text" class="ownersignup__addrcode" readonly  size="5"> -->
+            <input type="text" class="ownersignup__zipcode" name="zipcode" required>
+            <!-- <button type="button" class="ownersignup__searchaddr" name="zipcode">우편번호찾기</button> -->
+            <br>
+            <input type="text" class="ownersignup__searchaddr1" size="50" name="addr"><br>
+            <input type="text" class="ownersignup__searchaddr2" size="50" name="addrdetail">
+            <br>
+            <button type="submit" class="ownersignup__signupbt">가입</button>
+            <button type="reset" class="ownersignup__reset">CLEAR</button>
+        </form>
+    </div>
+    </body>
+</html>

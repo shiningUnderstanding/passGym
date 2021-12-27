@@ -26,7 +26,7 @@ public class UserService {
 			throw new FindException("로그인 실패");
 		}
 	}
-	
+
 	public void useriddupchk(String id) throws FindException{
 		dao.findByUserId(id);
 	}
@@ -36,6 +36,9 @@ public class UserService {
 	}
 	public User mypageFindByNo() throws FindException{
 		return null;
-	}
 
+	public User mypageFindByNo(int userNo) throws FindException{
+		return dao.mypageFindByNo(userNo);
+
+	}
 }

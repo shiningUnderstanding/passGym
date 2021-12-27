@@ -22,6 +22,7 @@ public class Gym {
 	private String etc; //기타
 	private int totalStar; //총별점
 	private int totalMember; //총인원수
+	private double avgStar;
 	private double lat; //위도 latitude 
 	private double lon; //경도 longitude
 	
@@ -33,7 +34,7 @@ public class Gym {
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, String zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
-			int totalStar, int totalMember, double lat, double lon) {
+			int totalStar, int totalMember, double avgStar,double lat, double lon) {
 		super();
 		this.ownerNo = ownerNo;
 		this.name = name;
@@ -49,6 +50,7 @@ public class Gym {
 		this.etc = etc;
 		this.totalStar = totalStar;
 		this.totalMember = totalMember;
+		this.avgStar = avgStar;
 		this.lat = lat;//위도 latitude 
 		this.lon = lon;//경도 longitude
 	}
@@ -136,6 +138,12 @@ public class Gym {
 	public void setTotalMember(int totalMember) {
 		this.totalMember = totalMember;
 	}
+	public double getAvgStar() {
+		return avgStar;
+	}
+	public void setAvgStar(double avgStar) {
+		this.avgStar = avgStar;
+	}
 	public double getLat() {
 		return lat;
 	}
@@ -179,7 +187,7 @@ public class Gym {
 		return "Gym [ownerNo=" + ownerNo + ", name=" + name + ", phoneNo=" + phoneNo + ", zipcode=" + zipcode
 				+ ", addr=" + addr + ", addrDetail=" + addrDetail + ", introduce=" + introduce + ", notice=" + notice
 				+ ", operatingTime=" + operatingTime + ", operatingProgram=" + operatingProgram + ", extraService="
-				+ extraService + ", etc=" + etc + ", totalStar=" + totalStar + ", totalMember=" + totalMember + ", lat="
+				+ extraService + ", etc=" + etc + ", totalStar=" + totalStar + ", totalMember=" + totalMember + ", avgStar=" + avgStar + ", lat="
 				+ lat + ", lon=" + lon + "]";
 	}
 	

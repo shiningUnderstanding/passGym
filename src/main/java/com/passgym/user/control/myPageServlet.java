@@ -27,24 +27,28 @@ public class myPageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션의 유저정보 받아오기
 		HttpSession session = request.getSession();
-		User sessionUser = (User)session.getAttribute("userLoginInfo");
+		//User sessionUser = (User)session.getAttribute("userLoginInfo");
+		User sessionUser = new User();
+		sessionUser.setUserNo(2);
 		String path = "";
-		String resultMsg = "";
-		//서비스 받아오기
-		UserService service = UserService.getInstance();
 		
-		try {
-			//서비스 호출
-			User requestUser = service.mypageFindByNo();
-			System.out.println("마이페이지가 호출되었습니다.");
-			request.setAttribute("user", requestUser);
-			path="mypage.jsp";
+		if(sessionUser == null) {//로그인유무 체크
+			path = "mypage.jsp";
+		}else {
+			//서비스 받아오기
+			UserService service = UserService.getInstance();
 			
-			//응답결과 만들기
-		} catch (FindException e) {
-			System.out.println(e.getMessage());
-			//응답결과 만들기
-			path="index.jsp";
+			try {
+				//서비스 호출
+				User requestUser = service.mypageFindByNo(sessionUser.getUserNo());
+				System.out.println("마이페이지가 호출되었습니다.");
+				request.setAttribute("user", requestUser);
+				System.out.println("컨트롤러에서 mypage User 객체 잘 받아왔습니다.");
+				path="mypage.jsp";
+			} catch (FindException e) {
+				System.out.println(e.getMessage());
+				path="mypage.jsp";
+			}
 		}
 		
 		//viewer로 이동
