@@ -8,12 +8,42 @@
 User user = (User) request.getAttribute("user");
 %>
 <link rel="stylesheet" href="./css/mypage.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(function() {
-		//----------------------------------
+		//----------------zzim삭제 시작------------------
+		let $zzimBtnObj = $(".zzim__btn");
+		
+		$zzimBtnObj.click(function(){
+			ajaxUrl = "removezzim";
+			ajaxMethod = "post";
+			let ownerNo = $(this).parent().attr("id");
+			$.ajax({
+				url : ajaxUrl,
+				method : ajaxMethod,
+				data : {
+					ownerNo : ownerNo
+				}, 
+				success : function(responseObj) {
+					console.log("응답성공");
+					if(responseObj.status == 1){
+						console.log("삭제성공");
+						//$("#" + ownerNo).parent().remove();
+						$("#mypageLink").trigger("click");
+					}else{
+						alert(responseObj.status);
+					}
+				},
+				error : function(xhr) {
+					alert("응답실패 status : " + xhr.status);
+				},
+			});
+			
+			return false;
+		})
+		//----------------zzim삭제  끝-------------------
+		//----------------qna내용보기 시작------------------
 		let $qnaContentObj = $(".qna__contentBtn");
+		
 		$qnaContentObj.click(function(){
 			$(this).parent().siblings().toggle();
 			if($(this).children().html() == "내용보기"){
@@ -22,7 +52,7 @@ User user = (User) request.getAttribute("user");
 				$(this).children().html("내용보기");
 			}
 		})
-		//-----------------------------------
+		//----------------qna내용보기  끝-------------------
 	});
 </script>
 <div class="profile_title">my profile</div>
@@ -71,7 +101,7 @@ User user = (User) request.getAttribute("user");
 					<%
 					if (gp.getStar().getStar() == 0) {
 					%>
-					<div class="star">☆☆☆☆☆ 별점을 주세요</div>
+					<div class="star"><span id="1">☆</span><span id="2">☆</span><span id="3">☆</span><span id="4">☆</span><span id="5">☆</span> 별점을 주세요</div>
 					<%
 					} else {
 					%>
@@ -105,9 +135,10 @@ User user = (User) request.getAttribute("user");
 <div class="zzim">
 	<%
 	for (Zzim z : user.getZzims()) {
+		System.out.println(z);
 	%>
 	<div class="zzim__list">
-		<div class="zzim__detail">
+		<div id="<%=z.getGym().getOwnerNo() %>" class="zzim__detail">
 			<div class="zzim__gymImg">
 				<img src="./images/gym/<%=z.getGym().getOwnerNo()%>.jpg" />
 			</div>
@@ -132,7 +163,7 @@ User user = (User) request.getAttribute("user");
 				</div>
 				<div class="zzim__gymAddrDetail"><%=z.getGym().getAddrDetail()%></div>
 			</div>
-			<div class="zzim__btns">
+			<div class="zzim__btn">
 				<button class="zzim__deleteBtn">삭제</button>
 			</div>
 		</div>
