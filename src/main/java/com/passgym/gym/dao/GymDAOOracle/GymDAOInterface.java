@@ -18,11 +18,25 @@ public interface GymDAOInterface {
 	public List<Pass> findByOwnerNo(int ownerNo) throws FindException;
 	
 	/**
+	 * 판매자 회원가입 후 상세내용을 등록할 Gym을 찾는다.
+	 * @param ownerNo Gym를 찾기 위한 사업자번호
+	 * @return ownerNo를 가진 Gym
+	 * @throws FindException
+	 */
+	public Gym findGymByOwnerNo(int ownerNo) throws FindException;
+	
+	/**
 	 * 회원가입 후 헬스장 정보를 등록한다.
 	 * @param gym 등록할 헬스장 정보
 	 * @throws AddException
 	 */
 	public void add(Gym gym) throws AddException;
 
+	/**
+	 * 판매자회원가입화면에서 입력한 정보를 저장한다.
+	 * @param gym
+	 * @throws AddException
+	 */
+	public void signupAdd(Gym gym) throws AddException;
 
 }

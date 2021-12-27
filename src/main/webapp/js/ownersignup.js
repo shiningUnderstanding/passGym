@@ -24,9 +24,9 @@ function formSubmitted(){
             data:sendData,
             success:function(responseData){
                 let resultNum = parseInt(responseData.trim()); 
-                //2021/12/25 현재 가입성공이 뜨지 않음. resultNum에 값이 없는 것으로 판단 -> reponse를 Servlet에 추가해줌
                 if(resultNum == 0){
                     alert("가입실패");
+                    location.reload(true);
                 }else if(resultNum == 1){
                     alert("가입성공");
                     location.href="./gymregist.jsp";
