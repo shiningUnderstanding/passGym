@@ -15,9 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class OwnerSignupServlet
- */
 @WebServlet("/ownersignup")
 public class OwnerSignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,7 +22,7 @@ public class OwnerSignupServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-		String gymName = request.getParameter("name");
+		String name = request.getParameter("name");
 		String phoneNo = request.getParameter("phoneno");
 		int ownerNo = Integer.parseInt(request.getParameter("registno"));
 		String pwd = request.getParameter("pwd");
@@ -36,7 +33,7 @@ public class OwnerSignupServlet extends HttpServlet {
 		double lon = 0.0;
 		
 		Owner owner = new Owner(ownerNo, id, pwd);
-		Gym gym = new Gym(ownerNo, gymName, phoneNo, zipCode, 
+		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
 							addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon);
 		
 		OwnerService service = new OwnerService();
@@ -44,16 +41,18 @@ public class OwnerSignupServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
+		
 		session.removeAttribute("signupInfo");
+		session.removeAttribute("gymInfo");
 		
 		try {
-			service.ownerSignup(owner);
-			session.setAttribute("signupInfo", gym);
+			service.ownerSignup(owner, gym);
+			session.setAttribute("signupInfo", owner);
+			session.setAttribute("gymInfo", gym);
 			out.print("1");
 			
-			//Owner 확인용
-			Gym sessionGym = (Gym)session.getAttribute("signupInfo");
-			System.out.println("세션저장객체 : " + sessionGym.toString());
+			Owner ownerSession = (Owner)session.getAttribute("signupInfo");
+			System.out.println("세션저장객체 : " + ownerSession.toString());
 			
 		} catch (AddException e) {
 			out.print("0");

@@ -1,10 +1,14 @@
 package com.passgym.gym.control;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.passgym.exception.AddException;
+import com.passgym.exception.FindException;
 import com.passgym.gym.service.GymService;
 import com.passgym.gym.vo.Gym;
+import com.passgym.owner.vo.Owner;
+import com.passgym.pass.vo.Pass;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,33 +26,33 @@ public class GymRegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		Gym sessionGym = (Gym)session.getAttribute("signupInfo");
+		Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
 		
-		int ownerNo = sessionGym.getOwnerNo();
-		String name = sessionGym.getName();
-		String phoneNo = sessionGym.getPhoneNo();
-		String zipCode = sessionGym.getZipcode();
-		String addr = sessionGym.getAddr();
-		String addrDetail = sessionGym.getAddrDetail();
-		String introduce = request.getParameter("introduce");
-		String notice = request.getParameter("notice");
-		String operatingTime = request.getParameter("operatingtime");
-		String operatingProgram = request.getParameter("operatingprogram");
-		String extraService = request.getParameter("extraservice");
-		String etc = request.getParameter("etc");
-		double lat = sessionGym.getLat();
-		double lon = sessionGym.getLon();
-		
-		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
-							addr, addrDetail, introduce, notice, 
-							operatingTime, operatingProgram, extraService, etc, 
-							0, 0, 0,lat, lon);
-		
+		int ownerNo = sessionOwner.getOwnerNo();
 		GymService service = new GymService();
+		Gym gym;
+		Pass pass;
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
 		
 		try {
+			gym = service.findGym(ownerNo);
+			gym.setIntroduce(request.getParameter("introduce"));
+			gym.setNotice(request.getParameter("notice"));
+			gym.setOperatingTime(request.getParameter("operatingtime"));
+			gym.setOperatingProgram(request.getParameter("operatingprogram"));
+			gym.setExtraService(request.getParameter("extraservice"));
+			gym.setEtc(request.getParameter("etc"));
+			
 			service.gymRegist(gym);
-		} catch (AddException e) {
+			out.print("1");
+
+		} catch (FindException e1) {
+			e1.printStackTrace();
+			out.print("0");
+		} catch(AddException e) {
+			out.print("10");
 			e.printStackTrace();
 		}
 		

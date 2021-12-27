@@ -202,9 +202,47 @@ public class GymDAOOracle implements GymDAOInterface {
 	public void add(Gym gym) throws AddException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
-				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
+		String updateSQL = "UPDATE gym SET introduce=?, \r\n"
+				+ "                notice=?, \r\n"
+				+ "                operating_time=?, \r\n"
+				+ "                operating_program=?,\r\n"
+				+ "                extra_service=?,\r\n"
+				+ "                etc=?"
+				+ "				   WHERE owner_no=?";
+		
+//		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
+//				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
+//				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
+		
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(updateSQL);
+			pstmt.setString(1, gym.getIntroduce());
+			pstmt.setString(2, gym.getNotice());
+			pstmt.setString(3, gym.getOperatingTime());
+			pstmt.setString(4, gym.getOperatingProgram());
+			pstmt.setString(5, gym.getExtraService());
+			pstmt.setString(6, gym.getEtc());
+			pstmt.setInt(7, gym.getOwnerNo());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			int errorCode = e.getErrorCode();
+			e.printStackTrace();
+		}finally {
+			PassGymConnection.close(pstmt, con);
+		}
+	}
+
+
+
+	@Override
+	public void signupAdd(Gym gym) throws AddException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, \r\n"
+				+ "lat, lon)\r\n"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(insertSQL);
@@ -214,20 +252,57 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setString(4, gym.getZipcode());
 			pstmt.setString(5, gym.getAddr());
 			pstmt.setString(6, gym.getAddrDetail());
-			pstmt.setString(7, gym.getIntroduce());
-			pstmt.setString(8, gym.getNotice());
-			pstmt.setString(9, gym.getOperatingTime());
-			pstmt.setString(10, gym.getOperatingProgram());
-			pstmt.setString(11, gym.getExtraService());
-			pstmt.setString(12, gym.getEtc());
-			pstmt.setDouble(15, gym.getLat());
-			pstmt.setDouble(16, gym.getLon());
+			pstmt.setDouble(7, gym.getLat());
+			pstmt.setDouble(8, gym.getLon());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			int errorCode = e.getErrorCode();
-			
+			System.out.println(errorCode);
+			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);
 		}
+		
+		
+	}
+
+
+
+	@Override
+	public Gym findGymByOwnerNo(int ownerNo) throws FindException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String selectSQL = "SELECT * FROM gym WHERE owner_no = ?";
+		Gym gym = null;
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setInt(1, ownerNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int findOwnerNo = rs.getInt("owner_no");
+				String name = rs.getString("name");
+				String phoneNo = rs.getString("phone_no");
+				String zipCode = rs.getString("zipcode");
+				String addr = rs.getString("addr");
+				String addrDetail = rs.getString("addr_detail");
+				double lat = rs.getDouble("lat");
+				double lon = rs.getDouble("lon");
+				gym = new Gym(ownerNo, name, phoneNo, zipCode, 
+						addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon);
+			}
+
+			return gym;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			PassGymConnection.close(pstmt, con);
+		}
+		
+		
 	}
 }

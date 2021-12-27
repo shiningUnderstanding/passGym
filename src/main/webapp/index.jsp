@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
+<link rel="icon" href="./images/logo.png">
 <title>index.jsp</title>
 <link rel="stylesheet" href="./css/header.css" />
 <link rel="stylesheet" href="./css/index.css" />
@@ -14,18 +15,22 @@
 	$(function() {
 		/*--메뉴가 클릭되었을 때 START*/
 		let $menuObj = $(".link");
-
+		
 		$menuObj.click(function() {
 			let menuHref = $(this).attr("href");
 			let ajaxUrl = "";
 			let ajaxMethod = "";
 			switch (menuHref) {
+			case "login":
+				ajaxUrl = menuHref;
+				ajaxMethod = "get";
+				
 			case "mypage":
 				//AJAX요청, 응답
 				ajaxUrl = menuHref;
 				ajaxMethod = "post";
 				let userNo = 2;
-				$("section>div.articles").empty();
+				$("section").empty();
 				//( String responseText, String textStatus, jqXHR jqXHR)
 				$.ajax({
 					url : ajaxUrl,

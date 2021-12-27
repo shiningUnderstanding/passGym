@@ -129,6 +129,11 @@ footer {
   padding-left: 10px;
 }
 
+.star a{
+	text-decoration: none;
+	color: black;
+}
+
 .gympass__info-bot {
   width: 300px;
   max-width: 100%;
@@ -214,7 +219,7 @@ footer {
   margin-bottom: 5px;
 }
 
-.zzim__btns {
+.zzim__btn {
   width: 100px;
   max-width: 20%;
 }
@@ -275,7 +280,6 @@ footer {
 }
 
 .qna__reply {
-  border: 1px solid;
   padding: 10px;
 }
 
