@@ -35,7 +35,7 @@ public class UserDAOOracle implements UserDAOInterface {
 		String insertSQL = 
 				"INSERT INTO user_info\r\n"
 				+ "(user_no, id, name, pwd, phone_no, zipcode, addr, addr_detail, sns) \r\n"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "VALUES (user_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(insertSQL);

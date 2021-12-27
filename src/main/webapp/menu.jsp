@@ -9,7 +9,7 @@
 	Owner o = (Owner)session.getAttribute("ownerLoginInfo");
 	if(u == null || o == null) {
 	%>
-		<a class="loginBtn link" href="">로그인</button>
+		<a class="loginBtn link" href="login.jsp">로그인</button>
 	<%
 	} else {
 	%> 
