@@ -33,10 +33,20 @@ public interface GymDAOInterface {
 	public void add(Gym gym) throws AddException;
 
 	/**
+	 * 거리순으로 헬스장 정보를 출력한다
+	 * @param latitude 위도
+	 * @param longitude 경도
+	 * @return 거리순 헬스장
+	 * @throws FindException
+	 */
+	public List<Gym> findByDistance(double latitude, double longitude) throws FindException;
+	
+	/**
 	 * 판매자회원가입화면에서 입력한 정보를 저장한다.
 	 * @param gym
 	 * @throws AddException
 	 */
 	public void signupAdd(Gym gym) throws AddException;
+
 
 }

@@ -25,6 +25,7 @@ public class Gym {
 	private double avgStar;
 	private double lat; //위도 latitude 
 	private double lon; //경도 longitude
+	private double distance;//거리
 	
 	private List<PaymentMethod> paymentMethods;
 	private List<Pass> passes;
@@ -53,6 +54,20 @@ public class Gym {
 		this.avgStar = avgStar;
 		this.lat = lat;//위도 latitude 
 		this.lon = lon;//경도 longitude
+	}
+	public Gym(int ownerNo, String name, String addr, double distance, double avgStar) {
+		this.ownerNo = ownerNo;
+		this.name = name;
+		this.addr = addr;
+		this.distance = distance;
+		this.avgStar = avgStar;
+	}
+	
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 	public int getOwnerNo() {
 		return ownerNo;
