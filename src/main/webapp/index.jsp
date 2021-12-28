@@ -28,7 +28,7 @@
 			case "mypage":
 				//AJAX요청, 응답
 				ajaxUrl = menuHref;
-				ajaxMethod = "post";
+				ajaxMethod = "get";
 				let userNo = 2;
 				$("section").empty();
 				//( String responseText, String textStatus, jqXHR jqXHR)

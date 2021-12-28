@@ -10,25 +10,48 @@ User user = (User) request.getAttribute("user");
 <link rel="stylesheet" href="./css/mypage.css" />
 <script>
 	$(function() {
-		//----------------zzim삭제 시작------------------
-		let $zzimBtnObj = $(".zzim__btn");
+		//----------------edit 시작----------------------
+		let $editBtn = $(".profile__editBtn");
 		
-		$zzimBtnObj.click(function(){
-			ajaxUrl = "removezzim";
-			ajaxMethod = "post";
-			let ownerNo = $(this).parent().attr("id");
+		$editBtn.click(function(){
+			let ajaxUrl = "edituser";
+			let ajaxMethod = "get";
+			$("section").empty();
+			$.ajax({
+				url : ajaxUrl,
+				method : ajaxMethod,
+				success : function(responseObj){
+					console.log("응답성공");
+					$("section").html(responseObj);
+				},
+				error : function(xhr) {
+					alert("응답실패 status : " + xhr.status);
+				},
+			});
+		})
+		//----------------edit  끝----------------------
+		//----------------star 추가 시작------------------
+		let $starObj = $(".star>span");
+		
+		$starObj.click(function(){
+			let ajaxUrl = "addstar";
+			let ajaxMethod = "post";
+			let paymentNo = $(this).parent().attr("paymentNo");
+			let starPoint = $(this).attr("id");
+			console.log(starPoint);
+			
 			$.ajax({
 				url : ajaxUrl,
 				method : ajaxMethod,
 				data : {
-					ownerNo : ownerNo
-				}, 
-				success : function(responseObj) {
+					paymentNo : paymentNo,
+					starPoint : starPoint
+				},
+				success : function(responseObj){
 					console.log("응답성공");
 					if(responseObj.status == 1){
-						console.log("삭제성공");
-						//$("#" + ownerNo).parent().remove();
-						$("#mypageLink").trigger("click");
+						console.log("별점 추가 성공");
+						$(".mypageBtn").trigger("click");
 					}else{
 						alert(responseObj.status);
 					}
@@ -40,8 +63,38 @@ User user = (User) request.getAttribute("user");
 			
 			return false;
 		})
-		//----------------zzim삭제  끝-------------------
-		//----------------qna내용보기 시작------------------
+		//----------------star 추가 끝------------------
+		//----------------zzim 삭제 시작------------------
+		let $zzimBtnObj = $(".zzim__btn");
+		
+		$zzimBtnObj.click(function(){
+			let ajaxUrl = "removezzim";
+			let ajaxMethod = "post";
+			let ownerNo = $(this).parent().attr("id");
+			$.ajax({
+				url : ajaxUrl,
+				method : ajaxMethod,
+				data : {
+					ownerNo : ownerNo
+				}, 
+				success : function(responseObj) {
+					console.log("응답성공");
+					if(responseObj.status == 1){
+						console.log("찜 삭제 성공");
+						$(".mypageBtn").trigger("click");
+					}else{
+						alert(responseObj.status);
+					}
+				},
+				error : function(xhr) {
+					alert("응답실패 status : " + xhr.status);
+				},
+			});
+			
+			return false;
+		})
+		//----------------zzim 삭제  끝-------------------
+		//----------------qna 내용보기 시작------------------
 		let $qnaContentObj = $(".qna__contentBtn");
 		
 		$qnaContentObj.click(function(){
@@ -87,6 +140,7 @@ User user = (User) request.getAttribute("user");
 	%>
 	<div class="gympass__list">
 		<div class="gympass__detail">
+			<a class="gympass__gymImg" href="/index.jsp"><img src="./images/gym/<%=gp.getPass().getOwnerNo() %>.jpg"></a>
 			<div class="gympass__infos">
 				<div class="gympass__info-top">
 					<div class="gympass__no">
@@ -101,7 +155,7 @@ User user = (User) request.getAttribute("user");
 					<%
 					if (gp.getStar().getStar() == 0) {
 					%>
-					<div class="star"><span id="1">☆</span><span id="2">☆</span><span id="3">☆</span><span id="4">☆</span><span id="5">☆</span> 별점을 주세요</div>
+					<div paymentNo="<%=gp.getPaymentNo() %>" class="star"><span id="1">☆</span><span id="2">☆</span><span id="3">☆</span><span id="4">☆</span><span id="5">☆</span> 별점을 주세요</div>
 					<%
 					} else {
 					%>
@@ -135,7 +189,6 @@ User user = (User) request.getAttribute("user");
 <div class="zzim">
 	<%
 	for (Zzim z : user.getZzims()) {
-		System.out.println(z);
 	%>
 	<div class="zzim__list">
 		<div id="<%=z.getGym().getOwnerNo() %>" class="zzim__detail">

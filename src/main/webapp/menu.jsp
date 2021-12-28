@@ -7,7 +7,7 @@
 	<%
 	User u = (User)session.getAttribute("userLoginInfo");
 	Owner o = (Owner)session.getAttribute("ownerLoginInfo");
-	if(u == null || o == null) {
+	if(u == null && o == null) {
 	%>
 		<a class="loginBtn link" href="">로그인</button>
 	<%
