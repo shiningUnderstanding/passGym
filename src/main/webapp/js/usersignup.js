@@ -1,3 +1,4 @@
+//아이디(이메일) 중복확인 클릭
 function idDupChk($idObj, $iddupchkBtObj){
     $iddupchkBtObj.click(function(){
         if($idObj.val().trim() == ''){
@@ -23,6 +24,8 @@ function idDupChk($idObj, $iddupchkBtObj){
         });
     });
 }
+
+//핸드폰번호 중복확인 클릭
 function phoneNoDupChk($phonenoObj, $phonenodupchkBtObj){
     $phonenodupchkBtObj.click(function(){
         if($phonenoObj.val().trim() == ''){
@@ -53,7 +56,7 @@ function phoneNoDupChk($phonenoObj, $phonenodupchkBtObj){
     
 // }
 
-
+//폼전송
 function userSignupClick($userSignupFormObj){
     $userSignupFormObj.submit(function(){
         //비밀번호값 유효성검사
@@ -81,7 +84,7 @@ function userSignupClick($userSignupFormObj){
             success: function(responseObj){
                 alert(responseObj.msg);
                 if(responseObj.status == 1){
-                    location.href='./';
+                    location.href='./login.jsp';
                 }
             }, error: function(xhr){
                 alert("응답실패:" + xhr.status);

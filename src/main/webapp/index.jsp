@@ -31,17 +31,6 @@
 					}
 				});
 				return false;
-		
-			/* case "usersingup.jsp":
-				ajaxUrl = menuHref;
-				ajaxMethod = "get";
-				$("section").empty();
-				$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
-					if(jqXHR.status != 200){
-						alert('응답실패:' + jqXHR.status);
-					}
-				});
-				return false; */
 
 			case "mypage":
 				//AJAX요청, 응답
@@ -62,6 +51,19 @@
 					error : function(xhr) {
 						alert("응답실패 status : " + xhr.status);
 					},
+				});
+				return false;
+				
+			case "logout":
+				ajaxUrl = menuHref;
+				$.ajax({
+					url: ajaxUrl,
+					success: function(){
+						location.href="./index.jsp";
+					},
+					error: function(xhr){
+						alert('응답실패: ' + xhr.status);
+					}
 				});
 				return false;
 			}

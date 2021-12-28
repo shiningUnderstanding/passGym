@@ -5,25 +5,12 @@
         <title>passGym : 로그인</title>
         <meta charset="UTF-8">
         <style>
-            *{
-                box-sizing: border-box;
-                margin: 0 auto;
+          
+            .login{
+            	width:100%;
+            	heigt: 100vh;
             }
-            body{
-                margin: auto;
-                width: 100%;
-                padding: 10px;
-                display: flex;
-                flex-direction: column;
-            }
-            header {
-                width: 100%;                
-            }
-            /* header>h1 {
-                width: 100%;
-                height: 100%;
-                border: gainsboro 1px solid;
-            } */
+            
             .login__header{
                 width: 100px;
                 text-align: center;
@@ -52,8 +39,8 @@
             }
             .login__sns{
                 width: 50px;
-                display: flex;
-                justify-content: center;
+                /* display: flex;
+                justify-content: space-around; */
                 margin: 10px;
                 border-radius: 50%;
             }
@@ -88,12 +75,22 @@
         <script>
             $(function(){
             	loginClick();
+            	//body > section > div > div > div > div.signin > button.user
+            	$('div.login__body div.signin>button.user').click(function(){
+            		let ajaxUrl = './usersignup.jsp';
+            		$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
+    					if(jqXHR.status != 200){
+    						alert('응답실패:' + jqXHR.status);
+    					}
+    				});
+    				return false;
+            	});
             });
         </script>
     </head>
 
     <body>
-        <div class="login__container modal__background">
+        <div class="login modal__background">
             <div class="modal__box">
                 <!-- <div class="login__header">
                     <header>
@@ -134,7 +131,8 @@
                         </div>
                     <div class="login__hr">회원가입</div>
                         <div class="signin">
-                            <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button>
+                           <!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
+                            <button type="button" value="사용자용" class="user">사용자 회원가입</button>
                             <button type="button" onClick="location.href='./ownersignup.html'">법인 회원가입</button>
                         </div>
 
