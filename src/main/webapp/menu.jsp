@@ -7,6 +7,7 @@
 	<%
 	User u = (User)session.getAttribute("userLoginInfo");//사용자로구인 된 경우
 	Owner o = (Owner)session.getAttribute("ownerLoginInfo");//헬스장로그인된 경우 
+
 	if(u == null && o == null) {
 	%>
 		<a class="loginBtn link" href="login.jsp">로그인</a>
