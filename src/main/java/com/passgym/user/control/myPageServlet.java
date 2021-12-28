@@ -24,7 +24,7 @@ public class myPageServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션의 유저정보 받아오기
 		HttpSession session = request.getSession();
 		//User sessionUser = (User)session.getAttribute("userLoginInfo");
