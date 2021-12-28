@@ -410,17 +410,17 @@ public class UserDAOOracle implements UserDAOInterface {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {//아이디는 단일값이니 while이 아닌 if문
 				int userNo = rs.getInt("user_no");
-				phoneNo = rs.getString("phoneNo");
+				phoneNo = rs.getString("phone_no");
 				String id = rs.getString("id");
 				String name = rs.getString("name");				
 				String pwd = rs.getString("pwd");
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
-				String sns = "";
+				String sns = null;
 				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
 			}else {
-				throw new FindException("아이디에 해당하는 사용자가 없습니다");
+				throw new FindException("휴대폰번호에 해당하는 사용자가 없습니다");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
