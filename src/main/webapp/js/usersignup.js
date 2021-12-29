@@ -37,7 +37,9 @@ function phoneNoDupChk($phonenoObj, $phonenodupchkBtObj){
         let ajaxUrl = "./phonenumdupchk";
         let ajaxMethod = 'post';
         let phonenoValue = $phonenoObj.val().trim();
-        alert("전달된 전화번호: "+phonenoValue);
+
+        /*alert("전달된 전화번호: "+phonenoValue);*/
+
         $.ajax({
             url: ajaxUrl,
             method: ajaxMethod,
@@ -76,18 +78,23 @@ function userSignupClick($userSignupFormObj){
         let ajaxUrl = $(this).attr("action");
         let ajaxMethod = $(this).attr("method");
         let sendData = $(this).serialize();
-        alert("url:" + ajaxUrl);
+
+        /*alert("url:" + ajaxUrl);*/
+
 
         $.ajax({
             url: ajaxUrl,
             method: ajaxMethod,
             data: sendData,
             success: function(responseObj){
-                console.log(responseObj);
-                alert(responseObj.msg);
+                /*console.log(responseObj);
+                alert(responseObj.msg);*/
                 if(responseObj.status == 1){
 					alert("회원가입이 완료되었습니다.");
-                    location.href='./index.jsp';
+                    /*location.href='./index.jsp';*/
+					$('.loginBtn link').trigger('click');
+					
+
                 }
             }, error: function(xhr){
                 alert("응답실패:" + xhr.status);
