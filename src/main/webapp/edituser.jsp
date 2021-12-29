@@ -22,10 +22,63 @@ function setImageFromFile(input, expression) {
 
 //----------------수정-저장버튼 토글 시작-----------------
 $(".canEditBtn").click(function(){
-	
+	if ($(this).html() == "수정") {
+		$(this).html("저장");
+		$(this).siblings("input").removeAttr("readonly");
+		$(this).siblings("input").focus();
+	} else {
+		$(this).html("수정");
+		$(this).siblings("input").attr("readonly", true);
+	}
 	return false;
 });
 //----------------수정-저장버튼 토글  끝-----------------
+
+//----------------폼 전송(저장버튼 클릭 시작)--------------------
+$(".edituser__form").submit(function(){
+	let ajaxUrl = $(this).attr("action");
+	let ajaxMethod = $(this).attr("method");
+	let sendData = $(this).serialize();
+	
+	$.ajax({
+		url: ajaxUrl,
+		method: ajaxMethod,
+		data: sendData,
+		success: function(responseObj){
+			if(responseObj.status == 0){
+				//수정실패
+				alert("수정 실패")
+			}else{
+				location.href = "./mypage";
+			}
+		},
+		error: function(xhr){
+			alert("응답실패 status : " + xhr.status);
+		}
+	});
+	return false;
+});
+//----------------form전송(저장버튼) 클릭 끝--------------------
+//----------------회원탈퇴 시작---------------------
+$(".withdrawalBtn").click(function(){
+	$.ajax({
+		url: "userwithdrawal",
+		method: "get",
+		success: function(responseObj){
+			if(responseObj.status == 0){
+				//탈퇴실패
+				alert("탈퇴 실패")
+			}else{
+				location.href = "./index.jsp";
+			}
+		},
+		error: function(xhr){
+			alert("응답실패 status : " + xhr.status);
+		}
+	});
+	return false;
+});
+//----------------회원탈퇴  끝---------------------
 </script>
 <!-- 카카오 우편번호 검색 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -53,7 +106,7 @@ $(".canEditBtn").click(function(){
         </script>
 <div class="edituser">
 	<div class="edituser__title">사용자정보 수정</div>
-	<form class="edituser__form" action="edit" method="post">
+	<form class="edituser__form" action="./editusersave" method="post">
 		<div class="edituser__img">
 			<div class="editprofile__img">
 				<img id="profileImg" src="./images/user/<%=user.getUserNo() %>.jpg" />
@@ -93,7 +146,7 @@ $(".canEditBtn").click(function(){
 				</div>
 				<div class="edituser__addrDetail edituser__infoline">
 					<span>상세주소 :</span> <input id="addrDetail" type="text" name="addrDetail"
-						placeholder="상세주소" value="<%=user.getAddrDetail() %>" required
+						placeholder="상세주소" value="<%=user.getAddrDetail() %>" 
 						readonly />
 					<button class="canEditBtn">수정</button>
 				</div>
