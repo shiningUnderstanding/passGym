@@ -2,6 +2,8 @@ package com.passgym.user.service;
 
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
+import com.passgym.exception.ModifyException;
+import com.passgym.exception.RemoveException;
 import com.passgym.user.dao.UserDAOOracle;
 import com.passgym.user.vo.User;
 
@@ -46,5 +48,13 @@ public class UserService {
 	
 	public User findUserByNo(int userNo) throws FindException{
 		return dao.findByUserNo(userNo);
+	}
+	
+	public void editUser(User user) throws ModifyException{
+		dao.modifyUser(user);
+	}
+	
+	public void withdrawal(User user) throws RemoveException{
+		dao.removeUser(user);
 	}
 }

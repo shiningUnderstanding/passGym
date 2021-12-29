@@ -11,6 +11,7 @@ import java.util.List;
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.exception.ModifyException;
+import com.passgym.exception.RemoveException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
@@ -118,7 +119,10 @@ public class UserDAOOracle implements UserDAOInterface {
 				String phoneNo = rs.getString("phone_no");
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
-				String addrDetail = rs.getString("addr_detail");
+				String addrDetail = "";
+				if(rs.getString("addr_detail") != null) {
+					addrDetail = rs.getString("addr_detail");
+				}
 				String sns = rs.getString("sns");
 				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
 			}else {
@@ -197,7 +201,13 @@ public class UserDAOOracle implements UserDAOInterface {
 					user.setName(rs.getString("u_name"));
 					user.setZipcode(rs.getString("u_zipcode"));
 					user.setAddr(rs.getString("u_addr"));
-					user.setAddrDetail(rs.getString("u_addr_detail"));
+					//상세주소가 빈값일 경우 처리
+					String addrDetail = "";
+					if(rs.getString("u_addr_detail") == null) {
+						user.setAddrDetail(addrDetail);
+					}else {
+						user.setAddrDetail(rs.getString("u_addr_detail"));
+					}
 					gympassList = new ArrayList<>();
 					count++;
 				}
@@ -372,6 +382,39 @@ public class UserDAOOracle implements UserDAOInterface {
 	}
 
 	@Override
+	public void modifyUser(User user) throws ModifyException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String updateSQL = "UPDATE user_info\r\n"
+				+ "SET \r\n"
+				+ "name = ?,\r\n"
+				+ "pwd = ?,\r\n"
+				+ "phone_no = ?,\r\n"
+				+ "zipcode = ?,\r\n"
+				+ "addr = ?,\r\n"
+				+ "addr_detail = ?\r\n"
+				+ "WHERE user_no = ? AND id = ?";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(updateSQL);
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getPwd());
+			pstmt.setString(3, user.getPhoneNo());
+			pstmt.setString(4, user.getZipcode());
+			pstmt.setString(5, user.getAddr());
+			pstmt.setString(6, user.getAddrDetail());
+			pstmt.setInt(7, user.getUserNo());
+			pstmt.setString(8, user.getId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ModifyException("고객정보 수정에 실패하였습니다.");
+		} finally {
+			PassGymConnection.close(pstmt, con);
+		}
+	}
+	
+	@Override
 	public void modifyUserPwd(String pwd) throws ModifyException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -429,6 +472,21 @@ public class UserDAOOracle implements UserDAOInterface {
 		}
 		return u;//사용자 아이디에 해당하는 사용자객체 반환
 	}
+	
+	@Override
+	public void removeUser(User user) throws RemoveException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String deleteSQL ="";
+		
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(deleteSQL);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public static void main(String[] args) {
 
