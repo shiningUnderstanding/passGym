@@ -2,19 +2,21 @@
 <%@page import="com.passgym.owner.vo.Owner" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="login">
+<div class="login_menu">
 	<div class="login__container">
 	<%
-	User u = (User)session.getAttribute("userLoginInfo");
-	Owner o = (Owner)session.getAttribute("ownerLoginInfo");
-	if(u == null || o == null) {
+	User u = (User)session.getAttribute("userLoginInfo");//사용자로구인 된 경우
+	Owner o = (Owner)session.getAttribute("ownerLoginInfo");//헬스장로그인된 경우 
+
+	if(u == null && o == null) {
 	%>
-		<a class="loginBtn link" href="">로그인</button>
+		<a class="loginBtn link" href="login.jsp">로그인</a>
 	<%
-	} else {
+	}else if(u == null){ //헬스장로그인된 경우 
+	} else { //사용자 로그인 된 경우
 	%> 
-		<%=u.getName() %>님 반갑습니다. <a class="loginBtn link" href="logout">로그아웃</button>
-		<a class="mypageBtn link" href="mypage">마이페이지</a> 
+		<%=u.getName() %>님 반갑습니다. <a class="loginBtn link" href="logout">로그아웃</a>
+		<a class="mypageBtn" href="mypage">마이페이지</a> 
 		<%} %>
 
 	</div>

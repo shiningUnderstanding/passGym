@@ -87,16 +87,29 @@ footer {
 
 .gympass__detail {
   width: 100%;
-  padding: 0 15px;
+  height: 160px;
   margin-bottom: 30px;
   border: 1px solid;
   display: flex;
   justify-content: space-between;
 }
 
-.gympass__infos {
+.gympass__gymImg{
+  width: 230px;
+  max-width: 40%;
+  height: 100%;
+}
+
+.gympass__gymImg img{
   width: 100%;
-  max-width: 80%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.gympass__infos {
+  width: 50%;
+  max-width: 50%;
 }
 
 .gympass__info-top {
@@ -129,9 +142,8 @@ footer {
   padding-left: 10px;
 }
 
-.star a{
-	text-decoration: none;
-	color: black;
+.star span{
+	cursor: pointer;
 }
 
 .gympass__info-bot {
@@ -146,6 +158,7 @@ footer {
 .gympass__btns {
   width: 100px;
   max-width: 20%;
+  padding-right:15px;
   display: flex;
   flex-direction: column;
   justify-content: center;

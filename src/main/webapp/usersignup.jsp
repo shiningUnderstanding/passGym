@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,6 +35,9 @@
                 display: flex;
                 justify-content: space-between;
                 margin: 10px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,9 +73,9 @@
                         if(data.userSelectedType == 'R'){ //사용자가 도로명 주소를 선택했을 경우
                             addr = data.roadAddress;
                         } 
-                        // else { //사용자가 지번 주소를 선택했을 경우
-                        //     addr = data.jibunAddress;
-                        // }
+                        else { //사용자가 지번 주소를 선택했을 경우
+                            addr = data.jibunAddress;
+                        }
 
                         // 우편번호와 주소 정보를 해당 필드에 넣는다.
                         document.getElementById('zipcode').value = data.zonecode;
@@ -86,17 +90,17 @@
 
     <body>
         <div class="usersignup">
-            <div class="usersignup__header">
+            <!-- <div class="usersignup__header">
                 <header>
                     <h1 class="usersignup__main">
-                        <!--로고이미지-->
+                        로고이미지
                         <a href="index.html">
                         <span>패스짐</span>
                         <img class="usersignup__mainLogo" src="./images/logo.png"/>
                         </a>
                     </h1>
                 </header>
-            </div>
+            </div> -->
             <div class="usersignup__container">
                 <form class="usersignup__form" id="usersignupform" method="post" action="./usersignup">
                     <div class="usersignup__idpwd">
@@ -107,17 +111,17 @@
                         <input type="password" class="usersingup_pwd" name="pwd1" placeholder="비밀번호 확인">
                     </div>
                     <div class="usersignup__namemobile">
-                        <input type="text" id="name" placeholder="이름"><br>
-                        <input type="text" class="usersignup__phoneno" id="phone_no" placeholder="핸드폰번호">
+                        <input type="text" id="name" name="name" placeholder="이름"><br>
+                        <input type="text" class="usersignup__phoneno" id="phone_no" name="phone_no" placeholder="핸드폰번호">
                         <button type="button" class="usersignup__phonenochk">핸드폰번호 중복확인</button><br>
                         <!-- <input type="text" placeholder="인증번호 입력"> -->
                     </div>
                     <div class="usersignup__addr">
                         <!-- <label for="zipcode"> </label> -->
-                        <input type="text" class="usersignup__zipcode" id="zipcode" readonly size="5" placeholder="우편번호">
+                        <input type="text" class="usersignup__zipcode" name="zipcode" id="zipcode" readonly size="5" placeholder="우편번호">
                         <input type="button" class="usersignup__searchzip" onclick="searchZip()" id="searchzip" value="우편번호 찾기"></button><br>
-                        <input type="text" class="usersignup__addr1" id="addr1" readonly size="50" placeholder="주소"><br>
-                        <input type="text" class="usersignup__addr2" id="addr2" placeholder="상세주소 입력">
+                        <input type="text" class="usersignup__addr1" name="addr1" id="addr1" readonly size="50" placeholder="주소"><br>
+                        <input type="text" class="usersignup__addr2" name="addr2" id="addr2" placeholder="상세주소 입력">
                         <br>
                     </div>
                     <button type="submit" class="usersignup__submit">회원가입</button>

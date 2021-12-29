@@ -34,20 +34,20 @@ public class UserDAOOracle implements UserDAOInterface {
 		PreparedStatement pstmt = null;
 		String insertSQL = 
 				"INSERT INTO user_info\r\n"
-				+ "(user_no, id, name, pwd, phone_no, zipcode, addr, addr_detail, sns) \r\n"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "(user_no, id, name, pwd, phone_no, zipcode, addr, addr_detail) \r\n" //, sns) \r\n"
+				+ "VALUES (user_seq.nextval, ?, ?, ?, ?, ?, ?, ?)"; //, ?)";
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(insertSQL);
-			pstmt.setInt(1, user.getUserNo());//user_no도 String으로 바꿀건지?
-			pstmt.setString(2, user.getId());
-			pstmt.setString(3, user.getName());
-			pstmt.setString(4, user.getPwd());
-			pstmt.setString(5, user.getPhoneNo());
-			pstmt.setString(6, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
-			pstmt.setString(7, user.getAddr());
-			pstmt.setString(8, user.getAddrDetail());
-			pstmt.setString(9, user.getSns());
+			//pstmt.setInt(1, user.getUserNo());//user_no도 String으로 바꿀건지?
+			pstmt.setString(1, user.getId());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getPwd());
+			pstmt.setString(4, user.getPhoneNo());
+			pstmt.setString(5, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+			pstmt.setString(6, user.getAddr());
+			pstmt.setString(7, user.getAddrDetail());
+			//pstmt.setString(8, user.getSns());
 			pstmt.executeUpdate();//바인드 변수들 setting 후 DB로 송신
 			System.out.println("ID 추가 성공");//console test용
 		} catch (SQLException e) {
@@ -112,7 +112,6 @@ public class UserDAOOracle implements UserDAOInterface {
 			pstmt.setInt(1, userNo);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {//사용자번호는 단일값이니 while이 아닌 if문
-				userNo = rs.getInt("user_no");
 				String id = rs.getString("id");
 				String name = rs.getString("name");
 				String pwd = rs.getString("pwd");
@@ -432,6 +431,23 @@ public class UserDAOOracle implements UserDAOInterface {
 	}
 	
 	public static void main(String[] args) {
+
+
+		UserDAOOracle dao = UserDAOOracle.getInstance();
+		User u = new User();
+//		u.setId("tid");
+//		u.setPwd("tpwd");
+//		u.setName("tname");
+//		u.setPhoneNo("tphone_no");
+//		u.setZipcode("tzipc");
+//		u.setAddr("taddr1");
+//		u.setAddrDetail("taddr2"); 	
+//		try {
+//			dao.addUser(u);
+//		} catch (AddException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		User u = new User(7, "id7", "name7", "pwd7", "01077777777", 17787, "서울특별시 관악구 남부순환로 218길", "777호", "");
 //		try {//사용자 추가하기
 //			dao.addUser(u);
@@ -443,8 +459,8 @@ public class UserDAOOracle implements UserDAOInterface {
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
-//		try {사용자 번호로 사용자 찾기
-//			System.out.println(dao.findByUserNo(2));
+//		try {//사용자 번호로 사용자 찾기
+//			System.out.println(dao.findByUserNo(5));
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
@@ -464,25 +480,25 @@ public class UserDAOOracle implements UserDAOInterface {
 //			e.printStackTrace();
 //		}
 
-		UserDAOOracle dao = UserDAOOracle.getInstance();
-		try {
-			User user = dao.mypageFindByNo(2);
-			System.out.println(user);
-			for(GymPass gp: user.getGymPasses()) {
-				System.out.println(gp);
-				System.out.println(gp.getPass());
-				System.out.println(gp.getPass().getGym());
-				System.out.println(gp.getStar());
-			}
-			for(Zzim z : user.getZzims()) {
-				System.out.println(z);
-				System.out.println(z.getGym());
-			}
-			for(UserQna uq : user.getUserQnas()) {
-				System.out.println(uq);
-			}
-		} catch (FindException e) {
-			e.printStackTrace();
-		}
+//		UserDAOOracle dao = UserDAOOracle.getInstance();
+//		try {
+//			User user = dao.mypageFindByNo(2);
+//			System.out.println(user);
+//			for(GymPass gp: user.getGymPasses()) {
+//				System.out.println(gp);
+//				System.out.println(gp.getPass());
+//				System.out.println(gp.getPass().getGym());
+//				System.out.println(gp.getStar());
+//			}
+//			for(Zzim z : user.getZzims()) {
+//				System.out.println(z);
+//				System.out.println(z.getGym());
+//			}
+//			for(UserQna uq : user.getUserQnas()) {
+//				System.out.println(uq);
+//			}
+//		} catch (FindException e) {
+//			e.printStackTrace();
+//		}
 	}
 }

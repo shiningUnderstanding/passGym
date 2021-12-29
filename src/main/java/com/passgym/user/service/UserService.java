@@ -1,5 +1,6 @@
 package com.passgym.user.service;
 
+import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.user.dao.UserDAOOracle;
 import com.passgym.user.vo.User;
@@ -34,9 +35,16 @@ public class UserService {
 	public void phonenumdupchk(String phoneNo) throws FindException{
 		dao.findByPhoneNo(phoneNo);
 	}
-
+	
+	public void usersignup(User u) throws AddException{
+		dao.addUser(u);
+	}
+	
 	public User mypageFindByNo(int userNo) throws FindException{
 		return dao.mypageFindByNo(userNo);
-
+	}
+	
+	public User findUserByNo(int userNo) throws FindException{
+		return dao.findByUserNo(userNo);
 	}
 }

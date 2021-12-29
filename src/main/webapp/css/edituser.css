@@ -1,0 +1,109 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+@import "reset.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans kr", sans-serif;
+}
+
+header,
+section,
+footer {
+  width: 100%;
+}
+
+.edituser {
+  width: 700px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  border-radius: 15px;
+}
+
+.edituser__title {
+  margin: 20px 0;
+}
+
+.edituser__form {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edituser__img {
+  width: 150px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile__img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 10px;
+}
+
+.profile__img img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.edituser__img input {
+  margin-left: 50px;
+}
+
+.edituser__info {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.edituser__infoContainer {
+  width: 80%;
+}
+
+.edituser__infoline {
+  width: 100%;
+  height: 30px;
+  margin: 5px 0;
+}
+
+.edituser__infoline span {
+  display: inline-block;
+  width: 15%;
+}
+
+.edituser__infoline input {
+  height: 30px;
+  margin-right: 5px;
+}
+
+.edituser__saveBtn {
+  width: 100px;
+  margin-bottom: 100px;
+}
+
+.saveBtn {
+  width: 100%;
+  padding: 5px;
+}
+
+.withdrawalBtn {
+  padding: 5px;
+}

@@ -21,29 +21,27 @@
 			let ajaxUrl = "";
 			let ajaxMethod = "";
 			switch (menuHref) {
-			case "login":
+			case "login.jsp":
 				ajaxUrl = menuHref;
 				ajaxMethod = "get";
-				
-			case "mypage":
-				//AJAX요청, 응답
-				ajaxUrl = menuHref;
-				ajaxMethod = "post";
-				let userNo = 2;
 				$("section").empty();
-				//( String responseText, String textStatus, jqXHR jqXHR)
+				$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
+					if(jqXHR.status != 200){
+						alert('응답실패:' + jqXHR.status);
+					}
+				});
+				return false;
+				
+			case "logout":
+				ajaxUrl = menuHref;
 				$.ajax({
-					url : ajaxUrl,
-					method : ajaxMethod,
-					data : {
-						userNo : userNo
-					}, 
-					success : function(responseData) {
-						$("section").html(responseData);
+					url: ajaxUrl,
+					success: function(){
+						location.href="./index.jsp";
 					},
-					error : function(xhr) {
-						alert("응답실패 status : " + xhr.status);
-					},
+					error: function(xhr){
+						alert('응답실패: ' + xhr.status);
+					}
 				});
 				return false;
 			}
