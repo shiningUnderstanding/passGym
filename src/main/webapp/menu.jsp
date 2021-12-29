@@ -16,7 +16,7 @@
 	} else { //사용자 로그인 된 경우
 	%> 
 		<%=u.getName() %>님 반갑습니다. <a class="loginBtn link" href="logout">로그아웃</a>
-		<a class="mypageBtn" href="mypage">마이페이지</a> 
+		<a class="mypageBtn" href="mypage">마이페이지</a>
 		<%} %>
 
 	</div>
@@ -26,7 +26,7 @@
 		<!--머리말-->
 		<h1 class="nav__main">
 			<!--로고이미지-->
-			<a href="index.jsp"><span>패스짐</span><img class="nav-bar__logo link"
+			<a href="./"><span>패스짐</span><img class="nav-bar__logo link"
 				src="./images/logo.png" /></a>
 		</h1>
 		<div class="nav-bar__links">

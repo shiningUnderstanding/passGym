@@ -4,22 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.List;
 
 import com.passgym.exception.AddException;
-import com.passgym.sql.PassGymConnection;
 import com.passgym.exception.FindException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.payment.vo.Payment;
- 
+import com.passgym.sql.PassGymConnection;
 import com.passgym.user.vo.User;
+import com.passgym.zzim.vo.Zzim;
 
 public class GymDAOOracle implements GymDAOInterface {
+	private static GymDAOOracle dao = new GymDAOOracle();
+	public GymDAOOracle() {}
+	public static GymDAOOracle getInstance() {
+		return dao;
+	}
 
 	@Override
 	public List<Pass> findByOwnerNo(int ownerNo) throws FindException {
@@ -131,14 +136,18 @@ public class GymDAOOracle implements GymDAOInterface {
 	
 	@Override
 	public List<Gym> findByDistance(double latitude, double longitude) throws FindException {
-		List<Gym> gyms = new ArrayList<>();
+		List<Gym> gymList = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String selectSQL = "SELECT g.owner_no, g.name, g.addr, ROUND((g.total_star / g.total_member), 2) AS avg_star,\r\n"
-				+ "NVL((POWER(g.total_star, 7) / POWER(g.total_member, 6)), 0) AS best, DISTANCE_WGS84(?, ?, g.lat, g.lon) AS distance\r\n"
-				+ "FROM gym g\r\n"
+		String selectSQL = "SELECT owner_no, name, addr, ROUND((total_star / total_member), 2) AS avg_star,\r\n"
+				+ "NVL((POWER(total_star, 7) / POWER(total_member, 6)), 0) AS best, DISTANCE_WGS84(?, ?, lat, lon) AS distance\r\n"
+				+ "FROM gym\r\n"
 				+ "ORDER BY distance, best DESC";
+		if(latitude == 0.0 && longitude == 0.0) {
+			latitude = 37.554837;
+			longitude = 126.971732;
+		}
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(selectSQL);
@@ -151,39 +160,59 @@ public class GymDAOOracle implements GymDAOInterface {
 				String gymAddr = rs.getString("addr");
 				double distance = rs.getDouble("distance");
 				double avgStar = rs.getDouble("avg_star");
-				Gym g = new Gym(ownerNo, gymName, gymAddr, distance, avgStar);
-				gyms.add(g);
+				Gym g = new Gym(ownerNo, gymName, null, null, gymAddr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
+				
+				gymList.add(g);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 		
-		return gyms;
+		return gymList;
 	}
+	
 	
 	public static void main(String[] args) {
 		
-		GymDAOOracle dao = new GymDAOOracle();
-//		Pass pass  = new Pass();
+//		GymDAOOracle dao = new GymDAOOracle();
+////		Pass pass  = new Pass();
+//		try {
+//			int ownerNo = 1;
+//			List<Pass> passes = dao.findByOwnerNo(ownerNo);
+//			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
+//			for(Pass p: passes) {
+//				System.out.println("<이용권 정보>");
+//				System.out.println(p);
+//				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
+//				System.out.println("id : name : paymentNo :paymentPrice");
+//				for(GymPass gp: p.getGympasses()) {
+//					User u = gp.getUser();
+//					Payment pay = gp.getPayment();
+//					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
+//				}
+//				System.out.println("-----------------------");
+//				
+//				
+//			}
+//		} catch (FindException e) {
+//			e.printStackTrace();
+//		}
 		try {
-			int ownerNo = 1;
-			List<Pass> passes = dao.findByOwnerNo(ownerNo);
-			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
-			for(Pass p: passes) {
-				System.out.println("<이용권 정보>");
-				System.out.println(p);
-				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
-				System.out.println("id : name : paymentNo :paymentPrice");
-				for(GymPass gp: p.getGympasses()) {
-					User u = gp.getUser();
-					Payment pay = gp.getPayment();
-					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
-				}
-				System.out.println("-----------------------");
+			Zzim zzim = new Zzim();
+			List<Gym> gymList = dao.findZzim(3, 0, 0);
+			for(Gym g : gymList){
+				int ownerNo = g.getOwnerNo();
+				String gymName = g.getName();
+				String gymAddr = g.getAddr();
+				double distance = g.getDistance();
+				double avgStar = g.getAvgStar();
 				
-				
+				System.out.println(g);
 			}
+			
 		} catch (FindException e) {
 			e.printStackTrace();
 		}
@@ -282,7 +311,7 @@ public class GymDAOOracle implements GymDAOInterface {
 				double lat = rs.getDouble("lat");
 				double lon = rs.getDouble("lon");
 				gym = new Gym(ownerNo, name, phoneNo, zipCode, 
-						addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon);
+						addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon, 0);
 			}
 
 			return gym;
@@ -295,5 +324,53 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 		
 		
+	}
+
+	@Override
+	public List<Gym> findZzim(int userNo, double latitude, double longitude) throws FindException {
+		//ZzimDAOOracle dao = new ZzimDAOOracle();
+		List<Gym> gymList = new ArrayList<>();
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		if(latitude == 0.0 && longitude == 0.0) {
+			latitude = 37.554837;
+			longitude = 126.971732;
+		}
+		try {
+			con = PassGymConnection.getConnection();
+			String selectSQL = "SELECT g.owner_no, name, g.addr, ROUND((g.total_star / g.total_member), 2) AS avg_star,\r\n"
+					+ "NVL((POWER(g.total_star, 7) / POWER(g.total_member, 6)), 0) AS best, DISTANCE_WGS84(" + latitude + ", "+ longitude + ", lat, lon) AS distance\r\n"
+					+ "FROM gym g JOIN zzim z ON g.owner_no = z.owner_no\r\n"
+					+ "WHERE z.user_no = " + userNo + "\r\n"
+					+ "ORDER BY distance, best DESC";
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(selectSQL);
+			if(rs.next()) {
+				while(rs.next()) {
+					int ownerNo = rs.getInt("owner_no");
+					String gymName = rs.getString("name");
+					String gymAddr = rs.getString("addr");
+					double distance = rs.getDouble("distance");
+					double avgStar = rs.getDouble("avg_star");
+					Gym g = new Gym(ownerNo, gymName, null, null, gymAddr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
+					
+					gymList.add(g);
+				}
+			}else {
+				throw new FindException("찜한 헬스장이 없습니다");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, stmt, con);
+		}
+		return gymList;
+	}
+	@Override
+	public Gym gymDetail(int ownerNo) throws FindException {
+		
+		return null;
 	}
 }
