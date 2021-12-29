@@ -34,7 +34,7 @@ public class PhoneNumDupChkServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1. 요청전달데이터 얻기
 				String phoneNumValue = request.getParameter("phone_no");
-				
+				System.out.println(phoneNumValue);
 				//2. 비지니스로직 호출
 				String path = "jsonresult.jsp";
 				String resultMsg = "";

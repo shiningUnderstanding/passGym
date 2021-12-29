@@ -119,7 +119,7 @@
                     <div class="usersignup__addr">
                         <!-- <label for="zipcode"> </label> -->
                         <input type="text" class="usersignup__zipcode" name="zipcode" id="zipcode" readonly size="5" placeholder="우편번호">
-                        <input type="button" class="usersignup__searchzip" onclick="searchZip()" id="searchzip" value="우편번호 찾기"></button><br>
+                        <input type="button" class="usersignup__searchzip" onclick="searchZip()" id="searchzip" value="우편번호 찾기"><br>
                         <input type="text" class="usersignup__addr1" name="addr1" id="addr1" readonly size="50" placeholder="주소"><br>
                         <input type="text" class="usersignup__addr2" name="addr2" id="addr2" placeholder="상세주소 입력">
                         <br>
