@@ -16,7 +16,7 @@
 	} else { //사용자 로그인 된 경우
 	%> 
 		<%=u.getName() %>님 반갑습니다. <a class="loginBtn link" href="logout">로그아웃</a>
-		<a class="mypageBtn link" href="mypage">마이페이지</a> 
+		<a class="mypageBtn" href="mypage">마이페이지</a> 
 		<%} %>
 
 	</div>
