@@ -32,13 +32,13 @@ public Gym findGym(int ownerNo) throws FindException{
 	}
 	
 	public List<Gym> findByDistance(double latitude, double longitude) throws FindException{
-		List<Gym> gymList = dao.findByDistance(latitude, longitude);
+		List<Gym> gymList = gymDAO.findByDistance(latitude, longitude);
 		
 		return gymList;
 	}
 	
 	public List<Gym> findZzim(int userNo, double latitude, double longitude) throws FindException{
-		List<Gym> zzimList = dao.findZzim(userNo, latitude, longitude);
+		List<Gym> zzimList = gymDAO.findZzim(userNo, latitude, longitude);
 		
 		return zzimList;
 	}
