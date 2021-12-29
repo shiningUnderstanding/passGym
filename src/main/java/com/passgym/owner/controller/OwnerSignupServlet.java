@@ -54,10 +54,12 @@ public class OwnerSignupServlet extends HttpServlet {
 			Owner ownerSession = (Owner)session.getAttribute("signupInfo");
 			System.out.println("세션저장객체 : " + ownerSession.toString());
 			
-			request.setAttribute("status", 1);
+			request.setAttribute("ownerStatus", 1);
+			request.setAttribute("status", 2);
 			resultMsg = "가입성공";
 		} catch (AddException e) {
-			request.setAttribute("status", 0);
+			request.setAttribute("ownerStatus", 0);
+			request.setAttribute("status", 2);
 			resultMsg = "가입실패";
 			e.printStackTrace();
 		}

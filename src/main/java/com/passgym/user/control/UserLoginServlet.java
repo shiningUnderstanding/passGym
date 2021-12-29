@@ -50,11 +50,13 @@ public class UserLoginServlet extends HttpServlet {
 			//3. 응답결과만들기
 			resultMsg = "로그인 성공";
 			request.setAttribute("status", 1);
+			request.setAttribute("ownerStatus", 2);
 		} catch (FindException e) {
 			System.out.println(e.getMessage());
 			//3. 응답결과만들기
 			resultMsg = "로그인 실패";
 			request.setAttribute("status", 0);
+			request.setAttribute("ownerStatus", 2);
 		}
 		
 		//4. 응답결과를 요청속성으로 설정하기

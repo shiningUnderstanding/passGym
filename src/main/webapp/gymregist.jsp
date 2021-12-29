@@ -8,17 +8,19 @@
 <html>
 <head>
 <title>gymregist.jsp</title>
+<style>
+.regist__equiplist{
+    padding-left: 0px;
+    list-style-type: none;
+}
+.regist__equipcount1{
+     display:none;
+ }  
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/gymregist.js"></script>
-<%
-Owner o = new Owner();
-o.setOwnerNo(1); 
- session.setAttribute("signupInfo",o );
- Gym g = new Gym();
- g.setName("테스트짐");
- session.setAttribute("gymInfo", g);
- %>
 <script>
+
     function getEquip(){
         //장비목록요청
         //$('regist__gymequip').load('./equiplist');
@@ -33,53 +35,34 @@ o.setOwnerNo(1);
                     let eNo =  element.equipNo;
                     let eName = element.equipName;
                     let k = 0;
-                    list += '<input type="checkbox" class="regist__equipcheck" name="equip'+k+' value='+eName+'">' + eName + '<br>';
+                    list += '<li><input type="checkbox" class="regist__equipcheck"><span>' + eName 
+                        + '</span><input type="number" class="regist__equipcount1" name="equip_no_' + eNo
+                        +'" value="0"></li>';
+                            // name="equipNo" value='+eNo+'"
                     k++;
                 });
                 console.log(list);
-                $(".regist__equiplist0").html(list);
+                $(".regist__equiplist").html(list);
+            }
+        });
+
+        $('.regist__equiplist').on('click','li>.regist__equipcheck', function(){           
+            let $countObj = $(this).siblings('.regist__equipcount1');
+            console.log($countObj);
+            if($(this).prop('checked')){
+                $countObj.val(1);
+                $countObj.show();
+            }else{
+                $countObj.val(0);
+                $countObj.hide();
             }
         });
     }
 
-    // function equipToggle(){       
-    //     $('.regist__selectequip').click(function(){
-    //         $(this).siblings('.regist__equiplist').slideToggle();
-    //         $('.regist__equiplist').slideToggle();
-    //     })
-    // }
 
-    function equipChecked(){
-        let chkBox = $('')
-        if($(".regist__gymequip").prop("checked")){
-            $('.')
-        }
-    }
-
-    let j = 0;
-
-    function equipAddBtClick(){
-        let $equipAddBt = $(".regist__equipaddbt");
-        $equipAddBt.click(function(){
-
-            j++;
-            let equipList = $(".regist__equiplist0").html();
-            console.log(equipList);
-
-            $('<div class="regist__gymequip'+j+'" style="border: 1px solid #ccc">'
-            +  '<input class="regist__selectequip'+j+'" value="기구를 선택하세요" name="equip'+j+'">'
-            +  '<ul class="regist__equiplist'+j+'">'
-            +  equipList
-            +  '</ul>'   
-            +  '</div>')
-            .appendTo('.regist__gymequipselect');
-        });
-    }
 
     $(function(){
         getEquip();
-        equipAddBtClick();
-        // equipToggle();
         formSubmitted();
         passAddBtClick();
         passRemoveBtClick();
@@ -141,16 +124,16 @@ Gym sessionGym = (Gym)session.getAttribute("gymInfo");
                 <input class="regist__gymoperatingprogram" type="text" name="operatingprogram"><br>
                 보유장비<br>
                 <div class="regist__gymequipselect">
-                    <div class="regist__gymequip0" style="border: 1px solid #ccc">
-                        <input class="regist__selectequip0" value="기구를 선택하세요" name="equip0">
-                        <ul class="regist__equiplist0">
+                    <div class="regist__gymequip" style="border: 1px solid #ccc">
+                          기구를 선택하세요
+                        <ul class="regist__equiplist">
                         </ul>  
                     </div>
                 </div>
-                <div class="regist__equipbt">
+                <!-- <div class="regist__equipbt">
                     <button class="regist__equipaddbt" type="button">+</button><br>
                     <button class="regist__equipremovebt" type="button">-</button><br>
-                </div>
+                </div> -->
                 추가서비스<br>
                 <input class="regist__gymextraservice" type="text" name="extraservice"><br>
                 기타<br>

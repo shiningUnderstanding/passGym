@@ -23,9 +23,9 @@ function formSubmitted(){
             method: ajaxMethod,
             data:sendData,
             success:function(responseObj){
-                if(responseObj.status == 0){
+                if(responseObj.ownerStatus == 0){
                     alert("가입실패")
-                } else if(responseObj.status == 1){
+                } else if(responseObj.ownerStatus == 1){
                     location.href = "./gymregist.jsp";
                 }
                 console.log(responseObj);
