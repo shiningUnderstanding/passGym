@@ -5,25 +5,74 @@
         <title>passGym : 로그인</title>
         <meta charset="UTF-8">
         <style>
-          
+        	body {
+  				font-family: "Noto Sans kr", sans-serif;
+			}
             .login{
             	width:100%;
-            	heigt: 100vh;
+            	height: 50vh;
             }
-            
-            .login__header{
+            /* .login__header{
                 width: 100px;
                 text-align: center;
             }
             .login__mainLogo{
                 width: 100%;
+            } */
+            .login__radioChk{
+            	display: flex;
+                justify-content:space-between;
+            	color: darkslategray;
             }
-            
+            .login__userChk,
+            .login__ownerChk{
+                margin: 10px;
+            }
+            .login__id,
+            .login__pwd{
+            	display: flex;
+                flex-direction: center;
+                width: 312px!important;
+                height: 48px;
+    			margin-top: 0!important;
+                border: 1px solid darkslategray;
+            }
+            .login__id:focus,
+            .login__pwd:focus{
+            	display: flex;
+                flex-direction: center;
+                width: 312px!important;
+                height: 48px;
+    			margin-top: 0!important;
+                border: 2px solid darkslategray;
+            }
+            .login__submit{
+            	/* margin: 12px 0!important; */
+    			width: 312px;
+			    height: 48px;
+			    background-color: #f6f5ef;
+                border: 1px solid #f6f5ef;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+			    cursor: pointer;
+            }
+            .login__submit:hover{
+            	/* margin: 12px 0!important; */
+    			width: 312px;
+			    height: 48px;
+			    background-color: #dad9d6;
+                border: 1px solid #dad9d6;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+			    cursor: pointer;
+            }
             .login__hr{
                 display: flex;
                 flex-basis: 100%;
                 align-content: center;
-                color: rgba(0, 0, 0, 0.35);
+                color: darkslategray;
                 font-size: 12px;
                 margin: 8px 0px;
             }
@@ -31,7 +80,7 @@
             .login__hr::after{
                 content: "";
                 flex-grow: 1;
-                background-color: rgba(0, 0, 0, 0.35);
+                background-color: darkslategray;
                 height: 1px;
                 font-size: 0px;
                 line-height: 0px;
@@ -39,14 +88,64 @@
             }
             .login__sns{
                 width: 50px;
-                /* display: flex;
-                justify-content: space-around; */
-                margin: 10px;
-                border-radius: 50%;
-            }
-            .signin{
                 display: flex;
                 justify-content: center;
+                border-radius: 50%;
+            }
+            .kakao,
+            .naver{
+                margin: 10px;
+            }
+            .signup{
+                display: flex;
+                justify-content: center;
+                color: darkslategray;
+            }
+            .login__find{
+                display: flex;
+                justify-content:center;
+            }
+            .login__searchid:link,
+            .login__searchpwd:link,
+            .login__searchid:visited,
+            .login__searchpwd:visited{
+            	background-color: white;
+            	border: none;
+            	cursor: pointer;
+            	width: 100px;
+                color: darkslategray;
+                text-decoration: none;
+                margin: 10px;
+            }
+            .login__searchid:hover,
+            .login__searchpwd:hover{
+            	background-color: white;
+            	border: none;
+            	cursor: pointer;
+            	width: 100px;
+                color: darkslategray;
+                text-decoration: underline;
+                margin: 10px;
+            }
+            .user,
+            .owner{
+                background-color: #f6f5ef;
+                border: 1px solid #f6f5ef;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+            	cursor: pointer;
+            	margin: 10px;
+            }
+            .user:hover,
+            .owner:hover{
+            	background-color: #dad9d6;
+                border: 1px solid #dad9d6;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+			    cursor: pointer;
+            }
             }
             /* .modal__background{
                 position: fixed;
@@ -76,7 +175,7 @@
             $(function(){
             	loginClick();
             	//body > section > div > div > div > div.signin > button.user
-            	$('div.login__body div.signin>button.user').click(function(){
+            	$('div.login__body div.signup>button.user').click(function(){
             		let ajaxUrl = './usersignup.jsp';
             		$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
     					if(jqXHR.status != 200){
@@ -118,22 +217,22 @@
 
                     <div class="login__find">
                         <!-- <button type="button" value="이메일/비밀번호 찾기">이메일/비밀번호 찾기</button> -->
-                        <a href="./findemail.html">이메일 찾기</a>
-                        <a href="./findpassword.html">비밀번호 찾기</a>
+                        <a href="./findemail.html" class="login__searchid">이메일 찾기</a>
+                        <a href="./findpassword.html"class="login__searchpwd">비밀번호 찾기</a>
                     </div>
                     
                     <div class="login__hr">간편로그인</div>
                         <div class="login__sns">
                             <a href="">
-                            <img src="./images/kakao.png" class="login__sns" alt="카카오톡으로 로그인"></a>
+                            <img src="./images/kakao.png" class="login__sns kakao" alt="카카오톡으로 로그인"></a>
                             <a href="">
-                            <img src="./images/naver.png" class="login__sns" alt="네이버로 로그인"></a>
+                            <img src="./images/naver.png" class="login__sns naver" alt="네이버로 로그인"></a>
                         </div>
                     <div class="login__hr">회원가입</div>
-                        <div class="signin">
+                        <div class="signup">
                            <!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
                             <button type="button" value="사용자용" class="user">사용자 회원가입</button>
-                            <button type="button" onClick="location.href='./ownersignup.html'">법인 회원가입</button>
+                            <button type="button" onClick="location.href='./ownersignup.html'" class="owner">사업자 회원가입</button>
                         </div>
 
                 </div>
