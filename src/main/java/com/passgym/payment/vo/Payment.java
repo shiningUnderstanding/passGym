@@ -11,13 +11,12 @@ public class Payment {
 	
 	public Payment() {}
 
-	public Payment(String paymentNo, int paymentPrice, int paymentType, String bankName, Date paymentDate) {
+	public Payment(String paymentNo, int paymentPrice, int paymentType, String bankName) {
 		super();
 		this.paymentNo = paymentNo;
 		this.paymentPrice = paymentPrice;
 		this.paymentType = paymentType;
 		this.bankName = bankName;
-		this.paymentDate = paymentDate;
 	}
 
 	public String getPaymentNo() {

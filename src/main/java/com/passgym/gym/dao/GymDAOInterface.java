@@ -1,12 +1,12 @@
 package com.passgym.gym.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.pass.vo.Pass;
+import com.passgym.zzim.vo.Zzim;
 
 public interface GymDAOInterface {
 	/**
@@ -33,13 +33,29 @@ public interface GymDAOInterface {
 	public void add(Gym gym) throws AddException;
 
 	/**
-	 * 거리순으로 헬스장 정보를 출력한다
+	 * 거리, 별점순으로 헬스장 정보를 출력한다(위치정보 미동의 시 서울역기준)
 	 * @param latitude 위도
 	 * @param longitude 경도
-	 * @return 거리순 헬스장
+	 * @return 거리, 별점순 헬스장
 	 * @throws FindException
 	 */
 	public List<Gym> findByDistance(double latitude, double longitude) throws FindException;
+	/**
+	 * 찜한 헬스장을 거리, 별점순으로 출력(찜이 없으면 출력값 없음, 위치정보 미동의 시 서울역기준)
+	 * @param userNo 사용자번호
+	 * @param latitude 위도
+	 * @param longitude 경도
+	 * @return 찜한 헬스장
+	 * @throws FindException 찜한 헬스장이 없는 경우 "찜한 헬스장이 없습니다"메시지를 갖는 예외가 발생한다
+	 */
+	public List<Gym> findZzim(int userNo, double latitude, double longitude) throws FindException;
+	/**
+	 * 헬스장 상세 페이지에 넘겨줄 gym정보 모두 출력
+	 * @param ownerNo 사업자번호
+	 * @return 사업자번호에 해당하는 헬스장 상세 정보
+	 * @throws FindException
+	 */
+	public Gym gymDetail(int ownerNo) throws FindException;
 	
 	/**
 	 * 판매자회원가입화면에서 입력한 정보를 저장한다.
