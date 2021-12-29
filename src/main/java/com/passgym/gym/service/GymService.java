@@ -1,21 +1,35 @@
 package com.passgym.gym.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 
 public class GymService {
-	GymDAOOracle dao;
+	private GymDAOOracle dao = new GymDAOOracle();
 	
 	public void gymRegist(Gym gym) throws AddException {
-		dao = new GymDAOOracle();
 		dao.add(gym);
 	}
 	
 	public Gym findGym(int ownerNo) throws FindException{
-		dao = new GymDAOOracle();
 		Gym gym = dao.findGymByOwnerNo(ownerNo);
 		return gym;
 	}
+	
+	public List<Gym> findByDistance(double latitude, double longitude) throws FindException{
+		List<Gym> gymList = dao.findByDistance(latitude, longitude);
+		
+		return gymList;
+	}
+	
+	public List<Gym> findZzim(int userNo, double latitude, double longitude) throws FindException{
+		List<Gym> zzimList = dao.findZzim(userNo, latitude, longitude);
+		
+		return zzimList;
+	}
+	
 }

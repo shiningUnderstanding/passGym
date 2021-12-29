@@ -2,9 +2,11 @@ package com.passgym.zzim.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.passgym.exception.AddException;
+import com.passgym.exception.FindException;
 import com.passgym.exception.RemoveException;
 import com.passgym.sql.PassGymConnection;
 import com.passgym.zzim.vo.Zzim;
@@ -12,12 +14,13 @@ import com.passgym.zzim.vo.Zzim;
 public class ZzimDAOOracle implements ZzimDAOInterface {
 	private static ZzimDAOOracle dao = new ZzimDAOOracle();
 	
-	private ZzimDAOOracle() {}
+	public ZzimDAOOracle() {}
 	
 	public static ZzimDAOOracle getInstance() {
 		return dao;
 	}
-	
+
+	@Override
 	public void addZzim(Zzim zzim) throws AddException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -34,7 +37,8 @@ public class ZzimDAOOracle implements ZzimDAOInterface {
 			PassGymConnection.close(pstmt, con);
 		}
 	}
-	
+
+	@Override
 	public void removeZzim(Zzim zzim) throws RemoveException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -55,4 +59,5 @@ public class ZzimDAOOracle implements ZzimDAOInterface {
 	public static void main(String[] args) {
 		
 	}
+
 }

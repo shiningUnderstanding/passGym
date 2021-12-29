@@ -1,6 +1,7 @@
 package com.passgym.zzim.dao;
 
 import com.passgym.exception.AddException;
+import com.passgym.exception.FindException;
 import com.passgym.exception.RemoveException;
 import com.passgym.zzim.vo.Zzim;
 

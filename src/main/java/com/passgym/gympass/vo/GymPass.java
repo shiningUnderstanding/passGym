@@ -22,7 +22,7 @@ public class GymPass {
 	private int pauseCount;
 	private int pauseDate;
 	private int status;
-	private int remain;
+	private int remain;//남은일수
 	
 	private Payment payment;
 	private Star star;
