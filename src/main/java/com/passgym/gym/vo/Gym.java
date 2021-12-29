@@ -35,7 +35,7 @@ public class Gym {
 	public Gym() {}
 	public Gym(int ownerNo, String name, String phoneNo, String zipcode, String addr, String addrDetail, String introduce,
 			String notice, String operatingTime, String operatingProgram, String extraService, String etc,
-			int totalStar, int totalMember, double avgStar,double lat, double lon) {
+			int totalStar, int totalMember, double avgStar,double lat, double lon, double distance) {
 		super();
 		this.ownerNo = ownerNo;
 		this.name = name;
@@ -54,14 +54,15 @@ public class Gym {
 		this.avgStar = avgStar;
 		this.lat = lat;//위도 latitude 
 		this.lon = lon;//경도 longitude
+		this.distance = distance;//거리
 	}
-	public Gym(int ownerNo, String name, String addr, double distance, double avgStar) {
-		this.ownerNo = ownerNo;
-		this.name = name;
-		this.addr = addr;
-		this.distance = distance;
-		this.avgStar = avgStar;
-	}
+//	public Gym(int ownerNo, String name, String addr, double distance, double avgStar) {
+//		this.ownerNo = ownerNo;
+//		this.name = name;
+//		this.addr = addr;
+//		this.distance = distance;
+//		this.avgStar = avgStar;
+//	}
 	
 	public double getDistance() {
 		return distance;
@@ -203,7 +204,7 @@ public class Gym {
 				+ ", addr=" + addr + ", addrDetail=" + addrDetail + ", introduce=" + introduce + ", notice=" + notice
 				+ ", operatingTime=" + operatingTime + ", operatingProgram=" + operatingProgram + ", extraService="
 				+ extraService + ", etc=" + etc + ", totalStar=" + totalStar + ", totalMember=" + totalMember + ", avgStar=" + avgStar + ", lat="
-				+ lat + ", lon=" + lon + "]";
+				+ lat + ", lon=" + lon + ", distance=" + distance + "]";
 	}
 	
 	
