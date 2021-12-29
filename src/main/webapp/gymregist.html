@@ -2,6 +2,14 @@
 <head>
     <title>gymregist.html</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./js/gymregist.js"></script>
+    <script>
+        $(function(){
+            addBtClick();
+            removeBtClick();
+
+        })
+    </script>
 </head>
 <meta charset="UTF-8">
 <body>
@@ -9,17 +17,60 @@
         <form class="regist__form" method="post" action="./gymregist">
             <div class="regist__header">
                 <img class="regist__img" src=""><br>
-                <input class="regist__gymname" type="text" name="name" value="헬스장 이름" required><br>
-                <input class="regist__gymaddr" type="text" name="addr" value="주소" required><br>
+                <div class="regist__gymname">
+                헬스장 이름 : <%=sessionGym.getName()%>
+                </div>
+                <div class="regist__gymaddr">
+                헬스장 주소<br> 
+                <%=sessionGym.getAddr()%><br>
+                <%=sessionGym.getAddrDetail()%><br>
+                </div>
             </div>
             <input class="regist__gymintroduce" type="text" name="introduce"><br>
+            <input type="hidden" name="i">
+            <div class="regist__gympassall" style="border: 1px solid #ccc">
+                <div class="regist__gympass">
+                    이용권 정보 입력<br>
+                    이용권 번호 : <input class="regist__passno" type="text" name="passno0" value="0" readonly><br>
+                    이용권 이름 : <input class="regist__passname" type="text" name="passname0"><br>
+                    이용권 가격 : <input class="regist__passprice" type="text" name="passprice0"><br>
+                    이용권 개월수 : <input class="regist__passmonth" type="text" name="passmonth0"><br>
+                    일시정지 가능 횟수 : <input class="regist__pausecount" type="text" name="pausecount0"><br>
+                    일시정지 가능 일수 : <input class="regist__pausedate" type="text" name="pausedate0"><br>
+                    비고 : <input class="regist__remarks" type="text" name="remarks0"><br>
+                    <br>
+                </div> 
+            </div>
+
+            <div class="regist__passbt">
+                <button class="regist__passaddbt" type="button">+</button><br>
+                <button class="regist__passremovebt" type="button">-</button><br>
+            </div>
+            
+             헬스장 정보<br>
+            <input class="regist__gymnotice" type="text" name="notice"><br>
+
             <div class="regist__operationinfo">
-                <input class="regist__gymoperatingtime" type="text" name="goperatingtime"><br>
+                운영시간<br>
+                <input class="regist__gymoperatingtime" type="text" name="operatingtime"><br>
+                운영프로그램<br>
                 <input class="regist__gymoperatingprogram" type="text" name="operatingprogram"><br>
+                <div class="regist__gymequip" style="border: 1px solid #ccc">
+                    보유장비
+                    
+                    
+                </div>
+                <div class="regist__equipbt">
+                    <button class="regist__equipaddbt" type="button">+</button><br>
+                    <button class="regist__equipremovebt" type="button">-</button><br>
+                </div>
+                추가서비스<br>
                 <input class="regist__gymextraservice" type="text" name="extraservice"><br>
+                기타<br>
                 <input class="regist__etc" type="text" name="etc"><br>
             </div>
-            <button type="submit" class="regist__gymsubmit" onClick="location.href='./login.html'">저장</button>
+
+                <button type="submit" class="regist__gymsubmit">저장</button>
         </form>
     </div>
 </body>

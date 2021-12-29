@@ -22,15 +22,13 @@ function formSubmitted(){
             url: ajaxUrl,
             method: ajaxMethod,
             data:sendData,
-            success:function(responseData){
-                let resultNum = parseInt(responseData.trim()); 
-                if(resultNum == 0){
-                    alert("가입실패");
-                    location.reload(true);
-                }else if(resultNum == 1){
-                    alert("가입성공");
-                    location.href="./gymregist.jsp";
+            success:function(responseObj){
+                if(responseObj.status == 0){
+                    alert("가입실패")
+                } else if(responseObj.status == 1){
+                    location.href = "./gymregist.jsp";
                 }
+                console.log(responseObj);
                 }, error:function(xhr){
                     alert("응답실패:" + xhr.status);
                 }

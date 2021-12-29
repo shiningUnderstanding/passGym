@@ -21,8 +21,24 @@ public class OwnerService {
 		gymDAO.signupAdd(gym);
 	}
   
+  
 	public  List<Pass> findByOwnerNo(int ownerNo) throws FindException {
 		GymDAOOracle dao = new GymDAOOracle();
 		return dao.findByOwnerNo(ownerNo);
+	}
+	
+
+	public Owner login(String id, String pwd) throws FindException {
+		ownerDAO = new OwnerDAOOracle();
+		try {
+			Owner owner = ownerDAO.findByOwnerId(id);
+			if(owner.getPwd().equals(pwd)) {
+				return owner;
+			}
+			throw new FindException();
+		} catch (FindException e) {
+			throw new FindException("로그인 실패");
+		}
+		
 	}
 }

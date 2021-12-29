@@ -33,7 +33,11 @@ function loginClick(){
                     alert("로그인 실패");
                 }else if(responseObj.status == 1){
                     location.href = "./index.jsp";
-                }  
+                }else if(responseObj.ownerStatus == 1){
+                    alert("판매자 로그인 성공");
+                }else if(responseObj.ownerStatus == 0){
+                    alert("판매자 로그인 실패");
+                }
                 console.log(responseObj);
                 console.log(responseObj.status);
             },

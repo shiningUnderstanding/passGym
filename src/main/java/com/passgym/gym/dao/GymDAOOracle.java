@@ -217,7 +217,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setInt(7, gym.getOwnerNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);
@@ -247,8 +246,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setDouble(8, gym.getLon());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
-			System.out.println(errorCode);
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);

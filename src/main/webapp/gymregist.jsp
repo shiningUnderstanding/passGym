@@ -10,11 +10,82 @@
 <title>gymregist.jsp</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/gymregist.js"></script>
+<%
+Owner o = new Owner();
+o.setOwnerNo(1); 
+ session.setAttribute("signupInfo",o );
+ Gym g = new Gym();
+ g.setName("테스트짐");
+ session.setAttribute("gymInfo", g);
+ %>
 <script>
+    function getEquip(){
+        //장비목록요청
+        //$('regist__gymequip').load('./equiplist');
+        //let regist__gymequip = $('.regist__gymequip'); //ul
+        $.ajax({
+            url: './equiplist',
+            method : 'get',
+            success:function(responseObj){
+                console.log(responseObj);
+                let list  = '';
+                $(responseObj).each(function(index, element){
+                    let eNo =  element.equipNo;
+                    let eName = element.equipName;
+                    let k = 0;
+                    list += '<input type="checkbox" class="regist__equipcheck" name="equip'+k+' value='+eName+'">' + eName + '<br>';
+                    k++;
+                });
+                console.log(list);
+                $(".regist__equiplist0").html(list);
+            }
+        });
+    }
+
+    // function equipToggle(){       
+    //     $('.regist__selectequip').click(function(){
+    //         $(this).siblings('.regist__equiplist').slideToggle();
+    //         $('.regist__equiplist').slideToggle();
+    //     })
+    // }
+
+    function equipChecked(){
+        let chkBox = $('')
+        if($(".regist__gymequip").prop("checked")){
+            $('.')
+        }
+    }
+
+    let j = 0;
+
+    function equipAddBtClick(){
+        let $equipAddBt = $(".regist__equipaddbt");
+        $equipAddBt.click(function(){
+
+            j++;
+            let equipList = $(".regist__equiplist0").html();
+            console.log(equipList);
+
+            $('<div class="regist__gymequip'+j+'" style="border: 1px solid #ccc">'
+            +  '<input class="regist__selectequip'+j+'" value="기구를 선택하세요" name="equip'+j+'">'
+            +  '<ul class="regist__equiplist'+j+'">'
+            +  equipList
+            +  '</ul>'   
+            +  '</div>')
+            .appendTo('.regist__gymequipselect');
+        });
+    }
+
     $(function(){
+        getEquip();
+        equipAddBtClick();
+        // equipToggle();
         formSubmitted();
+        passAddBtClick();
+        passRemoveBtClick();
     })
 </script>
+
 </head>
 <meta charset="UTF-8">
 <body>
@@ -39,22 +110,53 @@ Gym sessionGym = (Gym)session.getAttribute("gymInfo");
                 </div>
             </div>
             <input class="regist__gymintroduce" type="text" name="introduce"><br>
-            <div class="regist__gympass" style="border: 1px solid #ccc">
-                <input class="regist__passno" type="text" name="passno">
-                <input class="regist__passname" type="text" name="passname">
-                <input class="regist__passprice" type="text" name="passprice">
-                <input class="regist__passdate" type="text" name="passdate">
-                <input class="regist__pausecount" type="text" name="pausecount">
-                <input class="regist__pausedate" type="text" name="pausedate">
-                <!--제이쿼리 append사용하여 항목 추가-->
+            <!----->
+            <input type="hidden" name="i">
+            <div class="regist__gympassall" style="border: 1px solid #ccc">
+                <div class="regist__gympass">
+                    이용권 정보 입력<br>
+                    이용권 번호 : <input class="regist__passno" type="text" name="passno0" value="0" readonly><br>
+                    이용권 이름 : <input class="regist__passname" type="text" name="passname0"><br>
+                    이용권 가격 : <input class="regist__passprice" type="text" name="passprice0"><br>
+                    이용권 개월수 : <input class="regist__passmonth" type="text" name="passmonth0"><br>
+                    일시정지 가능 횟수 : <input class="regist__pausecount" type="text" name="pausecount0"><br>
+                    일시정지 가능 일수 : <input class="regist__pausedate" type="text" name="pausedate0"><br>
+                    비고 : <input class="regist__remarks" type="text" name="remarks0"><br>
+                    <br>
+                </div> 
             </div>
+
+            <div class="regist__passbt">
+                <button class="regist__passaddbt" type="button">+</button><br>
+                <button class="regist__passremovebt" type="button">-</button><br>
+            </div>
+            
+             헬스장 정보<br>
             <input class="regist__gymnotice" type="text" name="notice"><br>
+
             <div class="regist__operationinfo">
+                운영시간<br>
                 <input class="regist__gymoperatingtime" type="text" name="operatingtime"><br>
+                운영프로그램<br>
                 <input class="regist__gymoperatingprogram" type="text" name="operatingprogram"><br>
+                보유장비<br>
+                <div class="regist__gymequipselect">
+                    <div class="regist__gymequip0" style="border: 1px solid #ccc">
+                        <input class="regist__selectequip0" value="기구를 선택하세요" name="equip0">
+                        <ul class="regist__equiplist0">
+                        </ul>  
+                    </div>
+                </div>
+                <div class="regist__equipbt">
+                    <button class="regist__equipaddbt" type="button">+</button><br>
+                    <button class="regist__equipremovebt" type="button">-</button><br>
+                </div>
+                추가서비스<br>
                 <input class="regist__gymextraservice" type="text" name="extraservice"><br>
+                기타<br>
                 <input class="regist__etc" type="text" name="etc"><br>
             </div>
+
                 <button type="submit" class="regist__gymsubmit">저장</button>
         </form>
     </div>
