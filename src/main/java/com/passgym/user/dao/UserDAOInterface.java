@@ -5,6 +5,7 @@ import java.util.List;
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.exception.ModifyException;
+import com.passgym.exception.RemoveException;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.user.vo.User;
 
@@ -77,4 +78,19 @@ public interface UserDAOInterface {
 	 * @throws ModifyException 기존 내용과 같을 경우 "기존 주소와 동일합니다"메시지를 갖는 예외가 발생한다<br>
 	 */
 	public void modifyUserAddr(int zipcode, String addr, String addrDetail) throws ModifyException;
+	
+	/**
+	 * 사용자번호(session)에 해당하는 사용자의 정보를 수정한다<br>
+	 * 단, 사용자 번호와 아이디는 변경하지 않는다
+	 * @param user 유저 객체
+	 * @throws ModifyException 수정에 실패할 경우 "고객정보 수정에 실패했습니다" 메시지를 갖는 예외가 발생한다<br>
+	 */
+	public void modifyUser(User user) throws ModifyException;
+	
+	/**
+	 * 사용자번호(session)에 해당하는 사용자의 정보를 삭제한다<br>
+	 * @param user 유저 객체
+	 * @throws ModifyException 삭제에 실패할 경우 "회원탈퇴에 실패했습니다" 메시지를 갖는 예외가 발생한다<br>
+	 */
+	public void removeUser(User user) throws RemoveException;
 }
