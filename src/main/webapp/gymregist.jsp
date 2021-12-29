@@ -34,12 +34,9 @@
                 $(responseObj).each(function(index, element){
                     let eNo =  element.equipNo;
                     let eName = element.equipName;
-                    let k = 0;
                     list += '<li><input type="checkbox" class="regist__equipcheck"><span>' + eName 
                         + '</span><input type="number" class="regist__equipcount1" name="equip_no_' + eNo
                         +'" value="0"></li>';
-                            // name="equipNo" value='+eNo+'"
-                    k++;
                 });
                 console.log(list);
                 $(".regist__equiplist").html(list);
@@ -130,10 +127,6 @@ Gym sessionGym = (Gym)session.getAttribute("gymInfo");
                         </ul>  
                     </div>
                 </div>
-                <!-- <div class="regist__equipbt">
-                    <button class="regist__equipaddbt" type="button">+</button><br>
-                    <button class="regist__equipremovebt" type="button">-</button><br>
-                </div> -->
                 추가서비스<br>
                 <input class="regist__gymextraservice" type="text" name="extraservice"><br>
                 기타<br>

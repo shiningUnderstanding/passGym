@@ -35,7 +35,7 @@ function passAddBtClick(){
         + '이용권 번호 : <input class="regist__passno" type="text" name="passno'+i+'" value='+i+' readonly><br>'
         + '이용권 이름 : <input class="regist__passname" type="text" name="passname'+i+'"><br>'
         + '이용권 가격 : <input class="regist__passprice" type="text" name="passprice'+i+'"><br>'
-        + '이용권 개월수 : <input class="regist__passmonth" type="text" name="passmonth0"><br>'
+        + '이용권 개월수 : <input class="regist__passmonth" type="text" name="passmonth'+i+'"><br>'
         + '일시정지 가능 횟수 : <input class="regist__pausecount" type="text" name="pausecount'+i+'"><br>'
         + '일시정지 가능 일수 : <input class="regist__pausedate" type="text" name="pausedate'+i+'"><br>'
         + '비고 : <input class="regist__remarks" type="text" name="remarks'+i+'"><br>'

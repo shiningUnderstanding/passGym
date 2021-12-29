@@ -19,7 +19,7 @@
 	$(function() {
 		/*---index load될 때 START---*/
 		gymList();
-		getLocation();
+		//getLocation();
 		/*---index load될 때 END---*/
 		/*--메뉴가 클릭되었을 때 START*/
 		menuClick();

@@ -12,7 +12,20 @@ function menuClick(){
         case "login":
             ajaxUrl = menuHref;
             ajaxMethod = "get";
-            
+
+        case "logout":
+            ajaxUrl = menuHref;
+            $.ajax({
+                url: ajaxUrl,
+                success: function(){
+                    location.href="./index.jsp";
+                },
+                error: function(xhr){
+                    alert('응답실패: ' + xhr.status);
+                }
+            });
+            return false;
+              
         case "mypage":
             //AJAX요청, 응답
             ajaxUrl = menuHref;
