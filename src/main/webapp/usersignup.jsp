@@ -5,13 +5,44 @@
         <title>passGym : 사용자 회원가입</title>
         <meta charset="UTF-8">
         <style>
-            .usersignup__header{
+            /* .usersignup__header{
                 width: 100px;
                 text-align: center;
             }
             .usersignup__mainLogo{
                 width: 100%;
+            } */
+            body {
+  				font-family: "Noto Sans kr", sans-serif;
+			}
+			.usersignup__container{
+				width: 100%;
+				height: 50vh 100%;
+			}
+			.usersingup__id,
+			.usersingup_pwd,
+			.usersignup__name,
+			.usersignup__phoneno,
+			.usersignup__zipcode,
+			.usersignup__addr1,
+			.usersignup__addr2{
+				display: flex;
+                flex-direction: center;
+                width: 312px!important;
+                height: 48px;
+    			margin-top: 0!important;
+                border: 1px solid darkslategray;
             }
+            .usersignup__submit{
+            	width: 312px;
+			    height: 48px;
+			    background-color: #f6f5ef;
+                border: 1px solid #f6f5ef;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+			    cursor: pointer;
+			}
             .usersignup__hr{
                 display: flex;
                 flex-basis: 100%;
@@ -40,7 +71,6 @@
                 justify-content: center;
             }
         </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="./js/usersignup.js"></script>
         <script>
             $(function(){
@@ -105,15 +135,15 @@
                 <form class="usersignup__form" id="usersignupform" method="post" action="./usersignup">
                     <div class="usersignup__idpwd">
                         <input type="email" class="usersingup__id" name="id" placeholder="아이디(이메일)">
-                        <button type="button" class="usersignup__iddupchk">아이디(이메일)중복확인</button>
+                        <button type="button" class="usersignup__iddupchk">중복확인</button>
                         <br>
                         <input type="password" class="usersingup_pwd" name="pwd" placeholder="비밀번호"><br>
                         <input type="password" class="usersingup_pwd" name="pwd1" placeholder="비밀번호 확인">
                     </div>
                     <div class="usersignup__namemobile">
-                        <input type="text" id="name" name="name" placeholder="이름"><br>
+                        <input type="text" class="usersignup__name" id="name" name="name" placeholder="이름"><br>
                         <input type="text" class="usersignup__phoneno" id="phone_no" name="phone_no" placeholder="핸드폰번호">
-                        <button type="button" class="usersignup__phonenochk">핸드폰번호 중복확인</button><br>
+                        <button type="button" class="usersignup__phonenochk">중복확인</button><br>
                         <!-- <input type="text" placeholder="인증번호 입력"> -->
                     </div>
                     <div class="usersignup__addr">
