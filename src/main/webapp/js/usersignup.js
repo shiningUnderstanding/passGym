@@ -87,7 +87,7 @@ function userSignupClick($userSignupFormObj){
                 alert(responseObj.msg);
                 if(responseObj.status == 1){
 					alert("회원가입이 완료되었습니다.");
-                    location.href='./';
+                    location.href='./index.jsp';
                 }
             }, error: function(xhr){
                 alert("응답실패:" + xhr.status);
