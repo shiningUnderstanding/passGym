@@ -3,6 +3,7 @@ package com.passgym.owner.controller;
 import java.io.IOException;
 
 import com.passgym.exception.FindException;
+import com.passgym.exception.StatusException;
 import com.passgym.owner.service.OwnerService;
 import com.passgym.owner.vo.Owner;
 
@@ -33,19 +34,19 @@ public class OwnerLoginServlet extends HttpServlet {
 		String path="jsonresult.jsp";
 		
 		try {
-			
 			Owner owner = service.login(idValue, pwdValue);
-			session.setAttribute("ownerLoginInfo", owner);
-			System.out.println("로그인 성공");
-			
-			resultMsg = "로그인 성공";
-			request.setAttribute("ownerStatus", 1);
-			request.setAttribute("status", 2);
-		} catch (FindException e) {
+			if(owner.getOwnerStatus() == 0) {
+				resultMsg = "아이디가 존재하지 않습니다.";
+				throw new StatusException();
+			}else {
+				session.setAttribute("ownerLoginInfo", owner);
+				resultMsg = "로그인 성공";
+				request.setAttribute("status", 2);
+			}
+		} catch (FindException | StatusException e) {
 			System.out.println(e.getMessage());
 			resultMsg = "로그인 실패";
-			request.setAttribute("ownerStatus", 0);
-			request.setAttribute("status", 2);
+			request.setAttribute("status", 3);
 		}
 		
 		request.setAttribute("msg", resultMsg);

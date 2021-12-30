@@ -36,26 +36,27 @@ public class GymRegistServlet extends HttpServlet {
 		GymService service = new GymService();
 		Gym gym;
 		
-		Pass pass = new Pass();
+		Pass pass;
 		List<Pass> passes = new ArrayList<Pass>();
 		String iSend = request.getParameter("i");
 		
-		GymEquip gymEquip = new GymEquip();
+		GymEquip gymEquip;
 		List<GymEquip> gymEquips = new ArrayList<GymEquip>();
 		
 		
 		//전체 pass의 개수를 html 태그로 추가한 후 serialize해서 정보를 받아오는 방법
-		for(int i = 0; i < Integer.parseInt(iSend) + 1; i++) {
+		for(int i = 0; i < Integer.parseInt(iSend)+1; i++) {
+			pass = new Pass();
+			pass.setOwnerNo(ownerNo);
+			pass.setPassNo(Integer.parseInt(request.getParameter("passno"+i)));
+			pass.setPassName(request.getParameter("passname"+i));
+			pass.setPassStatus(1);
+			pass.setPassPrice(Integer.parseInt(request.getParameter("passprice"+i)));
+			pass.setPassMonth(Integer.parseInt(request.getParameter("passmonth"+i)));
+			pass.setPauseCount(Integer.parseInt(request.getParameter("pausecount"+i)));
+			pass.setPauseDate(Integer.parseInt(request.getParameter("pausedate"+i)));
+			pass.setRemarks(request.getParameter("remarks"+i));
 			passes.add(pass);
-			Pass passComponent = passes.get(i);
-			passComponent.setOwnerNo(ownerNo);
-			passComponent.setPassNo(Integer.parseInt(request.getParameter("passno"+i)));
-			passComponent.setPassName(request.getParameter("passname"+i));
-			passComponent.setPassStatus(1);
-			passComponent.setPassPrice(Integer.parseInt(request.getParameter("passprice"+i)));
-			passComponent.setPassMonth(Integer.parseInt(request.getParameter("passmonth"+i)));
-			passComponent.setPauseCount(Integer.parseInt(request.getParameter("pausecount"+i)));
-			passComponent.setPauseDate(Integer.parseInt(request.getParameter("pausedate"+i)));
 		}
 		
 		//전체 파라미터를 검색해서 원하는 키워드의 파라미터만 골라내서 활용하는 방법
@@ -66,10 +67,9 @@ public class GymRegistServlet extends HttpServlet {
 				int eNo = Integer.parseInt(name.split("_", 3)[2]);
 				int eCount = Integer.parseInt(request.getParameter(name));
 				if(eCount >= 1) {
+					gymEquip = new GymEquip();
 					gymEquip.setOwnerNo(ownerNo);
-					System.out.println(ownerNo);
 					gymEquip.setEquipNo(eNo);
-					System.out.println(eNo);
 					gymEquip.setEquipCount(eCount);
 					gymEquips.add(gymEquip);
 				}
@@ -90,19 +90,16 @@ public class GymRegistServlet extends HttpServlet {
 			
 			service.gymRegist(gym, passes, gymEquips);
 			
-			request.setAttribute("ownerStatus", 1);
 			request.setAttribute("status", 2);
 			resultMsg = "gym등록성공";
 			
 		} catch (FindException e1) {
 			e1.printStackTrace();
-			request.setAttribute("ownerStatus", 0);
-			request.setAttribute("status", 2);
+			request.setAttribute("status", 3);
 			resultMsg = "gym등록실패";
 		} catch(AddException e) {
 			e.printStackTrace();
-			request.setAttribute("ownerStatus", 0);
-			request.setAttribute("status", 2);
+			request.setAttribute("status", 3);
 			resultMsg = "gym등록실패";
 		}
 		

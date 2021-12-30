@@ -230,9 +230,6 @@ public class GymDAOOracle implements GymDAOInterface {
 				+ "                etc=?"
 				+ "				   WHERE owner_no=?";
 		
-//		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
-//				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
-//				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
 		
 		try {
 			con = PassGymConnection.getConnection();

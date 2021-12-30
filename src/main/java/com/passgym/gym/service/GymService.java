@@ -16,8 +16,8 @@ import com.passgym.pass.vo.Pass;
 
 public class GymService {
 
-GymDAOOracle gymDAO = new GymDAOOracle();;
-PassDAOOracle passDAO = new PassDAOOracle();;
+GymDAOOracle gymDAO = new GymDAOOracle();
+PassDAOOracle passDAO = new PassDAOOracle();
 GymEquipDAOOracle gymEquipDAO = new GymEquipDAOOracle();
 
 public void gymRegist(Gym gym, List<Pass> passes, List<GymEquip> gymEquips) throws AddException {

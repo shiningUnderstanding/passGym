@@ -174,7 +174,7 @@ body {
 	color: darkslategray;
 	cursor: pointer;
 }
-}
+
 /* .modal__background{
                 position: fixed;
                 top: 0;

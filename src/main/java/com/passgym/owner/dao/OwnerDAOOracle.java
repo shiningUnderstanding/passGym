@@ -29,7 +29,8 @@ public class OwnerDAOOracle implements OwnerDAOInterface {
 			if(rs.next()) {
 				int ownerNo = rs.getInt("owner_no");
 				String pwd = rs.getString("pwd");
-				Owner owner = new Owner(ownerNo, id, pwd);
+				int ownerStatus = rs.getInt("owner_status");
+				Owner owner = new Owner(ownerNo, id, pwd, ownerStatus);
 				return owner;
 			}else {
 				throw new FindException("아이디에 해당하는 고객이 없습니다.");

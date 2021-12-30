@@ -16,16 +16,15 @@ function formSubmitted(){
         let ajaxUrl = $(this).attr('action');
         let ajaxMethod = $(this).attr('method');
         let sendData = $(this).serialize();
-        alert("전송데이터:" + sendData);
 
         $.ajax({
             url: ajaxUrl,
             method: ajaxMethod,
-            data:sendData,
+            data: sendData,
             success:function(responseObj){
-                if(responseObj.ownerStatus == 0){
+                if(responseObj.status == 3){
                     alert("가입실패")
-                } else if(responseObj.ownerStatus == 1){
+                } else if(responseObj.status == 2){
                     location.href = "./gymregist.jsp";
                 }
                 console.log(responseObj);

@@ -33,7 +33,7 @@ public class OwnerSignupServlet extends HttpServlet {
 		double lat = 0.0;
 		double lon = 0.0;
 		
-		Owner owner = new Owner(ownerNo, id, pwd);
+		Owner owner = new Owner(ownerNo, id, pwd, 1);
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
 							addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon, 0);
 		
@@ -54,12 +54,10 @@ public class OwnerSignupServlet extends HttpServlet {
 			Owner ownerSession = (Owner)session.getAttribute("signupInfo");
 			System.out.println("세션저장객체 : " + ownerSession.toString());
 			
-			request.setAttribute("ownerStatus", 1);
 			request.setAttribute("status", 2);
 			resultMsg = "가입성공";
 		} catch (AddException e) {
-			request.setAttribute("ownerStatus", 0);
-			request.setAttribute("status", 2);
+			request.setAttribute("status", 3);
 			resultMsg = "가입실패";
 			e.printStackTrace();
 		}

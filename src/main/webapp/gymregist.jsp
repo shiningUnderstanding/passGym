@@ -73,9 +73,6 @@
 Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
 Gym sessionGym = (Gym)session.getAttribute("gymInfo");
 %>
-세션ID : <%=session.getId() %><br>
-세션ownerNo : <%=sessionOwner.getOwnerNo() %><br>
-세션gymName : <%=sessionGym.getName() %><br>
 <div class="regist">
         <form class="regist__form" method="post" action="./gymregist">
             <div class="regist__header">

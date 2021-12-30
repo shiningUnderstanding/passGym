@@ -5,7 +5,6 @@ function formSubmitted(){
         let ajaxMethod = $(this).attr("method");
         let iValue = $(this).find('input[name=i]').val(i);
         let sendData = $(this).serialize();
-        alert("i:"+iValue);
         $.ajax({
             url: ajaxUrl,
             method : ajaxMethod,

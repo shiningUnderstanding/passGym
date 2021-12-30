@@ -66,9 +66,10 @@ public class PassDAOOracle implements PassDAOInterface {
 		String insertSQL = "INSERT INTO pass(owner_no, pass_no, pass_name, pass_price, pass_status, pass_month, pause_count, pause_date, remarks)\r\n"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
+		
 		for(int i = 0; i < passes.size(); i++) {
-			pass = passes.get(i);
 			try {
+				pass = passes.get(i);
 				con = PassGymConnection.getConnection();
 				pstmt = con.prepareStatement(insertSQL);
 				pstmt.setInt(1, pass.getOwnerNo());
