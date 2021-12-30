@@ -18,10 +18,13 @@ User user = (User) request.getAttribute("user");
 <link rel="stylesheet" href="./css/index.css" />
 <link rel="stylesheet" href="./css/mypage.css" />
 <link rel="stylesheet" href="./css/footer.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./js/menu.js"></script>
 <script>
 	$(function() {
+        /*--메뉴가 클릭되었을 때 START*/
+        menuClick();
+        /*--메뉴가 클릭되었을 때 END*/
 		//----------------edit 시작----------------------
 		let $editBtn = $(".profile__editBtn");
 
@@ -117,7 +120,22 @@ User user = (User) request.getAttribute("user");
 				$(this).children().html("내용보기");
 			}
 		})
-		//----------------qna내용보기  끝-------------------
+		//----------------qna 내용보기  끝-------------------
+		//---------------qna 작성버튼 클릭 시작------------------
+		let $qnaBtn = $(".question__btn");
+
+		$qnaBtn.click(function() {
+			let ajaxUrl = "userqna.html";
+			let ajaxMethod = "get";
+	        $("section").empty();
+	        $("section").load(ajaxUrl, function (responseText, textStatus, jqXHR) {
+	          if (jqXHR.status != 200) {
+	            alert("응답실패:" + jqXHR.status);
+	          }
+	        });
+	        return false;
+		})
+		//---------------qna 작성버튼 클릭  끝------------------
 	});
 </script>
 </head>

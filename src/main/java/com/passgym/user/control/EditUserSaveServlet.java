@@ -1,6 +1,10 @@
 package com.passgym.user.control;
 
+import java.io.File;
 import java.io.IOException;
+
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.passgym.exception.ModifyException;
 import com.passgym.user.service.UserService;
@@ -51,11 +55,21 @@ public class EditUserSaveServlet extends HttpServlet {
 		UserService service = UserService.getInstance();
 		try {
 			service.editUser(user);
+			
+			//file upload
+			DiskFileItemFactory fileItemFactory;
+			fileItemFactory = new DiskFileItemFactory();
+			String saveDirectory = "c:\\java\\passGym\\passgym\\src\\main\\webapp\\images\\user";
+			File f = new File(saveDirectory);
+			fileItemFactory.setRepository(f);
+			ServletFileUpload fileUpload = new ServletFileUpload(fileItemFactory);	
 			request.setAttribute("status", 1);
 		} catch (ModifyException e) {
 			e.printStackTrace();
 			request.setAttribute("status", 0);
 		}
+		
+		
 	}
 
 }
