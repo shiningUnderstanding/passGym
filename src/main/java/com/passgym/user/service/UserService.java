@@ -54,7 +54,7 @@ public class UserService {
 		dao.modifyUser(user);
 	}
 	
-	public void withdrawal(User user) throws RemoveException{
+	public void withdrawal(User user) throws ModifyException{
 		dao.removeUser(user);
 	}
 }

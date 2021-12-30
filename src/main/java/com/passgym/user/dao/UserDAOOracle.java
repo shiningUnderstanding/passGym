@@ -71,7 +71,7 @@ public class UserDAOOracle implements UserDAOInterface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		User u = null;
-		String selectSQL = "SELECT * FROM user_info WHERE id = ?";
+		String selectSQL = "SELECT * FROM user_info WHERE id = ? AND user_status = 1";
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(selectSQL);
@@ -87,7 +87,8 @@ public class UserDAOOracle implements UserDAOInterface {
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = "";
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 			}else {
 				throw new FindException("아이디에 해당하는 사용자가 없습니다");
 			}
@@ -124,7 +125,8 @@ public class UserDAOOracle implements UserDAOInterface {
 					addrDetail = rs.getString("addr_detail");
 				}
 				String sns = rs.getString("sns");
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 			}else {
 				throw new FindException("사용자번호에 해당하는 사용자가 없습니다");
 			}
@@ -305,7 +307,8 @@ public class UserDAOOracle implements UserDAOInterface {
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = rs.getString("sns");
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 				userList.add(u);
 			}
 			if(userList.size() == 0) {//userList에 담긴 사용자가 없을 때
@@ -460,7 +463,8 @@ public class UserDAOOracle implements UserDAOInterface {
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = null;
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 			}else {
 				throw new FindException("휴대폰번호에 해당하는 사용자가 없습니다");
 			}
@@ -474,16 +478,24 @@ public class UserDAOOracle implements UserDAOInterface {
 	}
 	
 	@Override
-	public void removeUser(User user) throws RemoveException {
+	public void removeUser(User user) throws ModifyException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		String deleteSQL ="";
+		String removeUserSQL ="UPDATE user_info\r\n"
+				+ "SET \r\n"
+				+ "user_status = 0\r\n"
+				+ "WHERE user_no = ?";
 		
 		try {
 			con = PassGymConnection.getConnection();
-			pstmt = con.prepareStatement(deleteSQL);
+			pstmt = con.prepareStatement(removeUserSQL);
+			pstmt.setInt(1, user.getUserNo());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new ModifyException("회원 탈퇴에 실패하혔습니다.");
+		} finally {
+			PassGymConnection.close(pstmt, con);
 		}
 	}
 	
