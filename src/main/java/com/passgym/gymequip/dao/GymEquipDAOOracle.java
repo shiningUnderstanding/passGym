@@ -18,20 +18,21 @@ public class GymEquipDAOOracle implements GymEquipDAOInterface {
 		String insertSQL = "INSERT INTO gym_equip(owner_no, equip_no, equip_count) "
 				+ "VALUES (?, ?, ?)";
 		
-		for(GymEquip gymEquip : gymEquips) {
 			try {
 				con = PassGymConnection.getConnection();
 				pstmt = con.prepareStatement(insertSQL);
-				pstmt.setInt(1, gymEquip.getOwnerNo());
-				pstmt.setInt(2, gymEquip.getEquipNo());
-				pstmt.setInt(3, gymEquip.getEquipCount());
-				pstmt.executeUpdate();
+				for(GymEquip gymEquip: gymEquips) {
+					pstmt.setInt(1, gymEquip.getOwnerNo());
+					pstmt.setInt(2, gymEquip.getEquipNo());
+					pstmt.setInt(3, gymEquip.getEquipCount());
+					pstmt.executeUpdate();
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}finally {
 				PassGymConnection.close(pstmt, con);
 			}
-		}
+		
 	}
 
 }

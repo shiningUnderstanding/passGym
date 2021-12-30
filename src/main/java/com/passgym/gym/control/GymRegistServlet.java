@@ -49,12 +49,10 @@ public class GymRegistServlet extends HttpServlet {
 			passes.add(pass);
 			Pass passComponent = passes.get(i);
 			passComponent.setOwnerNo(ownerNo);
-			System.out.println(Integer.parseInt(request.getParameter("passno"+i)));
 			passComponent.setPassNo(Integer.parseInt(request.getParameter("passno"+i)));
 			passComponent.setPassName(request.getParameter("passname"+i));
 			passComponent.setPassStatus(1);
 			passComponent.setPassPrice(Integer.parseInt(request.getParameter("passprice"+i)));
-			System.out.println(Integer.parseInt(request.getParameter("pausecount"+i)));
 			passComponent.setPassMonth(Integer.parseInt(request.getParameter("passmonth"+i)));
 			passComponent.setPauseCount(Integer.parseInt(request.getParameter("pausecount"+i)));
 			passComponent.setPauseDate(Integer.parseInt(request.getParameter("pausedate"+i)));
@@ -69,7 +67,9 @@ public class GymRegistServlet extends HttpServlet {
 				int eCount = Integer.parseInt(request.getParameter(name));
 				if(eCount >= 1) {
 					gymEquip.setOwnerNo(ownerNo);
+					System.out.println(ownerNo);
 					gymEquip.setEquipNo(eNo);
+					System.out.println(eNo);
 					gymEquip.setEquipCount(eCount);
 					gymEquips.add(gymEquip);
 				}
