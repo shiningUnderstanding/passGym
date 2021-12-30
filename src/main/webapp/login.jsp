@@ -45,6 +45,7 @@ body {
 
 .login__radioChk label{
 	margin: 0 20px;
+	
 }
 
 .login__userChk, .login__ownerChk {
