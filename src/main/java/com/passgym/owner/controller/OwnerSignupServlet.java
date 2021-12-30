@@ -32,7 +32,7 @@ public class OwnerSignupServlet extends HttpServlet {
 		double lat = 0.0;
 		double lon = 0.0;
 		
-		Owner owner = new Owner(ownerNo, id, pwd);
+		Owner owner = new Owner(ownerNo, id, pwd, 1);
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
 							addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon, 0);
 		
