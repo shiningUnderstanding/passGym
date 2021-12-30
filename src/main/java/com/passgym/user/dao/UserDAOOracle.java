@@ -23,7 +23,7 @@ import com.passgym.zzim.vo.Zzim;
 
 public class UserDAOOracle implements UserDAOInterface {
 	private static UserDAOOracle dao = new UserDAOOracle();
-	public UserDAOOracle() {
+	private UserDAOOracle() {
 	}
 	public static UserDAOOracle getInstance() {
 		return dao;
