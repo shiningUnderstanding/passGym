@@ -66,7 +66,8 @@ User user = (User) request.getAttribute("user");
 					console.log("응답성공");
 					if (responseObj.status == 1) {
 						console.log("별점 추가 성공");
-						$(".mypageBtn").trigger("click");
+						location.href = "./mypage";
+						//$(".mypageBtn").trigger("click");
 					} else {
 						alert(responseObj.status);
 					}
@@ -96,7 +97,8 @@ User user = (User) request.getAttribute("user");
 					console.log("응답성공");
 					if (responseObj.status == 1) {
 						console.log("찜 삭제 성공");
-						$(".mypageBtn").trigger("click");
+						location.href = "./mypage";
+						//$(".mypageBtn").trigger("click");
 					} else {
 						alert(responseObj.status);
 					}
