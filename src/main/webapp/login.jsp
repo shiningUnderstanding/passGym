@@ -94,42 +94,6 @@ body {
 	cursor: pointer;
 }
 
-.login__hr {
-	display: flex;
-	flex-basis: 100%;
-	align-items: center;
-	color: darkslategray;
-	font-size: 12px;
-	margin: 8px 0px;
-}
-
-.login__hr::before, .login__hr::after {
-	content: "";
-	flex-grow: 1;
-	background-color: darkslategray;
-	height: 1px;
-	font-size: 0px;
-	line-height: 0px;
-	margin: 0px 16px;
-}
-
-.login__sns {
-	width: 50px;
-	display: flex;
-	justify-content: center;
-	border-radius: 50%;
-}
-
-.kakao, .naver {
-	margin: 10px;
-}
-
-.signup {
-	display: flex;
-	justify-content: center;
-	color: darkslategray;
-}
-
 .login__find {
 	display: flex;
 	justify-content: center;
@@ -142,6 +106,7 @@ body {
 	cursor: pointer;
 	width: 100px;
 	color: darkslategray;
+	text-align: center;
 	text-decoration: none;
 	margin: 10px;
 }
@@ -174,6 +139,58 @@ body {
 	color: darkslategray;
 	cursor: pointer;
 }
+
+.login__hr {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: darkslategray;
+	font-size: 12px;
+	margin: 8px 0px;
+}
+
+/* .hr{
+	border: 1px darkslategray;
+	width: 50%;
+	height: 1px;
+} */
+/* .login__hr::before, .login__hr::after {
+	content: "";
+	flex-grow: 1;
+	background-color: darkslategray;
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+	margin: 0px 16px;
+} */
+
+.login__sns {
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	border-radius: 50%;
+}
+
+.login__line{
+	position: relative;
+	margin: 0!important;
+	width: 100%;
+	height: 1px;
+	background-color: darkslategray;
+}
+
+hr{
+	border: none;
+	display: block;
+}
+.kakao, .naver {
+	margin: 10px;
+}
+
+.signup {
+	display: flex;
+	justify-content: center;
+	color: darkslategray;
 }
 /* .modal__background{
                 position: fixed;
@@ -253,14 +270,15 @@ body {
 					<a href="./findemail.html" class="login__searchid">이메일 찾기</a> <a
 						href="./findpassword.html" class="login__searchpwd">비밀번호 찾기</a>
 				</div>
-				<hr>
-				<div class="login__hr">간편로그인</div>
 				<div class="login__sns">
+					<hr class="login__line">
+					<span clsss="login__title">간편로그인</span>
+					<div class="login__snsbutton">
 					<a href=""> <img src="./images/kakao.png"
 						class="login__sns kakao" alt="카카오톡으로 로그인"></a> <a href=""> <img
 						src="./images/naver.png" class="login__sns naver" alt="네이버로 로그인"></a>
+					</div>
 				</div>
-				<hr>
 				<div class="login__hr">회원가입</div>
 				<div class="signup">
 					<!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
