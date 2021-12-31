@@ -6,21 +6,23 @@ public class Owner {
 	private int ownerNo;
 	private String id;
 	private String pwd;
+	private int ownerStatus;
 	
 	public Owner() {}
 
-	public Owner(int ownerNo, String id, String pwd) {
+	public Owner(int ownerNo, String id, String pwd, int ownerStatus) {
 		super();
 		this.ownerNo = ownerNo;
 		this.id = id;
 		this.pwd = pwd;
+		this.ownerStatus = ownerStatus;
 	}
 
-	public int getOwner_no() {
+	public int getOwnerNo() {
 		return ownerNo;
 	}
 
-	public void setOwner_no(int owner_no) {
+	public void setOwnerNo(int owner_no) {
 		this.ownerNo = owner_no;
 	}
 
@@ -40,10 +42,16 @@ public class Owner {
 		this.pwd = pwd;
 	}
 	
-	
+	public int getOwnerStatus() {
+		return ownerStatus;
+	}
+
+	public void setOwnerStatus(int ownerStatus) {
+		this.ownerStatus = ownerStatus;
+	}
 
 	@Override
 	public String toString() {
-		return "Owner [owner_no=" + ownerNo + ", id=" + id + ", pwd=" + pwd + "]";
+		return "Owner [ownerNo=" + ownerNo + ", id=" + id + ", pwd=" + pwd + ", ownerStatus=" + ownerStatus + "]";
 	}
 }

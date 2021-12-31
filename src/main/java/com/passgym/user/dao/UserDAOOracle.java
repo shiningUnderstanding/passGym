@@ -11,10 +11,12 @@ import java.util.List;
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.exception.ModifyException;
+import com.passgym.exception.RemoveException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.gympass.vo.GymPass;
 import com.passgym.pass.vo.Pass;
 import com.passgym.sql.PassGymConnection;
+import com.passgym.star.vo.Star;
 import com.passgym.user.vo.User;
 import com.passgym.userqna.vo.UserQna;
 import com.passgym.zzim.vo.Zzim;
@@ -33,20 +35,20 @@ public class UserDAOOracle implements UserDAOInterface {
 		PreparedStatement pstmt = null;
 		String insertSQL = 
 				"INSERT INTO user_info\r\n"
-				+ "(user_no, id, name, pwd, phone_no, zipcode, addr, addr_detail, sns) \r\n"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				+ "(user_no, id, name, pwd, phone_no, zipcode, addr, addr_detail) \r\n" //, sns) \r\n"
+				+ "VALUES (user_seq.nextval, ?, ?, ?, ?, ?, ?, ?)"; //, ?)";
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(insertSQL);
-			pstmt.setInt(1, user.getUserNo());//user_no도 String으로 바꿀건지?
-			pstmt.setString(2, user.getId());
-			pstmt.setString(3, user.getName());
-			pstmt.setString(4, user.getPwd());
-			pstmt.setString(5, user.getPhoneNo());
-			pstmt.setString(6, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
-			pstmt.setString(7, user.getAddr());
-			pstmt.setString(8, user.getAddrDetail());
-			pstmt.setString(9, user.getSns());
+			//pstmt.setInt(1, user.getUserNo());//user_no도 String으로 바꿀건지?
+			pstmt.setString(1, user.getId());
+			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getPwd());
+			pstmt.setString(4, user.getPhoneNo());
+			pstmt.setString(5, user.getZipcode());//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+			pstmt.setString(6, user.getAddr());
+			pstmt.setString(7, user.getAddrDetail());
+			//pstmt.setString(8, user.getSns());
 			pstmt.executeUpdate();//바인드 변수들 setting 후 DB로 송신
 			System.out.println("ID 추가 성공");//console test용
 		} catch (SQLException e) {
@@ -69,7 +71,7 @@ public class UserDAOOracle implements UserDAOInterface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		User u = null;
-		String selectSQL = "SELECT * FROM user_info WHERE id = ?";
+		String selectSQL = "SELECT * FROM user_info WHERE id = ? AND user_status = 1";
 		try {
 			con = PassGymConnection.getConnection();
 			pstmt = con.prepareStatement(selectSQL);
@@ -84,8 +86,9 @@ public class UserDAOOracle implements UserDAOInterface {
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
-				String sns = rs.getString("sns");
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				String sns = "";
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 			}else {
 				throw new FindException("아이디에 해당하는 사용자가 없습니다");
 			}
@@ -111,16 +114,19 @@ public class UserDAOOracle implements UserDAOInterface {
 			pstmt.setInt(1, userNo);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {//사용자번호는 단일값이니 while이 아닌 if문
-				userNo = rs.getInt("user_no");
 				String id = rs.getString("id");
 				String name = rs.getString("name");
 				String pwd = rs.getString("pwd");
 				String phoneNo = rs.getString("phone_no");
 				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
 				String addr = rs.getString("addr");
-				String addrDetail = rs.getString("addr_detail");
+				String addrDetail = "";
+				if(rs.getString("addr_detail") != null) {
+					addrDetail = rs.getString("addr_detail");
+				}
 				String sns = rs.getString("sns");
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 			}else {
 				throw new FindException("사용자번호에 해당하는 사용자가 없습니다");
 			}
@@ -141,27 +147,32 @@ public class UserDAOOracle implements UserDAOInterface {
 		
 		try {
 			con = PassGymConnection.getConnection();
-			String mypageSQL = "SELECT u.user_no , u.id, u.name u_name, u.addr, u.addr_detail, \r\n"
-					+ "gp.payment_no, gp.owner_no gp_owner_no, gp.status gp_status, g1.name g1_name, p.pass_name pass_name, g1.total_star, g1.total_member , gp.start_date, gp.end_date,\r\n"
+			String mypageSQL = "SELECT u.user_no , u.id, u.name u_name, u.zipcode u_zipcode, u.addr u_addr, u.addr_detail u_addr_detail, \r\n"
+					+ "gp.payment_no, gp.owner_no gp_owner_no, gp.status gp_status, g1.name g1_name, \r\n"
+					+ "p.pass_name pass_name, g1.total_star g1_total_star, g1.total_member g1_total_member, ROUND((g1.total_star / g1.total_member), 2) AS g1_avg_star, \r\n"
+					+ "gp.start_date, gp.end_date, s.star,\r\n"
 					+ "CASE WHEN end_date < SYSDATE THEN 0\r\n"
 					+ "     WHEN start_date <= SYSDATE AND end_date >= SYSDATE THEN ROUND((gp.end_date - SYSDATE), 0)\r\n"
 					+ "     ELSE -1\r\n"
-					+ "END AS remain, -1 z_user_no, -1 z_owner_no, '' g2_name,\r\n"
+					+ "END AS remain, -1 z_user_no, -1 z_owner_no, '' g2_name, '' g2_phone_no, '' g2_zipcode, '' g2_addr, '' g2_addr_detail,\r\n"
+					+ "0 g2_total_star, 0 g2_total_member, 0 g2_avg_star,\r\n"
 					+ "-1 qna_no, '' title, '' content, '' reply, -1 reply_status, null qna_date\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN gym_pass gp ON (u.user_no = gp.user_no)\r\n"
 					+ "                 LEFT OUTER JOIN gym g1 ON (gp.owner_no = g1.owner_no)\r\n"
+					+ "                 LEFT OUTER JOIN star s ON (gp.payment_no = s.payment_no)\r\n"
 					+ "                 JOIN pass p ON (gp.owner_no = p.owner_no AND gp.pass_no = p.pass_no)\r\n"
 					+ "WHERE u.user_no = ?\r\n"
 					+ "UNION ALL\r\n"
-					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1,'', '', -1 , -1, null, null,\r\n"
-					+ "-2 , z.user_no, z.owner_no z_owner_no, g2.name g2_name,\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.zipcode, u.addr, u.addr_detail, '', -1, -1,'', '', 0, 0, 0, null, null, 0,\r\n"
+					+ "-2 , z.user_no, z.owner_no z_owner_no, g2.name g2_name, g2.phone_no g2_phone_no, g2.zipcode g2_zipcode, g2.addr g2_addr, g2.addr_detail g2_addr_detail,\r\n"
+					+ "g2.total_star g2_total_star, g2.total_member g2_total_member, ROUND((g2.total_star / g2.total_member), 2) g2_avg_star,\r\n"
 					+ "-1, '', '', '', -1, null\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN zzim z ON (u.user_no = z.user_no)\r\n"
 					+ "                 LEFT OUTER JOIN gym g2 ON (z.owner_no = g2.owner_no)\r\n"
 					+ "WHERE u.user_no = ?\r\n"
 					+ "UNION ALL\r\n"
-					+ "SELECT u.user_no , u.id, u.name, u.addr, u.addr_detail, '', -1, -1, '', '', -1, -1, null, null,\r\n"
-					+ "-2, -1, -1, '',\r\n"
+					+ "SELECT u.user_no , u.id, u.name, u.zipcode, u.addr, u.addr_detail, '', -1, -1, '', '', 0, 0, 0, null, null, 0,\r\n"
+					+ "-2, -1, -1, '', '', '', '', '', 0, 0, 0,\r\n"
 					+ "uq.qna_no, uq.title, uq.content, uq.reply, uq.reply_status, uq.qna_date\r\n"
 					+ "FROM user_info u LEFT OUTER JOIN user_qna uq ON (u.user_no = uq.user_no)\r\n"
 					+ "WHERE u.user_no = ?";
@@ -176,6 +187,7 @@ public class UserDAOOracle implements UserDAOInterface {
 			GymPass gympass;
 			Pass pass;
 			Gym gpGym;
+			Star star;
 			List<Zzim> zzimList = new ArrayList<>();
 			Zzim zzim;
 			Gym zGym;
@@ -185,13 +197,19 @@ public class UserDAOOracle implements UserDAOInterface {
 			int count = 0;
 			while(rs.next()) {
 				//user
-				System.out.println("-------------");
 				if(count == 0) {
 					user.setUserNo(rs.getInt("user_no"));
 					user.setId(rs.getString("id"));
 					user.setName(rs.getString("u_name"));
-					user.setAddr(rs.getString("addr"));
-					user.setAddr(rs.getString("addr_detail"));
+					user.setZipcode(rs.getString("u_zipcode"));
+					user.setAddr(rs.getString("u_addr"));
+					//상세주소가 빈값일 경우 처리
+					String addrDetail = "";
+					if(rs.getString("u_addr_detail") == null) {
+						user.setAddrDetail(addrDetail);
+					}else {
+						user.setAddrDetail(rs.getString("u_addr_detail"));
+					}
 					gympassList = new ArrayList<>();
 					count++;
 				}
@@ -205,11 +223,15 @@ public class UserDAOOracle implements UserDAOInterface {
 					pass.setOwnerNo(rs.getInt("gp_owner_no"));
 					gpGym = new Gym();
 					gpGym.setName(rs.getString("g1_name"));//gympass의 gym이름
-					gpGym.setTotalStar(rs.getInt("total_star"));
-					gpGym.setTotalStar(rs.getInt("total_member"));
+					gpGym.setTotalStar(rs.getInt("g1_total_star"));
+					gpGym.setTotalMember(rs.getInt("g1_total_member"));
+					gpGym.setAvgStar(rs.getDouble("g1_avg_star"));
 					pass.setGym(gpGym);
 					pass.setPassName(rs.getString("pass_name"));
 					gympass.setPass(pass);
+					star = new Star();
+					star.setStar(rs.getInt("star"));
+					gympass.setStar(star);
 					gympass.setStatus(rs.getInt("gp_status"));
 					gympass.setStartDate(rs.getDate("start_date"));
 					gympass.setEndDate(rs.getDate("end_date"));
@@ -219,10 +241,18 @@ public class UserDAOOracle implements UserDAOInterface {
 				
 				//zzimList
 				int z_user_no = rs.getInt("z_user_no");
-				if(z_user_no != -1) {
+				if(z_user_no > 0) {
 					zzim = new Zzim();
 					zGym = new Gym();
+					zGym.setOwnerNo(rs.getInt("z_owner_no"));
 					zGym.setName(rs.getString("g2_name"));
+					zGym.setPhoneNo(rs.getString("g2_phone_no"));
+					zGym.setZipcode(rs.getString("g2_zipcode"));
+					zGym.setAddr(rs.getString("g2_addr"));
+					zGym.setAddrDetail(rs.getString("g2_addr_detail"));
+					zGym.setTotalStar(rs.getInt("g2_total_star"));
+					zGym.setTotalMember(rs.getInt("g2_total_member"));
+					zGym.setAvgStar(rs.getDouble("g2_avg_star"));
 					zzim.setGym(zGym);
 					zzimList.add(zzim);
 				}
@@ -240,6 +270,9 @@ public class UserDAOOracle implements UserDAOInterface {
 					userQnaList.add(userQna);
 				}
 			}
+			if(user.getUserNo() == -1) {
+				throw new FindException("사용자정보가 존재하지 않습니다.");
+			}
 			user.setGymPasses(gympassList);
 			user.setZzims(zzimList);
 			user.setUserQnas(userQnaList);
@@ -247,6 +280,8 @@ public class UserDAOOracle implements UserDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new FindException("해당값을 찾지 못했습니다.");
+		}finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 	}
 	
@@ -272,7 +307,8 @@ public class UserDAOOracle implements UserDAOInterface {
 				String addr = rs.getString("addr");
 				String addrDetail = rs.getString("addr_detail");
 				String sns = rs.getString("sns");
-				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns);
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
 				userList.add(u);
 			}
 			if(userList.size() == 0) {//userList에 담긴 사용자가 없을 때
@@ -349,6 +385,39 @@ public class UserDAOOracle implements UserDAOInterface {
 	}
 
 	@Override
+	public void modifyUser(User user) throws ModifyException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String updateSQL = "UPDATE user_info\r\n"
+				+ "SET \r\n"
+				+ "name = ?,\r\n"
+				+ "pwd = ?,\r\n"
+				+ "phone_no = ?,\r\n"
+				+ "zipcode = ?,\r\n"
+				+ "addr = ?,\r\n"
+				+ "addr_detail = ?\r\n"
+				+ "WHERE user_no = ? AND id = ?";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(updateSQL);
+			pstmt.setString(1, user.getName());
+			pstmt.setString(2, user.getPwd());
+			pstmt.setString(3, user.getPhoneNo());
+			pstmt.setString(4, user.getZipcode());
+			pstmt.setString(5, user.getAddr());
+			pstmt.setString(6, user.getAddrDetail());
+			pstmt.setInt(7, user.getUserNo());
+			pstmt.setString(8, user.getId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ModifyException("고객정보 수정에 실패하였습니다.");
+		} finally {
+			PassGymConnection.close(pstmt, con);
+		}
+	}
+	
+	@Override
 	public void modifyUserPwd(String pwd) throws ModifyException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -372,7 +441,83 @@ public class UserDAOOracle implements UserDAOInterface {
 	public void modifyUserAddr(int zipcode, String addr, String addrDetail) throws ModifyException {
 		
 	}
+	
+	public User findByPhoneNo(String phoneNo) throws FindException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		User u = null;
+		String selectSQL = "SELECT * FROM user_info WHERE phone_no = ?";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setString(1, phoneNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {//아이디는 단일값이니 while이 아닌 if문
+				int userNo = rs.getInt("user_no");
+				phoneNo = rs.getString("phone_no");
+				String id = rs.getString("id");
+				String name = rs.getString("name");				
+				String pwd = rs.getString("pwd");
+				String zipcode = rs.getString("zipcode");//user.vo에서 zipcode 자료형 String으로 변경 후 setInt > setString으로 바꿔줄 것
+				String addr = rs.getString("addr");
+				String addrDetail = rs.getString("addr_detail");
+				String sns = null;
+				int userStatus = rs.getInt("user_status");
+				u = new User(userNo, id, name, pwd, phoneNo, zipcode, addr, addrDetail, sns, userStatus);
+			}else {
+				throw new FindException("휴대폰번호에 해당하는 사용자가 없습니다");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
+		return u;//사용자 아이디에 해당하는 사용자객체 반환
+	}
+	
+	@Override
+	public void removeUser(User user) throws ModifyException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String removeUserSQL ="UPDATE user_info\r\n"
+				+ "SET \r\n"
+				+ "user_status = 0\r\n"
+				+ "WHERE user_no = ?";
+		
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(removeUserSQL);
+			pstmt.setInt(1, user.getUserNo());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new ModifyException("회원 탈퇴에 실패하혔습니다.");
+		} finally {
+			PassGymConnection.close(pstmt, con);
+		}
+	}
+	
+	
 	public static void main(String[] args) {
+
+
+		UserDAOOracle dao = UserDAOOracle.getInstance();
+		User u = new User();
+//		u.setId("tid");
+//		u.setPwd("tpwd");
+//		u.setName("tname");
+//		u.setPhoneNo("tphone_no");
+//		u.setZipcode("tzipc");
+//		u.setAddr("taddr1");
+//		u.setAddrDetail("taddr2"); 	
+//		try {
+//			dao.addUser(u);
+//		} catch (AddException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		User u = new User(7, "id7", "name7", "pwd7", "01077777777", 17787, "서울특별시 관악구 남부순환로 218길", "777호", "");
 //		try {//사용자 추가하기
 //			dao.addUser(u);
@@ -384,8 +529,8 @@ public class UserDAOOracle implements UserDAOInterface {
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
-//		try {사용자 번호로 사용자 찾기
-//			System.out.println(dao.findByUserNo(2));
+//		try {//사용자 번호로 사용자 찾기
+//			System.out.println(dao.findByUserNo(5));
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
@@ -404,24 +549,26 @@ public class UserDAOOracle implements UserDAOInterface {
 //		} catch (FindException e) {
 //			e.printStackTrace();
 //		}
-		UserDAOOracle dao = UserDAOOracle.getInstance();
-		try {
-			User user = dao.mypageFindByNo(2);
-			System.out.println(user);
-			for(GymPass gp: user.getGymPasses()) {
-				System.out.println(gp);
-				System.out.println(gp.getPass());
-				System.out.println(gp.getPass().getGym());
-			}
-			for(Zzim z : user.getZzims()) {
-				System.out.println(z);
-				System.out.println(z.getGym());
-			}
-			for(UserQna uq : user.getUserQnas()) {
-				System.out.println(uq);
-			}
-		} catch (FindException e) {
-			e.printStackTrace();
-		}
+
+//		UserDAOOracle dao = UserDAOOracle.getInstance();
+//		try {
+//			User user = dao.mypageFindByNo(2);
+//			System.out.println(user);
+//			for(GymPass gp: user.getGymPasses()) {
+//				System.out.println(gp);
+//				System.out.println(gp.getPass());
+//				System.out.println(gp.getPass().getGym());
+//				System.out.println(gp.getStar());
+//			}
+//			for(Zzim z : user.getZzims()) {
+//				System.out.println(z);
+//				System.out.println(z.getGym());
+//			}
+//			for(UserQna uq : user.getUserQnas()) {
+//				System.out.println(uq);
+//			}
+//		} catch (FindException e) {
+//			e.printStackTrace();
+//		}
 	}
 }

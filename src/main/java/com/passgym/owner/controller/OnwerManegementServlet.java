@@ -38,7 +38,7 @@ public class OnwerManegementServlet extends HttpServlet {
 	}else {
 		//2. 로그인 된 경우 
 		OwnerService service = new OwnerService();
-		int ownerNo = o.getOwner_no();
+		int ownerNo = o.getOwnerNo();
 		try {
 			List<Pass> passes = service.findByOwnerNo(ownerNo);
 			request.setAttribute("passes", passes);

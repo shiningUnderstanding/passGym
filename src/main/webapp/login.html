@@ -6,7 +6,6 @@
         <style>
             *{
                 box-sizing: border-box;
-                text-align: center;
             }
             body{
                 margin: auto;
@@ -16,65 +15,99 @@
             header {
                 width: 100%;                
             }
-            header>h1 {
+            /* header>h1 {
                 width: 100%;
                 height: 100%;
                 border: gainsboro 1px solid;
+            } */
+            .login__header{
+                width: 100px;
+                text-align: center;
+            }
+            .login__mainLogo{
+                width: 100%;
+            }
+            .login__hr{
+                display: flex;
+                flex-basis: 100%;
+                align-content: center;
+                color: rgba(0, 0, 0, 0.35);
+                font-size: 12px;
+                margin: 8px 0px;
+            }
+            .login__hr::before,
+            .login__hr::after{
+                content: "";
+                flex-grow: 1;
+                background-color: rgba(0, 0, 0, 0.35);
+                height: 1px;
+                font-size: 0px;
+                line-height: 0px;
+                margin: 0px 16px;
+            }
+            .login__sns{
+                width: 50px;
+                display: flex;
+                justify-content: space-between;
+                margin: 10px;
             }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="./js/login.js"></script>
         <script>
-            
             $(function(){
             	loginClick();
             });
-            
         </script>
     </head>
 
     <body>
-        <div class="header">
-            <header>
-                <h1 class="login"> 로그인
-                    <!-- <a href="index.html" class="logo" >passGym</a> -->
-                </h1>
-            </header>
-        </div>
-        <div class="contents">
-            <div class="login">
-                <form method="post" id="loginform" action="">
-                    <div>
-                        <label><input type="radio" name="check" id="userChk" value="user">사용자</label>
-                        <label><input type="radio" name="check" id="ownerChk" value="owner">사업자</label><br>
+        <div class="login">
+            <div class="login__header">
+                <header>
+                    <h1 class="login__main">
+                        <!--로고이미지-->
+                        <a href="index.html">
+                        <span>패스짐</span>
+                        <img class="login__mainLogo" src="./images/logo.png"/>
+                        </a>
+                    </h1>
+                </header>
+            </div>
+
+            <div class="login__container">
+                <form class="login__form" id="loginform" method="post" action="">
+                    <div class="login__radioChk">
+                        <label><input type="radio" class="login__userChk" name="check" id="userChk" value="user">사용자</label>
+                        <label><input type="radio" class="login__ownerChk" name="check" id="ownerChk" value="owner">사업자</label><br>
                     </div>
-                    <div class="input">
-                    <input type="email" name="id" required placeholder="이메일">
-                    <br>
-                    <input type="password" name="pwd" required placeholder="비밀번호">
-                    <br>
-                    <button type="submit" value="로그인">로그인</button><br>
+                    <div class="login__input">
+                        <input type="email" class="login__id" name="id" required placeholder="이메일"><br>
+                        <input type="password" class="login__pwd" name="pwd" required placeholder="비밀번호"><br>
+                        <button type="submit" class="login__submit" value="로그인">로그인</button><br>
                     </div>
                 </form>
             </div>
 
-            <div class="find">
+            <div class="login__find">
                 <!-- <button type="button" value="이메일/비밀번호 찾기">이메일/비밀번호 찾기</button> -->
-                <a href="findemail.html">이메일 찾기</a>
-                <a href="findpassword.html">비밀번호 찾기</a>
+                <a href="./findemail.html">이메일 찾기</a>
+                <a href="./findpassword.html">비밀번호 찾기</a>
             </div>
-
-            <div class="sns_login">
-                <button class="kakao">카카오로그인</button>
-                <button class="naver">네이버로그인</button>
-                <button class="google">구글로그인</button>
-            </div>
-        
-
+            
+            <div class="login__hr">간편로그인</div>
+                <div class="login__sns">
+                    <a href="">
+                    <img src="./images/kakao.png" class="login__sns" alt="카카오톡으로 로그인"></a>
+                    <a href="">
+                    <img src="./images/naver.png" class="login__sns" alt="네이버로 로그인"></a>
+                </div>
+         
         <div class="signin">
-            <button type="button" value="사용자용">사용자 회원가입</button>
-            <button type="button" value="법인용">법인 회원가입</button>
+            <button type="button" value="사용자용" onclick="location.href='./usersignup.html'">사용자 회원가입</button>
+            <button type="button" onClick="location.href='./ownersignup.html'">법인 회원가입</button>
         </div>
+
         </div>
     </body>
 </html>

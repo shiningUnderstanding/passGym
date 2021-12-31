@@ -42,11 +42,13 @@ footer {
 
 .profile__img {
   width: 150px;
+  height: 150px;
   margin-left: 40px;
 }
 
 .profile__img img {
   width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 
@@ -87,16 +89,29 @@ footer {
 
 .gympass__detail {
   width: 100%;
-  padding: 0 15px;
+  height: 160px;
   margin-bottom: 30px;
   border: 1px solid;
   display: flex;
   justify-content: space-between;
 }
 
-.gympass__infos {
+.gympass__gymImg{
+  width: 230px;
+  max-width: 40%;
+  height: 100%;
+}
+
+.gympass__gymImg img{
   width: 100%;
-  max-width: 80%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.gympass__infos {
+  width: 50%;
+  max-width: 50%;
 }
 
 .gympass__info-top {
@@ -129,8 +144,12 @@ footer {
   padding-left: 10px;
 }
 
+.star span{
+	cursor: pointer;
+}
+
 .gympass__info-bot {
-  width: 400px;
+  width: 300px;
   max-width: 100%;
   margin: 10px 0;
   display: flex;
@@ -141,6 +160,7 @@ footer {
 .gympass__btns {
   width: 100px;
   max-width: 20%;
+  padding-right:15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -214,7 +234,7 @@ footer {
   margin-bottom: 5px;
 }
 
-.zzim__btns {
+.zzim__btn {
   width: 100px;
   max-width: 20%;
 }
@@ -229,7 +249,7 @@ footer {
   max-width: 100%;
   height: 600px;
   padding: 40px 20px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -254,11 +274,15 @@ footer {
 
 .qna__info-show {
   width: 100%;
-  height: 50px;
-  padding-top: 10px;
+  padding: 5px;
   display: flex;
   justify-content: space-around;
-  border: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.qna__detailTitle{
+	width: 300px;
+	max-width: 35%;
 }
 
 .qna__info-hidden {
@@ -266,13 +290,16 @@ footer {
 }
 
 .qna_content {
-  border: 1px solid;
+  border-bottom: 1px solid;
   padding: 10px;
 }
 
 .qna__reply {
-  border: 1px solid;
   padding: 10px;
+}
+
+.question{
+	margin-bottom: 100px;
 }
 
 .question__btn {

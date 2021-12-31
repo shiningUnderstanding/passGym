@@ -16,6 +16,7 @@ public class User {
 	private String addr; //지번주소
 	private String addrDetail; //상세주소
 	private String sns; //sns(회원가입정보)
+	private int userStatus;
 
 	private List<GymPass> gymPasses;
 	private List<UserQna> userQnas;
@@ -24,7 +25,7 @@ public class User {
 	public User() {}
 	
 	public User(int userNo, String id, String name, String pwd, String phoneNo, String zipcode, String addr,
-			String addrDetail, String sns) {
+			String addrDetail, String sns, int userStatus) {
 		super();
 		this.userNo = userNo;
 		this.id = id;
@@ -35,6 +36,7 @@ public class User {
 		this.addr = addr;
 		this.addrDetail = addrDetail;
 		this.sns = sns;
+		this.userStatus = userStatus;
 	}
 
 	public int getUserNo() {
@@ -109,6 +111,14 @@ public class User {
 		this.sns = sns;
 	}
 	
+	public int getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(int userStatus) {
+		this.userStatus = userStatus;
+	}
+
 	public List<GymPass> getGymPasses() {
 		return gymPasses;
 	}
@@ -136,6 +146,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", id=" + id + ", name=" + name + ", pwd=" + pwd + ", phoneNo=" + phoneNo
-				+ ", zipcode=" + zipcode + ", addr=" + addr + ", addrDetail=" + addrDetail + ", sns=" + sns + "]";
+				+ ", zipcode=" + zipcode + ", addr=" + addr + ", addrDetail=" + addrDetail + ", sns=" + sns
+				+ ", userStatus=" + userStatus + ", gymPasses=" + gymPasses + ", userQnas=" + userQnas + ", zzims="
+				+ zzims + "]";
 	}
 }

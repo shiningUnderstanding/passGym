@@ -3,23 +3,131 @@
     <head>
         <title>passGym : 사용자 회원가입</title>
         <meta charset="UTF-8">
+        <style>
+            .usersignup__header{
+                width: 100px;
+                text-align: center;
+            }
+            .usersignup__mainLogo{
+                width: 100%;
+            }
+            .usersignup__hr{
+                display: flex;
+                flex-basis: 100%;
+                align-content: center;
+                color: rgba(0, 0, 0, 0.35);
+                font-size: 12px;
+                margin: 8px 0px;
+            }
+            .usersignup__hr::before,
+            .usersignup__hr::after{
+                content: "";
+                flex-grow: 1;
+                background-color: rgba(0, 0, 0, 0.35);
+                height: 1px;
+                font-size: 0px;
+                line-height: 0px;
+                margin: 0px 16px;
+            }
+            .usersignup__sns{
+                width: 50px;
+                display: flex;
+                justify-content: space-between;
+                margin: 10px;
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="./js/usersignup.js"></script>
+        <script>
+            $(function(){
+                let $idObj = $('.usersingup__id');
+                let $iddupchkBtObj = $('.usersignup__iddupchk');
+                let $phonenoObj = $('.usersignup__phoneno');
+                let $phonenodupchkBtObj = $('.usersignup__phonenochk');
+                let $userSignupFormObj = $('.usersignup__form');
+                
+
+                //아이디(이메일) 중복확인 클릭
+                idDupChk($idObj, $iddupchkBtObj);
+
+                //핸드폰번호 중복확인 클릭
+                phoneNoDupChk($phonenoObj, $phonenodupchkBtObj);
+
+                //폼전송
+            	userSignupClick($userSignupFormObj);
+            });
+            
+        </script>
+
+        <!-- 카카오 우편번호 검색 api -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            function searchZip(){
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        var addr = ''; //도로명 주소 변수
+                        if(data.userSelectedType == 'R'){ //사용자가 도로명 주소를 선택했을 경우
+                            addr = data.roadAddress;
+                        } 
+                        // else { //사용자가 지번 주소를 선택했을 경우
+                        //     addr = data.jibunAddress;
+                        // }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('zipcode').value = data.zonecode;
+                        document.getElementById("addr1").value = addr;
+                        // 커서를 상세주소 필드로 이동한다.
+                        document.getElementById("addr2").focus();
+                    }
+                }).open();
+            }
+        </script>
     </head>
 
     <body>
-        <div class="header">
-            <header>
-                <a href="index.html" class="logo">passGym</a>
-            </header>
-        </div>
-        <div class="contents">
-            <div class="input">
-                <div class="idpwd">
-                    <input type="email" placeholder="아이디(이메일)">
-                    <input type="password" placeholder="비밀번호">
-                    <input type="password" placeholder="비밀번호 확인">
-                </div>
-                <div class="namemobile">
-                    <input type="text" placeholder="이름">
+        <div class="usersignup">
+            <div class="usersignup__header">
+                <header>
+                    <h1 class="usersignup__main">
+                        <!--로고이미지-->
+                        <a href="index.html">
+                        <span>패스짐</span>
+                        <img class="usersignup__mainLogo" src="./images/logo.png"/>
+                        </a>
+                    </h1>
+                </header>
+            </div>
+            <div class="usersignup__container">
+                <form class="usersignup__form" id="usersignupform" method="post" action="./usersignup">
+                    <div class="usersignup__idpwd">
+                        <input type="email" class="usersingup__id" name="id" placeholder="아이디(이메일)">
+                        <button type="button" class="usersignup__iddupchk">아이디(이메일)중복확인</button>
+                        <br>
+                        <input type="password" class="usersingup_pwd" name="pwd" placeholder="비밀번호"><br>
+                        <input type="password" class="usersingup_pwd" name="pwd1" placeholder="비밀번호 확인">
+                    </div>
+                    <div class="usersignup__namemobile">
+                        <input type="text" id="name" placeholder="이름"><br>
+                        <input type="text" class="usersignup__phoneno" id="phone_no" placeholder="핸드폰번호">
+                        <button type="button" class="usersignup__phonenochk">핸드폰번호 중복확인</button><br>
+                        <!-- <input type="text" placeholder="인증번호 입력"> -->
+                    </div>
+                    <div class="usersignup__addr">
+                        <!-- <label for="zipcode"> </label> -->
+                        <input type="text" class="usersignup__zipcode" id="zipcode" readonly size="5" placeholder="우편번호">
+                        <input type="button" class="usersignup__searchzip" onclick="searchZip()" id="searchzip" value="우편번호 찾기"></button><br>
+                        <input type="text" class="usersignup__addr1" id="addr1" readonly size="50" placeholder="주소"><br>
+                        <input type="text" class="usersignup__addr2" id="addr2" placeholder="상세주소 입력">
+                        <br>
+                    </div>
+                    <button type="submit" class="usersignup__submit">회원가입</button>
+                </form>
+                <div class="usersignup__hr">간편회원가입</div>
+                <div class="usersignup__sns">
+                    <a href="./" >
+                    <img src="./images/kakao.png" class="usersignup__sns" alt="카카오톡으로 가입"></a>
+                    <a href="./">
+                    <img src="./images/naver.png" class="usersignup__sns" alt="네이버로 가입"></a>
                 </div>
             </div>
         </div>
