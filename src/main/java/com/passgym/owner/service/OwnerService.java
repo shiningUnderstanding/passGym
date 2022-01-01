@@ -41,4 +41,10 @@ public class OwnerService {
 		}
 		
 	}
+
+
+	public void ownerIdDupChk(String idValue) throws FindException {
+		ownerDAO = new OwnerDAOOracle();
+		ownerDAO.findByOwnerId(idValue);
+	}
 }

@@ -34,12 +34,10 @@ function loginClick(){
                 }else if(responseObj.status == 1){
                     location.href = "./index.jsp";
                 }else if(responseObj.status == 2){
-                    alert("판매자 로그인 성공");
-                }else if(responseObj.status == 3){
-                    alert("판매자 로그인 실패");
-                }
-                console.log(responseObj);
-                console.log(responseObj.status);
+                    location.href = "./";
+                }else if(responseObj.status == 3)
+                    alert("존재하지 않는 회원입니다.");
+                    
             },
             error: function(xhr){
                 alert("응답실패 status: " +  xhr.status);

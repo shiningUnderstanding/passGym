@@ -43,7 +43,7 @@ public class OwnerLoginServlet extends HttpServlet {
 				resultMsg = "로그인 성공";
 				request.setAttribute("status", 2);
 			}
-		} catch (FindException | StatusException e) {
+		} catch (FindException|StatusException e) {
 			System.out.println(e.getMessage());
 			resultMsg = "로그인 실패";
 			request.setAttribute("status", 3);

@@ -10,10 +10,10 @@ function formSubmitted(){
             method : ajaxMethod,
             data : sendData,
             success:function(responseObj){
-                if(responseObj.status == 0){
+                if(responseObj.status == 3){
                     alert("헬스장 등록실패");
-                } else if(responseObj.status == 1){
-                    location.href = "./login.html";
+                } else if(responseObj.status == 2){
+                    location.href = "./login.jsp";
                 }
             }, error:function(xhr){
                 alert("응답실패:" + xhr.status);
@@ -55,3 +55,4 @@ function passRemoveBtClick(){
     });
     
 }
+

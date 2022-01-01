@@ -5,12 +5,18 @@
         <style>
             
         </style>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=442e73ef7496448fa1d785863f42076b&libraries=services"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="./js/ownersignup.js"></script>
         <script>  
         $(function(){
-            formSubmitted();
+            let $formObj = $(".ownersignup__form");
+            let $idObj = $(".ownersignup__idinput");
+            let $submitBtObj = $(".ownersignup__signupbt");
+            formSubmitted($formObj);
+            idFocus($idObj, $submitBtObj);
+            idDupChk($idObj, $submitBtObj);
         })
 
         function searchZip(){
@@ -29,11 +35,27 @@
                         document.getElementById("addr").value = addr;
                         // 커서를 상세주소 필드로 이동한다.
                         document.getElementById("addrdetail").focus();
+                        getLocation();
 
                     }
                 }).open();
             }
 
+        function getLocation(){
+            //kakao map API를 활용하여 위도 경도를 반환하는 함수
+            var addr = document.getElementById('addr').value;
+            //입력된 주소를 통해 좌표를 검색한다
+            var geocoder = new kakao.maps.services.Geocoder();
+            geocoder.addressSearch(addr, function(result, status) {
+
+                if (status === kakao.maps.services.Status.OK) {
+                    let yLocation = result[0].y;
+                    let xLocation = result[0].x; 
+                    document.getElementById('lat').value = yLocation;
+                    document.getElementById('lon').value = xLocation;
+                } 
+            });
+        }
         </script>
     </head>
     <body>
@@ -67,7 +89,9 @@
             <!-- <button type="button" class="ownersignup__searchaddr" name="zipcode">우편번호찾기</button> -->
             <br>
             <input type="text" class="ownersignup__searchaddr1" size="50" id="addr" name="addr" readonly><br>
-            <input type="text" class="ownersignup__searchaddr2" size="50" id="addrdetail" name="addrdetail">
+            <input type="text" class="ownersignup__searchaddr2" size="50" id="addrdetail" name="addrdetail" >
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lon" id="lon">
             <br>
             <button type="submit" class="ownersignup__signupbt">가입</button>
             <button type="reset" class="ownersignup__reset">CLEAR</button>

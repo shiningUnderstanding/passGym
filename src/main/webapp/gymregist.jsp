@@ -20,63 +20,70 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="./js/gymregist.js"></script>
 <script>
-
-    function getEquip(){
-        //장비목록요청
-        //$('regist__gymequip').load('./equiplist');
-        //let regist__gymequip = $('.regist__gymequip'); //ul
-        $.ajax({
-            url: './equiplist',
-            method : 'get',
-            success:function(responseObj){
-                console.log(responseObj);
-                let list  = '';
-                $(responseObj).each(function(index, element){
-                    let eNo =  element.equipNo;
-                    let eName = element.equipName;
-                    list += '<li><input type="checkbox" class="regist__equipcheck"><span>' + eName 
-                        + '</span><input type="number" class="regist__equipcount1" name="equip_no_' + eNo
-                        +'" value="0"></li>';
-                });
-                console.log(list);
-                $(".regist__equiplist").html(list);
-            }
-        });
-
-        $('.regist__equiplist').on('click','li>.regist__equipcheck', function(){           
-            let $countObj = $(this).siblings('.regist__equipcount1');
-            console.log($countObj);
-            if($(this).prop('checked')){
-                $countObj.val(1);
-                $countObj.show();
-            }else{
-                $countObj.val(0);
-                $countObj.hide();
-            }
-        });
-    }
-
-
-
     $(function(){
-        getEquip();
         formSubmitted();
         passAddBtClick();
         passRemoveBtClick();
-    })
+        getEquip();
+    });
+
+    function getEquip(){
+            $.ajax({
+                url: './equiplist',
+                method : 'get',
+                success:function(responseObj){
+                    console.log(responseObj);
+                    let list  = '';
+                    $(responseObj).each(function(index, element){
+                        let eNo =  element.equipNo;
+                        let eName = element.equipName;
+                        list += '<li><input type="checkbox" class="regist__equipcheck"><span>' + eName 
+                            + '</span><input type="number" class="regist__equipcount1" name="equip_no_' + eNo
+                            +'" value="0"></li>';
+                    });
+                    console.log(list);
+                    $(".regist__equiplist").html(list);
+                }
+            });
+
+            $('.regist__equiplist').on('click','li>.regist__equipcheck', function(){           
+                let $countObj = $(this).siblings('.regist__equipcount1');
+                console.log($countObj);
+                if($(this).prop('checked')){
+                    $countObj.val(1);
+                    $countObj.show();
+                }else{
+                    $countObj.val(0);
+                    $countObj.hide();
+                }
+            });
+        }
 </script>
 
 </head>
 <meta charset="UTF-8">
 <body>
 <%
+Gym gym = new Gym();
+session.setAttribute("gymInfo", gym);
+Owner owner = new Owner();
+session.setAttribute("signupInfo", owner);
 Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
 Gym sessionGym = (Gym)session.getAttribute("gymInfo");
+sessionOwner.setOwnerNo(999);
+sessionGym.setName("1");
+sessionGym.setAddr("1");
+sessionGym.setAddrDetail("1");
 %>
 <div class="regist">
         <form class="regist__form" method="post" action="./gymregist">
+            
             <div class="regist__header">
                 <img class="regist__img" src=""><br>
+                <form method="post" enctype="multipart/form-data" action="./gymphotoregist">
+                    <input type="file" name="gymface" accept="image/*"><br>
+                    <input type="submit" value="대표사진등록">
+                </form>
                 <div class="regist__gymname">
                 헬스장 이름 : <%=sessionGym.getName()%>
                 </div>

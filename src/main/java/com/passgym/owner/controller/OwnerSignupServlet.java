@@ -30,8 +30,8 @@ public class OwnerSignupServlet extends HttpServlet {
 		String zipCode = request.getParameter("zipcode");
 		String addr = request.getParameter("addr");
 		String addrDetail = request.getParameter("addrdetail");
-		double lat = 0.0;
-		double lon = 0.0;
+		double lat = Double.parseDouble(request.getParameter("lat"));
+		double lon = Double.parseDouble(request.getParameter("lon"));
 		
 		Owner owner = new Owner(ownerNo, id, pwd, 1);
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
