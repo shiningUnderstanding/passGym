@@ -2,9 +2,7 @@
 <meta charset="UTF-8">
 <html>
     <head>
-        <style>
-            
-        </style>
+        
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=442e73ef7496448fa1d785863f42076b&libraries=services"></script>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,14 +55,53 @@
             });
         }
         </script>
+        
+        <style>
+            body {
+	            font-family: "Noto Sans kr", sans-serif;
+            }
+            .ownersignup{
+                width: 100%;
+				height: 50vh 100%;
+                display: flex;
+                justify-content: center;
+            }
+            .ownersignup__idinput,
+            .ownersignup__gymname,
+            .ownersignup__gymphone,
+            .ownersignup__registno,
+            .ownersignup__pwd,
+            .ownersignup__pwdchk,
+            .ownersignup__zipcode,
+            .ownersignup__searchaddr1,
+            .ownersignup__searchaddr2{
+                display: flex;
+                flex-direction: center;
+                width: 312px!important;
+                height: 48px;
+    			margin-top: 0!important;
+                border: 1px solid darkslategray;
+            }
+            .ownersignup__signupbt{
+                width: 312px;
+			    height: 48px;
+			    background-color: #f6f5ef;
+                border: 1px solid #f6f5ef;
+                border-radius: 4px;
+                font-size: 16px;
+                color: darkslategray;
+			    cursor: pointer;
+            }
+
+        </style>
+             
     </head>
     <body>
     <div class="ownersignup">
-        <h1>고객가입</h1>
         <form class="ownersignup__form" method="post" action="./ownersignup" autocomplete="off">
             <label>아이디:</label>
             <input class="ownersignup__idinput" type="email" name="id" required>
-            <button class="ownersiginup__iddupchk" type="button">아이디중복확인</button>
+            <button class="ownersiginup__iddupchk" type="button">중복확인</button>
             <br>
             <label>업체이름:</label>
             <input type="text" class="ownersignup__gymname" name="name" required>
@@ -94,7 +131,6 @@
             <input type="hidden" name="lon" id="lon">
             <br>
             <button type="submit" class="ownersignup__signupbt">가입</button>
-            <button type="reset" class="ownersignup__reset">CLEAR</button>
         </form>
     </div>
     </body>

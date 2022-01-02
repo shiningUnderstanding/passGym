@@ -36,15 +36,20 @@ public class GymPhotoRegistServlet extends HttpServlet {
 		Owner sessionOwner = (Owner) session.getAttribute("signupInfo");
 		int ownerNo = sessionOwner.getOwnerNo();
 		
-		String savingDirectory = "C:\\passGym\\passGym\\src\\main\\webapp\\images\\gym\\"+ownerNo;
+		String savingDirectory = "C:\\passGym\\passGym\\src\\main\\webapp\\images\\gym\\"+ownerNo+"\\";
 		File Folder = new File(savingDirectory);
 		Folder.mkdir(); //해당 owner의 번호를 이름으로 가진 폴더 생성
 		
 		Part part = request.getPart("gymface");
 		String filename = UUID.randomUUID().toString().replace("-", "");
 		System.out.println(filename);
+		String wholePath = savingDirectory+filename+".png";
 		
-		part.write(savingDirectory+".png");
+		part.write(wholePath);
+		
+		session.removeAttribute("photoPath");
+		session.setAttribute("photoPath", wholePath);
+		response.sendRedirect("./gymregist.jsp");
 	}
 
 }

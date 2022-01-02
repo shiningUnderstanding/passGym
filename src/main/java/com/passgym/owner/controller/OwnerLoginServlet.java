@@ -23,7 +23,6 @@ public class OwnerLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idValue = request.getParameter("id");
 		String pwdValue = request.getParameter("pwd");
-		System.out.println("id=" + idValue + ", pwd=" + pwdValue);
 		
 		String resultMsg = "";
 		OwnerService service = new OwnerService();
