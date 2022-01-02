@@ -70,14 +70,22 @@
 				<th>회원권 상태</th>
 				<th>회원권 개월수</th>
 				<th>일시정지 가능횟수</th>
-				<th>회원권 가능일수</th>
+				<th>일시정지 가능일수</th>
 				<th>비고</th>
 			</tr>
 			<tr class="td__content__1">
 				<!-- 내용 -->
 				<td><%=p.getPassPrice()%></td>
 				<td><%=p.getPassDate()%></td>
-				<td><%=p.getPassStatus()%></td>
+				<%int status = p.getPassStatus();
+				String printStatus="";
+					if(status == 1){
+					printStatus = "사용가능";
+					}else{
+					printStatus = "사용불가능";	
+					}
+				%>
+				<td><%=printStatus%></td>
 				<td><%=p.getPassMonth()%></td>
 				<td><%=p.getPauseCount()%></td>
 				<td><%=p.getPauseDate() %></td>
