@@ -13,8 +13,14 @@ import com.passgym.owner.vo.Owner;
 import com.passgym.pass.vo.Pass;
 
 public class OwnerService {
+  private static OwnerService service = new OwnerService();
+  private OwnerService() {}
+  public static OwnerService getInstance(){
+    return service;
+  }
   private OwnerDAOOracle ownerDAO = OwnerDAOOracle.getInstance();
   private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
+  
   
   public void ownerSignup(Owner owner, Gym gym) throws AddException{
 		ownerDAO.add(owner);		
@@ -26,7 +32,6 @@ public class OwnerService {
 		return gymDAO.findByOwnerNo(ownerNo);
 	}
 	
-
 	public Owner login(String id, String pwd) throws FindException {
 		ownerDAO = new OwnerDAOOracle();
 		try {
@@ -40,8 +45,7 @@ public class OwnerService {
 		}
 		
 	}
-
-
+  
 	public void ownerIdDupChk(String idValue) throws FindException {
 		ownerDAO = new OwnerDAOOracle();
 		ownerDAO.findByOwnerId(idValue);

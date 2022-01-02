@@ -9,6 +9,7 @@ import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
+import com.passgym.pass.dao.PassDAOOracle;
 
 import com.passgym.gymequip.dao.GymEquipDAOOracle;
 import com.passgym.gymequip.vo.GymEquip;
@@ -16,10 +17,13 @@ import com.passgym.pass.dao.PassDAOOracle;
 import com.passgym.pass.vo.Pass;
 
 public class GymService {
-private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
-PassDAOOracle passDAO = new PassDAOOracle();
-GymEquipDAOOracle gymEquipDAO = new GymEquipDAOOracle();
-
+	private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
+	private PassDAOOracle passDAO = PassDAOOracle.getInstance();
+	private static GymService service = new GymService();
+	private GymService() {}
+	public static GymService getInstance() {
+		return service;
+	}
 public void gymRegist(Gym gym, List<Pass> passes, List<GymEquip> gymEquips) throws AddException {
 	gymDAO.add(gym);
 	passDAO.add(passes);
@@ -27,7 +31,7 @@ public void gymRegist(Gym gym, List<Pass> passes, List<GymEquip> gymEquips) thro
 }
   
 public List<Pass> findByOwnerNo(int ownerNo) throws FindException {
-		return dao.findByOwnerNo(ownerNo);
+		return gymDAO.findByOwnerNo(ownerNo);
 	}
 
 public Gym findGym(int ownerNo) throws FindException{
@@ -45,6 +49,12 @@ public Gym findGym(int ownerNo) throws FindException{
 		List<Gym> zzimList = gymDAO.findZzim(userNo, latitude, longitude);
 		
 		return zzimList;
+	}
+	
+	public Gym gymDetail(int ownerNo, double latitude, double longitude) throws FindException{
+		Gym gymDetail = gymDAO.gymDetail(ownerNo, latitude, longitude);
+		
+		return gymDetail;
 	}
 	
 }
