@@ -36,7 +36,7 @@ public class GymPhotoRegistServlet extends HttpServlet {
 		Owner sessionOwner = (Owner) session.getAttribute("signupInfo");
 		int ownerNo = sessionOwner.getOwnerNo();
 		
-		String savingDirectory = "C:\\passGym\\passGym\\src\\main\\webapp\\images\\gym\\"+ownerNo+"\\";
+		String savingDirectory = "C:\\java\\file"+ownerNo+"\\";
 		File Folder = new File(savingDirectory);
 		Folder.mkdir(); //해당 owner의 번호를 이름으로 가진 폴더 생성
 		

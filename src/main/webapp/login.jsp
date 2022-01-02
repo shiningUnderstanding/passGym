@@ -215,7 +215,7 @@ body {
             	});
 
 				$('div.login__body div.signup>button.owner').click(function(){
-            		let ajaxUrl = './ownersignup.jsp';
+            		let ajaxUrl = './ownersignup.html';
             		$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
     					if(jqXHR.status != 200){
     						alert('응답실패:' + jqXHR.status);
