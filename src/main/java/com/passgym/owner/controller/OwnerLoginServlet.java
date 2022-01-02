@@ -25,7 +25,7 @@ public class OwnerLoginServlet extends HttpServlet {
 		String pwdValue = request.getParameter("pwd");
 		
 		String resultMsg = "";
-		OwnerService service = new OwnerService();
+		OwnerService service = OwnerService.getInstance();
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute("ownerLoginInfo");

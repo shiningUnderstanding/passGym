@@ -37,7 +37,7 @@ public class OwnerManegementServlet extends HttpServlet {
 			} else {
 			// 2. 로그인 된 경우
 			
-			OwnerService service = new OwnerService();
+			OwnerService service = OwnerService.getInstance();
 			int ownerNo = o.getOwnerNo();
 			try {
 			

@@ -39,7 +39,7 @@ public class OnwerManegementServlet extends HttpServlet {
 		request.setAttribute("msg", msg);
 	}else {
 		//2. 로그인 된 경우 
-		OwnerService service = new OwnerService();
+		OwnerService service = OwnerService.getInstance();
 		int ownerNo = o.getOwnerNo();
 		try {
 			List<Pass> passes = service.findByOwnerNo(ownerNo);

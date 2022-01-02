@@ -19,6 +19,7 @@ import com.passgym.pass.vo.Pass;
 public class GymService {
 	private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
 	private PassDAOOracle passDAO = PassDAOOracle.getInstance();
+	private GymEquipDAOOracle gymEquipDAO = GymEquipDAOOracle.getInstance();
 	private static GymService service = new GymService();
 	private GymService() {}
 	public static GymService getInstance() {

@@ -37,7 +37,7 @@ public class OwnerSignupServlet extends HttpServlet {
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
 							addr, addrDetail, null, null, null, null, null, null, 0, 0, 0, lat, lon, 0);
 		
-		OwnerService service = new OwnerService();
+		OwnerService service = OwnerService.getInstance();
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute("signupInfo");
