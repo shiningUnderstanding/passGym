@@ -16,7 +16,7 @@ public class GymEquipDAOOracle implements GymEquipDAOInterface {
 	public static GymEquipDAOOracle getInstance() {
 		return dao;
 	}
-
+	
 	@Override
 	public void add(List<GymEquip> gymEquips) throws AddException{
 		Connection con = null;
