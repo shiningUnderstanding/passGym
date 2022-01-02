@@ -4,12 +4,13 @@
 PassGym 프로젝트는 사용자와 피트니스, 헬스장 등 을 연결해주는 플랫폼 프로젝트 입니다.
 
 #### 1. [Project planning(Project topic selection, functional design, water fall) 프로젝트 기획](#project-planning)
-#### 2. [Data Base design(from requirements specification) 데이터 베이스 설계](#data-base-design)
-#### 3. [Functional Specification 기능명세서](#functional-specification)
-#### 4. [Create eclipse project with github 이클립스 프로젝트 생성 및 깃헙 연동](#create-eclipse-project-with-github)
-#### 5. [VO(Value Object) Class](#value-object-class)
-#### 5. [Development implementation (frontend, backend, unit test) 개발 구현](#development-implementation)
-#### 6. [Integration test(통합테스트)](integration-test)
+#### 2. [Layout Design 화면설계](#layout-design)
+#### 3. [Data Base design(from requirements specification) 데이터 베이스 설계](#data-base-design)
+#### 4. [Functional Specification 기능명세서](#functional-specification)
+#### 5. [Create eclipse project with github 이클립스 프로젝트 생성 및 깃헙 연동](#create-eclipse-project-with-github)
+#### 6. [VO(Value Object) Class](#value-object-class)
+#### 7. [Development implementation (frontend, backend, unit test) 개발 구현](#development-implementation)
+#### 8. [Integration test(통합테스트)](integration-test)
 
 ---------------------------------------------------------
 ## What is PassGym       
@@ -52,6 +53,17 @@ PassGym 프로젝트는 사용자와 피트니스, 헬스장 등 을 연결해�
 - 프로젝트 계획 과정   
 
   총 프로젝트 기간 30일  프로젝트 기획 4일 요구사항 정의 3일 데이터베이스 설계 7일 기술명세서 작성 7일
+---------------------------------------------------------
+## Layout Design
+- 판매자와 사용자가 사용하는 화면이 다르므로 이용자에 맞는 화면을 설계
+- 사용자 화면
+ ![image](https://user-images.githubusercontent.com/81364044/147875689-30440e2c-da7a-42d8-a3ec-7bea139cc487.png)
+ ![image](https://user-images.githubusercontent.com/81364044/147875714-d7183f56-5dbf-47de-ae08-927931ae3dba.png)
+ ![image](https://user-images.githubusercontent.com/81364044/147875783-88435b9a-8dd0-4972-86ca-59757226f645.png)
+- 판매자 화면
+  ![image](https://user-images.githubusercontent.com/81364044/147875873-693a8b6b-ee0e-412b-bc86-095ef56e1258.png)
+  ![image](https://user-images.githubusercontent.com/81364044/147876017-b8866805-2075-4568-9c84-2dff5f2e023d.png)
+
 ---------------------------------------------------------
 ## Data Base design
 
