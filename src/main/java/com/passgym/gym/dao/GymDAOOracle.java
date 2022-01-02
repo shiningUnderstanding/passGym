@@ -86,8 +86,8 @@ public class GymDAOOracle implements GymDAOInterface {
 					pass.setPauseCount(pauseCount);
 					pass.setPauseDate(pauseDate);
 					
-					pass.setGympasses(gympasses);   ///  ??
 					gympasses = new ArrayList<>();  //?
+					pass.setGympasses(gympasses);   ///  ??
 					
 					passes.add(pass);
 					oldPassNo = passNo;
@@ -124,6 +124,7 @@ public class GymDAOOracle implements GymDAOInterface {
 			if(passes.size() == 0) {
 				throw new FindException("이용권이 없습니다.");
 			}
+			
 			return passes;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,40 +174,7 @@ public class GymDAOOracle implements GymDAOInterface {
 		
 		return gymList;
 	}
-	
-	
-	public static void main(String[] args) {
-		
-//		GymDAOOracle dao = new GymDAOOracle();
-////		Pass pass  = new Pass();
-//		try {
-//			int ownerNo = 1;
-//			List<Pass> passes = dao.findByOwnerNo(ownerNo);
-//			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
-//			for(Pass p: passes) {
-//				System.out.println("<이용권 정보>");
-//				System.out.println(p);
-//				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
-//				System.out.println("id : name : paymentNo :paymentPrice");
-//				for(GymPass gp: p.getGympasses()) {
-//					User u = gp.getUser();
-//					Payment pay = gp.getPayment();
-//					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
-//				}
-//				System.out.println("-----------------------");
-//				
-//				
-//			}
-//		} catch (FindException e) {
-//			e.printStackTrace();
-//		}
-		try {
-			System.out.println(dao.gymDetail(1, 0, 0));
-		} catch (FindException e) {
-			e.printStackTrace();
-		}
-	}
-
+  
 	@Override
 	public void add(Gym gym) throws AddException {
 		Connection con = null;
@@ -219,9 +187,6 @@ public class GymDAOOracle implements GymDAOInterface {
 				+ "                etc=?"
 				+ "				   WHERE owner_no=?";
 		
-//		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
-//				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
-//				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
 		
 		try {
 			con = PassGymConnection.getConnection();
@@ -235,7 +200,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setInt(7, gym.getOwnerNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);
@@ -265,8 +229,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setDouble(8, gym.getLon());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
-			System.out.println(errorCode);
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);

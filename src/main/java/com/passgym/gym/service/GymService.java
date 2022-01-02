@@ -1,13 +1,20 @@
 package com.passgym.gym.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import com.passgym.equip.dao.EquipDAOOracle;
 
 import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 import com.passgym.pass.dao.PassDAOOracle;
+
+import com.passgym.gymequip.dao.GymEquipDAOOracle;
+import com.passgym.gymequip.vo.GymEquip;
+import com.passgym.pass.dao.PassDAOOracle;
+import com.passgym.pass.vo.Pass;
 
 public class GymService {
 	private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
@@ -17,14 +24,19 @@ public class GymService {
 	public static GymService getInstance() {
 		return service;
 	}
-	
-	public void gymRegist(Gym gym) throws AddException {
-		gymDAO.add(gym);
+public void gymRegist(Gym gym, List<Pass> passes, List<GymEquip> gymEquips) throws AddException {
+	gymDAO.add(gym);
+	passDAO.add(passes);
+	gymEquipDAO.add(gymEquips);
+}
+  
+public List<Pass> findByOwnerNo(int ownerNo) throws FindException {
+		return gymDAO.findByOwnerNo(ownerNo);
 	}
-	
-	public Gym findGym(int ownerNo) throws FindException{
-		Gym gym = gymDAO.findGymByOwnerNo(ownerNo);
-		return gym;
+
+public Gym findGym(int ownerNo) throws FindException{
+	Gym gym = gymDAO.findGymByOwnerNo(ownerNo);
+	return gym;
 	}
 	
 	public List<Gym> findByDistance(double latitude, double longitude) throws FindException{

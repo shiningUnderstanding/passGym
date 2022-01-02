@@ -21,11 +21,6 @@ public class PassDAOOracle implements PassDAOInterface {
 	}
 
 	@Override
-	public void add(Pass pass) throws AddException {
-		
-	}
-
-	@Override
 	public Pass findPass(int ownerNo, int passNo) throws FindException {
 		Pass pass = null;
 		Connection con = null;
@@ -102,12 +97,37 @@ public class PassDAOOracle implements PassDAOInterface {
 		
 		return passes;
 	}
-	public static void main(String[] args) {
-		try {
-			System.out.println(dao.findPass(1, 1));
-		} catch (FindException e) {
-			e.printStackTrace();
+
+	@Override
+	public void add(List<Pass> passes) throws AddException {
+		Pass pass = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String insertSQL = "INSERT INTO pass(owner_no, pass_no, pass_name, pass_price, pass_status, pass_month, pause_count, pause_date, remarks)\r\n"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		
+		for(int i = 0; i < passes.size(); i++) {
+			try {
+				pass = passes.get(i);
+				con = PassGymConnection.getConnection();
+				pstmt = con.prepareStatement(insertSQL);
+				pstmt.setInt(1, pass.getOwnerNo());
+				pstmt.setInt(2, pass.getPassNo());
+				pstmt.setString(3, pass.getPassName());
+				pstmt.setInt(4, pass.getPassPrice());
+				pstmt.setInt(5, pass.getPassStatus());
+				pstmt.setInt(6, pass.getPassMonth());
+				pstmt.setInt(7, pass.getPauseCount());
+				pstmt.setInt(8, pass.getPauseDate());
+				pstmt.setString(9, pass.getRemarks());
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				PassGymConnection.close(pstmt, con);
+			}
 		}
 	}
-
+	
 }

@@ -7,11 +7,11 @@ import com.passgym.exception.FindException;
 import com.passgym.pass.vo.Pass;
 
 public interface PassDAOInterface {
-	public void add(Pass pass) throws AddException; 
 	
 	public Pass findPass(int ownerNo, int passNo) throws FindException;
+  
+	public void add(List<Pass> passes) throws AddException; 
 	
 	public List<Pass> findPassByOwnerNo(int ownerNo) throws FindException;
-	
 	
 }
