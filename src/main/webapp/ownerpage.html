@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="./css/ownerpage.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+		//--------------회원목록 페이지로 이동 시작 ----------------
+   /*    function formSubmitted() {
+        let $divObj = $(".ownerPage__management");
+        $divObj.click(function () {
+          
+          let menuHref = $(this).attr("href");
+          let ajaxUrl = "";
+          let ajaxMethod ="";
+          $ajax({
+        	ajaxUrl: menuHref,
+            ajaxMethod: "post",
+            success: function (responseObj) {
+              location.href = "./ownermanegement";
+            },
+            error: function (xhr) {
+              alert("응답실패:" + xhr.status);
+            },
+          });
+          return false;
+        });
+      } */
+	//--------------회원목록 페이지로 이동 끝----------------
+    </script>
+</head>
+<body>
+ <div class="body_container"> 
+	<form class="gnb_menu" >
+		<div>
+			<a href="">등록/ 수정 페이지</a>
+		</div>
+			<a href="ownermanegement" class="ownerPage__management"> 회원관리</a>
+		<div>
+			<a href="ownerqnalist" class="question">1:1문의</a>
+		</div>
+		<!-- <a href="">회원 탈퇴 </a> -->
+		<a  href="index.jsp">
+        <img src="./images/logo.png" alt="logo" class="logo" >
+      </a>
+	</form>
+	</div>
+</body>
+</html>

@@ -30,6 +30,8 @@ public class OnwerManegementServlet extends HttpServlet {
 	HttpSession session = request.getSession();
 	String msg = "";
 	
+	
+	
 	Owner o = (Owner)session.getAttribute("loginInfo");
 	if(o == null) {
 		//1. 로그인을 되어있지 않을 경우
@@ -41,6 +43,16 @@ public class OnwerManegementServlet extends HttpServlet {
 		int ownerNo = o.getOwnerNo();
 		try {
 			List<Pass> passes = service.findByOwnerNo(ownerNo);
+			if(passes.size() == 0) {
+				System.out.println("passes: " + passes);
+			}
+			for (Pass p : passes) {
+				String passName = p.getPassName();
+				System.out.println("passName: " + passName);
+				if(p.getRemarks() == null) {
+					p.setRemarks(" " );
+				}
+			}
 			request.setAttribute("passes", passes);
 //			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
 //			for(Pass p: passes) {
@@ -55,13 +67,13 @@ public class OnwerManegementServlet extends HttpServlet {
 //				}
 //				System.out.println("-----------------------");
 //			}
-		}catch(FindException e) {
+		 }catch(FindException e) {
 			request.setAttribute("msg", e.getMessage());
 		}
 	 
 		
 	}
-	String path="GymOwner.jsp";
+	String path="usermanagement.jsp";
 	RequestDispatcher rd = request.getRequestDispatcher(path);
 	rd.forward(request, response);
 } 
