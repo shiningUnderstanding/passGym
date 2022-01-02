@@ -82,7 +82,7 @@ List<Gym> zzimList = (List) request.getAttribute("zzimList");
 						<%
 						if (g.getAvgStar() == 0) {
 						%>
-						<div class="gymlist__avgStar">★</div>
+						<div class="gymlist__avgStar">★0.0</div>
 						<%
 						} else {
 						%>
