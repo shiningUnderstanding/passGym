@@ -3,4 +3,4 @@
 int status = (Integer)request.getAttribute("status");
 String msg = (String)request.getAttribute("msg");
 %>
-{"status":<%=status%>, "msg":"<%=msg%>"}
+{"status":<%=status%>, "msg":"<%=msg%>" }
