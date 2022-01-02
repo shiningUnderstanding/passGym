@@ -92,5 +92,5 @@ public interface UserDAOInterface {
 	 * @param user 유저 객체
 	 * @throws ModifyException 삭제에 실패할 경우 "회원탈퇴에 실패했습니다" 메시지를 갖는 예외가 발생한다<br>
 	 */
-	public void removeUser(User user) throws RemoveException;
+	public void removeUser(User user) throws ModifyException;
 }

@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="./css/userqna.css" />
+<script>
+//--------userqna form 전송 시작------------
+$(".userqna__form").submit(function(){
+	let ajaxUrl = $(this).attr("action");
+	let ajaxMethod = $(this).attr("method");
+	let sendData = $(this).serialize();
+	
+	$.ajax({
+		url: ajaxUrl,
+		method: ajaxMethod,
+		data: sendData,
+		success: function(responseObj){
+			if(responseObj.status == 0){
+				//문의 실패
+				alert("문의 실패");
+			}else{
+				alert("문의 성공");
+				location.href = "./mypage";
+			}
+		},
+		error: function(xhr){
+			alert("응답실패 status : " + xhr.status);
+		}
+	});
+	return false;
+});
+//--------userqna form 전송  끝------------
+</script>
+<div class="userqna">
+	<div class="userqna__title">사용자 문의</div>
+	<form class="userqna__form" action="./userqna" method="post">
+		<div class="qna__title">
+			<label for="qna__title">문의 제목 : </label> <input id="qna__title"
+				type="text" name="title" placeholder="문의 제목" required/>
+		</div>
+		<div class="qna__content">
+			<div class="qna__content-label">문의 내용입력</div>
+			<textarea maxlength="500" name="content" required></textarea>
+		</div>
+		<button>문의 저장</button>
+	</form>
+</div>

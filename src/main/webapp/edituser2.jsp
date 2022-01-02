@@ -39,7 +39,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%User user =
     let ajaxMethod = $(this).attr("method");
     let sendData = $(this).serialize();
 
-    /*$.ajax({
+    $.ajax({
       url: ajaxUrl,
       method: ajaxMethod,
       data: sendData,
@@ -54,31 +54,6 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%User user =
       error: function (xhr) {
         alert("응답실패 status : " + xhr.status);
       },
-    });*/
-    var formData = new FormData(this);
-    //formData.append("name", "kim");
-    //formData.append("description", "how are you?");
-
-    $.ajax({
-    	url: ajaxUrl,
-        method: "POST",
-        data: formData,
-        //dataType: 'json',
-        processData: false,
-        contentType: false,
-        success: function (responseObj) {
-			console.log("응답성공");
-			if (responseObj.status == 1) {
-				console.log("업데이트 성공");
-				location.href = "./mypage";
-			} else {
-				alert(responseObj.status);
-				location.href = "./mypage";
-			}
-        },
-        error: function () {
-            alert("failed! ")
-        }
     });
     return false;
   });
@@ -103,26 +78,6 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%User user =
     return false;
   });
   //----------------회원탈퇴  끝---------------------
-		//----이미지 다운로드하기 시작
-		let $img = $('#profileImg');
-		$img.each(function(i, element){	
-			$.ajax({
-				url: './download',
-				 cache:false,
-		         xhrFields:{
-		            responseType: 'blob'
-		        } , 
-		        success: function(responseData, textStatus, jqXhr){
-		        	let contentType = jqXhr.getResponseHeader("content-type");
-		        	let contentDisposition = decodeURI(jqXhr.getResponseHeader("content-disposition"));
-		       		var url = URL.createObjectURL(responseData);
-		       		$(element).attr('src', url); 
-		        },
-		        error:function(){
-		        }
-			}); //end $.ajax
-		});//end each
-		//----이미지 다운로드하기 끝
 </script>
 <!-- 카카오 우편번호 검색 api -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -159,7 +114,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%User user =
   >
     <div class="edituser__img">
       <div class="editprofile__img">
-        <img id="profileImg" src="" />
+        <img id="profileImg" src="./images/user/<%=user.getUserNo() %>.jpg" />
       </div>
       <input id="profileImgInput" type="file" name="photo" />
     </div>
