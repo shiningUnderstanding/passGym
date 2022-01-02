@@ -37,10 +37,10 @@
 	vertical-align: middle;
 	/* max-width: 100%; */
 }
-
 .gymdetail__info {
 	vertical-align: top;
-	display: inline-block;
+	display: flex;
+	flex-direction: column;
 	width: 55%;
 	max-width: 590px;
 	padding-left: 30px;

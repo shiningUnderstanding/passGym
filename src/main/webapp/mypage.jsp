@@ -136,7 +136,7 @@ User user = (User) request.getAttribute("user");
 	          }
 	        });
 	        return false;
-		})
+		});
 		//---------------qna 작성버튼 클릭  끝-----------------
 		//----이미지 다운로드하기 시작
 		let $img = $('.profile__img>img');
@@ -158,6 +158,28 @@ User user = (User) request.getAttribute("user");
 			}); //end $.ajax
 		});//end each
 		//----이미지 다운로드하기 끝
+		//---결제한 헬스장 상세보기 클릭 START---
+		let $link = $(".gympass__gymImg");
+
+		$link.click(function() {
+			let ajaxUrl = "gymdetail";
+			let ajaxMethod = "get";
+			let ownerNo = $(this).attr('id');
+			$.ajax({
+				url: ajaxUrl,
+				method: ajaxMethod,
+				data: { ownerNo: ownerNo },
+				success: function(responseData) {
+					location.href = "gymdetail?ownerNo=" + ownerNo;
+				},
+				error: function(xhr) {
+					alert("ownerNo = " + ownerNo + ", xhr status = " + xhr.status);
+				}
+	        });
+	        return false;
+		});
+		//---결제한 헬스장 상세보기 클릭 END---
+		
 	});
 </script>
 </head>
@@ -199,7 +221,7 @@ User user = (User) request.getAttribute("user");
 			%>
 			<div class="gympass__list">
 				<div class="gympass__detail">
-					<a class="gympass__gymImg" href="/index.jsp"><img
+					<a class="gympass__gymImg" href="javascript:void(0)" id="<%=gp.getPass().getOwnerNo()%>"><img
 						src="./images/gym/<%=gp.getPass().getOwnerNo()%>.jpg"></a>
 					<div class="gympass__infos">
 						<div class="gympass__info-top">

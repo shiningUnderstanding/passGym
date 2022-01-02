@@ -62,6 +62,8 @@ public class PassDAOOracle implements PassDAOInterface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 		return pass;
 	}
@@ -93,6 +95,8 @@ public class PassDAOOracle implements PassDAOInterface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 		
 		return passes;
