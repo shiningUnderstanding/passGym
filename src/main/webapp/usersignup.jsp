@@ -45,7 +45,9 @@
                 border: 1px solid darkslategray;
             }
 
-            .id__line{
+            .id__line,
+            .phone__line,
+            .zip__line{
             	width: 100%;
                 display: flex;
                 align-content: center;
@@ -72,38 +74,24 @@
                 color: darkslategray;
                 cursor: pointer;
             }
-            .usersignup__hr{
+            
+            .usersignup__hr {
                 display: flex;
-                flex-basis: 100%;
-                align-content: center;
-                color: rgba(0, 0, 0, 0.35);
-                font-size: 12px;
-                margin: 8px 0px;
-            }
-
-            .usersignup__hr::before,
-            .usersignup__hr::after{
-                content: "";
-                flex-grow: 1;
-                background-color: rgba(0, 0, 0, 0.35);
-                height: 1px;
-                font-size: 0px;
-                line-height: 0px;
-                margin: 0px 16px;
+                justify-content: center;
+                color: darkslategray;
             }
 
             .usersignup__sns{
-                width: 50px;
-                display: flex;
-                justify-content: space-between;
-                margin: 10px;
-                border-radius: 50%;
                 display: flex;
                 justify-content: center;
             }
 
-            .kakao, .naver {
+            .usersignup__kakao, .usersignup__naver {
                 margin: 10px;
+                width: 50px;
+                display: flex;
+                justify-content: center;
+                border-radius: 50%;
             }
             
             .button{
@@ -201,19 +189,21 @@
                     <button type="button" class="usersignup__phonenochk button">중복확인</button><br>
                     </div>
                     <!-- <input type="text" placeholder="인증번호 입력"> -->
-                    <input type="text" class="usersignup__zipcode input" name="zipcode" id="searchzip" onclick="searchZip()" readonly size="5" placeholder="우편번호">
-                    <input type="button" class="usersignup__searchzip button" id="searchzip" onclick="searchZip()" value="우편번호 찾기"><br>
+                    <div class="zip__line"><input type="text" class="usersignup__zipcode input" id="zipcode" name="zipcode" onclick="searchZip()" readonly size="5" placeholder="우편번호">
+                    <input type="button" class="usersignup__searchzip button" id="searchzip" onclick="searchZip()" value="우편번호 찾기"><br></div>
                     <input type="text" class="usersignup__addr1 input" name="addr1" id="addr1" onclick="searchZip()" readonly size="50" placeholder="주소"><br>
                     <input type="text" class="usersignup__addr2 input" name="addr2" id="addr2" placeholder="상세주소 입력"><br>
                     <button type="submit" class="usersignup__submit">회원가입</button>
                 </form>
             </div>
+            <br>
             <div class="usersignup__hr">간편회원가입</div>
+            <br>
             <div class="usersignup__sns">
                 <a href="./" >
-                <img src="./images/kakao.png" class="usersignup__sns kakao" alt="카카오톡으로 가입"></a>
+                <img src="./images/kakao.png" class="usersignup__kakao" alt="카카오톡으로 가입"></a>
                 <a href="./">
-                <img src="./images/naver.png" class="usersignup__sns naver" alt="네이버로 가입"></a>
+                <img src="./images/naver.png" class="usersignup__naver" alt="네이버로 가입"></a>
             </div>
         </div>
     </body>
