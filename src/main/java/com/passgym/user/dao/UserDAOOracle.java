@@ -433,6 +433,8 @@ public class UserDAOOracle implements UserDAOInterface {
 			e.printStackTrace();
 		} catch (FindException e) {
 			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
 		}
 		
 	}
