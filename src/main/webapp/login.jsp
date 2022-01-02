@@ -214,15 +214,15 @@ body {
     				return false;
             	});
 
-				$('div.login__body div.signup>button.owner').click(function(){
-            		let ajaxUrl = './ownersignup.html';
-            		$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
-    					if(jqXHR.status != 200){
-    						alert('응답실패:' + jqXHR.status);
-    					}
-    				});
-    				return false;
-            	});
+				// $('div.login__body div.signup>button.owner').click(function(){
+            	// 	let ajaxUrl = './ownersignup.html';
+            	// 	$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
+    			// 		if(jqXHR.status != 200){
+    			// 			alert('응답실패:' + jqXHR.status);
+    			// 		}
+    			// 	});
+    			// 	return false;
+            	// });
             });
         </script>
 </head>
@@ -275,7 +275,7 @@ body {
 				<div class="signup">
 					<!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
 					<button type="button" value="사용자용" class="user">사용자 회원가입</button>
-					<button type="button" class="owner">사업자 회원가입</button>
+					<button type="button" class="owner" onClick="location.href='./ownersignup.html'">사업자 회원가입</button>
 				</div>
 
 			</div>
