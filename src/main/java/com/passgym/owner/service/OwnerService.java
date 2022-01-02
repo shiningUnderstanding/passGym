@@ -33,7 +33,6 @@ public class OwnerService {
 	}
 	
 	public Owner login(String id, String pwd) throws FindException {
-		ownerDAO = new OwnerDAOOracle();
 		try {
 			Owner owner = ownerDAO.findByOwnerId(id);
 			if(owner.getPwd().equals(pwd)) {
@@ -47,7 +46,6 @@ public class OwnerService {
 	}
   
 	public void ownerIdDupChk(String idValue) throws FindException {
-		ownerDAO = new OwnerDAOOracle();
 		ownerDAO.findByOwnerId(idValue);
 	}
 }

@@ -23,7 +23,7 @@ public class OwnerIdDupChkServlet extends HttpServlet {
 		String path = "jsonresult.jsp";
 		String resultMsg = "";
 		
-		OwnerService service = new OwnerService();
+		OwnerService service = OwnerService.getInstance();
 		
 		try {
 			service.ownerIdDupChk(idValue);
