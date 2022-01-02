@@ -12,6 +12,11 @@ import com.passgym.exception.FindException;
 import com.passgym.sql.PassGymConnection;
 
 public class EquipDAOOracle implements EquipDAOInterface {
+	private static EquipDAOOracle dao = new EquipDAOOracle();
+	private EquipDAOOracle() {}
+	public static EquipDAOOracle getInstance() {
+		return dao;
+	}
 
 	@Override
 	public List<Equip> findAll() throws FindException {

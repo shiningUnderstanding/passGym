@@ -10,7 +10,11 @@ import com.passgym.gymequip.vo.GymEquip;
 import com.passgym.sql.PassGymConnection;
 
 public class GymEquipDAOOracle implements GymEquipDAOInterface {
-
+	private static GymEquipDAOOracle dao = new GymEquipDAOOracle();
+	private GymEquipDAOOracle() {}
+	public static GymEquipDAOOracle getInstance() {
+		return dao;
+	}
 	@Override
 	public void add(List<GymEquip> gymEquips) throws AddException{
 		Connection con = null;

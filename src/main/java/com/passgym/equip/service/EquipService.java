@@ -7,10 +7,9 @@ import com.passgym.equip.vo.Equip;
 import com.passgym.exception.FindException;
 
 public class EquipService {
-	EquipDAOOracle equipDAO;
+	EquipDAOOracle equipDAO = EquipDAOOracle.getInstance();
 	
 	public List<Equip> findEquipList() throws FindException{
-		equipDAO = new EquipDAOOracle();
 		List<Equip> equips = null;
 	
 		equips = equipDAO.findAll();
