@@ -198,7 +198,6 @@
             </div>
             <br>
             <div class="usersignup__hr">간편회원가입</div>
-            <br>
             <div class="usersignup__sns">
                 <a href="./" >
                 <img src="./images/kakao.png" class="usersignup__kakao" alt="카카오톡으로 가입"></a>
