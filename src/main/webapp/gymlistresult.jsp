@@ -7,6 +7,7 @@
 User u = (User) request.getAttribute("userLoginInfo");
 List<Gym> gymList = (List) request.getAttribute("gymList");
 List<Gym> zzimList = (List) request.getAttribute("zzimList");
+List<Gym> avgStarList = (List) request.getAttribute("avgStarList");
 %>
 <link rel="stylesheet" href="./css/gymlistresult.css">
 <script src="./js/gymlistresult.js"></script>
@@ -30,29 +31,31 @@ List<Gym> zzimList = (List) request.getAttribute("zzimList");
 				double distance = g.getDistance();
 		%>
 		<div class="gymlist__detail" id="<%=ownerNo%>">
-			<ul>
-				<li><img src="./images/gym/<%=ownerNo%>.jpg"></li>
-				<li class="gymlist__infos">
-					<div class="gymlist__info-top">
-						<div class="gymlist__name"><%=name%></div>
-						<%
-						if (g.getAvgStar() == 0) {//평점이 0점이면 별만 표시
-						%>
-						<div class="gymlist__avgStar">★</div>
-						<%
-						} else {//평점이 있으면 별 + 평점표시
-						%>
-						<div class="gymlist__avgStar">
-							★<%=g.getAvgStar()%></div>
-						<%
-						}
-						%>
-					</div>
-					<div class="gymlist__addr"><%=addr%></div>
-					<div class="gymlist__distance"><%=distance%>Km
-					</div>
-				</li>
-			</ul>
+			<a href="javascript:void(0)">
+				<ul>
+					<li><img src="./images/gym/<%=ownerNo%>.jpg"></li>
+					<li class="gymlist__infos">
+						<div class="gymlist__info-top">
+							<div class="gymlist__name"><%=name%></div>
+							<%
+							if (g.getAvgStar() == 0) {//평점이 0점이면 별만 표시
+							%>
+							<div class="gymlist__avgStar">★0.0</div>
+							<%
+							} else {//평점이 있으면 별 + 평점표시
+							%>
+							<div class="gymlist__avgStar">
+								★<%=g.getAvgStar()%></div>
+							<%
+							}
+							%>
+						</div>
+						<div class="gymlist__addr"><%=addr%></div>
+						<div class="gymlist__distance"><%=distance%>Km
+						</div>
+					</li>
+				</ul>
+			</a>
 		</div>
 		<%
 		}
@@ -74,29 +77,72 @@ List<Gym> zzimList = (List) request.getAttribute("zzimList");
 			double distance = g.getDistance();
 		%>
 		<div class="gymlist__detail" id="<%=ownerNo%>">
-			<ul>
-				<li><img src="./images/gym/<%=ownerNo%>.jpg"></li>
-				<li class="gymlist__infos">
-					<div class="gymlist__info-top">
-						<div class="gymlist__name"><%=name%></div>
-						<%
-						if (g.getAvgStar() == 0) {
-						%>
-						<div class="gymlist__avgStar">★0.0</div>
-						<%
-						} else {
-						%>
-						<div class="gymlist__avgStar">
-							★<%=g.getAvgStar()%></div>
-						<%
-						}
-						%>
-					</div>
-					<div class="gymlist__addr"><%=addr%></div>
-					<div class="gymlist__distance"><%=distance%>Km
-					</div>
-				</li>
-			</ul>
+			<a href="javascript:void(0)" >
+				<ul>
+					<li><img src="./images/gym/<%=ownerNo%>.jpg"></li>
+					<li class="gymlist__infos">
+						<div class="gymlist__info-top">
+							<div class="gymlist__name"><%=name%></div>
+							<%
+							if (g.getAvgStar() == 0) {
+							%>
+							<div class="gymlist__avgStar">★0.0</div>
+							<%
+							} else {
+							%>
+							<div class="gymlist__avgStar">
+								★<%=g.getAvgStar()%></div>
+							<%
+							}
+							%>
+						</div>
+						<div class="gymlist__addr"><%=addr%></div>
+						<div class="gymlist__distance"><%=distance%>Km
+						</div>
+					</li>
+				</ul>
+			</a>
+		</div>
+		<%
+		}
+		%>
+	</div>
+	<div class="gymlist__title">별점순</div>
+	<div class="gymlist__details">
+		<%
+		for (Gym g : avgStarList) {
+			int ownerNo = g.getOwnerNo();
+			String name = g.getName();
+			String addr = g.getAddr();
+			double avgStar = g.getAvgStar();
+			double distance = g.getDistance();
+		%>
+		<div class="gymlist__detail" id="<%=ownerNo%>">
+			<a href="javascript:void(0)">
+				<ul>
+					<li><img src="./images/gym/<%=ownerNo%>.jpg"></li>
+					<li class="gymlist__infos">
+						<div class="gymlist__info-top">
+							<div class="gymlist__name"><%=name%></div>
+							<%
+							if (g.getAvgStar() == 0) {
+							%>
+							<div class="gymlist__avgStar">★0.0</div>
+							<%
+							} else {
+							%>
+							<div class="gymlist__avgStar">
+								★<%=g.getAvgStar()%></div>
+							<%
+							}
+							%>
+						</div>
+						<div class="gymlist__addr"><%=addr%></div>
+						<div class="gymlist__distance"><%=distance%>Km
+						</div>
+					</li>
+				</ul>
+			</a>
 		</div>
 		<%
 		}

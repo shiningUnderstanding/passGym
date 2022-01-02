@@ -42,7 +42,7 @@ function gymList() {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
         }, function error (e) {
-			alert("Geolocation 오류 "+e.code +": " + e.message);
+			//alert("Geolocation 오류 "+e.code +": " + e.message);
         }, {
             enableHighAccuracy: false,
             maximumAge: 0,

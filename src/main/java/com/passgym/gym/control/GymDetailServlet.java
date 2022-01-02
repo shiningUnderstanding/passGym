@@ -23,9 +23,9 @@ public class GymDetailServlet extends HttpServlet {
 	private GymService gymService = GymService.getInstance();
 	private PassService passService = PassService.getInstance();
     
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "";
-		int ownerNo = Integer.parseInt(request.getParameter("onwerNo"));
+		int ownerNo = Integer.parseInt(request.getParameter("ownerNo"));
 		String lat = (String)request.getAttribute("latitude");
 		String lon = (String)request.getAttribute("latitude");
 		double latitude = 0.0;

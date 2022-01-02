@@ -46,6 +46,12 @@ public Gym findGym(int ownerNo) throws FindException{
 		return gymList;
 	}
 	
+	public List<Gym> findByAvgStar(double latitude, double longitude) throws FindException{
+		List<Gym> avgStarList = gymDAO.findByAvgStar(latitude, longitude);
+		
+		return avgStarList;
+	}
+	
 	public List<Gym> findZzim(int userNo, double latitude, double longitude) throws FindException{
 		List<Gym> zzimList = gymDAO.findZzim(userNo, latitude, longitude);
 		

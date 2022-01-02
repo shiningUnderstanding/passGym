@@ -40,8 +40,13 @@ public class GymListServlet extends HttpServlet {
 			try {
 				List<Gym> gymList = service.findByDistance(latitude, longitude);
 				request.setAttribute("gymList", gymList);
+				List<Gym> avgStarList = service.findByAvgStar(latitude, longitude);
+				request.setAttribute("avgStarList", avgStarList);
 				path = "gymlistresult.jsp";
 				for(Gym g: gymList) {
+					System.out.println(g);
+				}
+				for(Gym g: avgStarList) {
 					System.out.println(g);
 				}
 			} catch (FindException e) {
@@ -55,11 +60,16 @@ public class GymListServlet extends HttpServlet {
 				request.setAttribute("zzimList", zzimList);
 				List<Gym> gymList = service.findByDistance(latitude, longitude);
 				request.setAttribute("gymList", gymList);
+				List<Gym> avgStarList = service.findByAvgStar(latitude, longitude);
+				request.setAttribute("avgStarList", avgStarList);
 				path = "gymlistresult.jsp";
 				for(Gym g: zzimList) {
 					System.out.println(g);
 				}
 				for(Gym g: gymList) {
+					System.out.println(g);
+				}
+				for(Gym g: avgStarList) {
 					System.out.println(g);
 				}
 			} catch (FindException e) {

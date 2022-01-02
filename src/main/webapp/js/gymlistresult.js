@@ -12,8 +12,12 @@ function gymDetail() {
 			method: ajaxMethod,
 			data: { ownerNo: ownerNo },
 			success: function(responseData) {
-				location.href="./gymdetail";
+				location.href = "gymdetail?ownerNo=" + ownerNo;
+			},
+			error: function(xhr) {
+				alert("ownerNo = " + ownerNo + ", xhr status = " + xhr.status);
 			}
+
 
 		});
 		return false;
