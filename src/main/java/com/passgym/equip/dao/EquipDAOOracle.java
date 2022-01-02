@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.passgym.equip.vo.Equip;
 import com.passgym.exception.FindException;
+import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.sql.PassGymConnection;
 
 public class EquipDAOOracle implements EquipDAOInterface {

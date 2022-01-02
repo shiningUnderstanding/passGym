@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.passgym.equip.dao.EquipDAOOracle;
 import com.passgym.exception.AddException;
 import com.passgym.gymequip.vo.GymEquip;
 import com.passgym.sql.PassGymConnection;
@@ -15,6 +16,7 @@ public class GymEquipDAOOracle implements GymEquipDAOInterface {
 	public static GymEquipDAOOracle getInstance() {
 		return dao;
 	}
+	
 	@Override
 	public void add(List<GymEquip> gymEquips) throws AddException{
 		Connection con = null;
