@@ -117,6 +117,7 @@
             }
         </style>
         <script src="./js/usersignup.js"></script>
+        <script src="./js/menu.js"></script>
         <script>
             $(function(){
                 let $idObj = $('.usersingup__id');

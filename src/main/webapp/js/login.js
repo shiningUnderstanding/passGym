@@ -34,7 +34,7 @@ function loginClick(){
                 }else if(responseObj.status == 1){
                     location.href = "./index.jsp";
                 }else if(responseObj.status == 2){
-                    location.href = "./";
+                    location.href = "./ownerpage.html";
                 }else if(responseObj.status == 3)
                     alert("존재하지 않는 회원입니다.");
                     

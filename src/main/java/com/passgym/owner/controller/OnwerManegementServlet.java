@@ -20,19 +20,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/onwermanegement")
+@WebServlet("/ownermanegement")
 public class OnwerManegementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
  
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	HttpSession session = request.getSession();
 	String msg = "";
 	
 	
 	
-	Owner o = (Owner)session.getAttribute("loginInfo");
+	Owner o = (Owner)session.getAttribute("ownerLoginInfo");
 	if(o == null) {
 		//1. 로그인을 되어있지 않을 경우
 		msg = "로그인하세요";
@@ -54,19 +54,7 @@ public class OnwerManegementServlet extends HttpServlet {
 				}
 			}
 			request.setAttribute("passes", passes);
-//			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
-//			for(Pass p: passes) {
-//				System.out.println("<이용권 정보>");
-//				System.out.println(p);
-//				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
-//				System.out.println("id : name : paymentNo :paymentPrice");
-//				for(GymPass gp: p.getGympasses()) {
-//					User u = gp.getUser();
-//					Payment pay = gp.getPayment();
-//					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
-//				}
-//				System.out.println("-----------------------");
-//			}
+
 		 }catch(FindException e) {
 			request.setAttribute("msg", e.getMessage());
 		}
