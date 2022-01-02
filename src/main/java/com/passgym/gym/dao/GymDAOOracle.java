@@ -21,7 +21,7 @@ import com.passgym.zzim.vo.Zzim;
 
 public class GymDAOOracle implements GymDAOInterface {
 	private static GymDAOOracle dao = new GymDAOOracle();
-	public GymDAOOracle() {}
+	private GymDAOOracle() {}
 	public static GymDAOOracle getInstance() {
 		return dao;
 	}
@@ -156,11 +156,11 @@ public class GymDAOOracle implements GymDAOInterface {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int ownerNo = rs.getInt("owner_no");
-				String gymName = rs.getString("name");
-				String gymAddr = rs.getString("addr");
+				String Name = rs.getString("name");
+				String addr = rs.getString("addr");
 				double distance = rs.getDouble("distance");
 				double avgStar = rs.getDouble("avg_star");
-				Gym g = new Gym(ownerNo, gymName, null, null, gymAddr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
+				Gym g = new Gym(ownerNo, Name, null, null, addr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
 				
 				gymList.add(g);
 			}
@@ -201,18 +201,7 @@ public class GymDAOOracle implements GymDAOInterface {
 //			e.printStackTrace();
 //		}
 		try {
-			Zzim zzim = new Zzim();
-			List<Gym> gymList = dao.findZzim(3, 0, 0);
-			for(Gym g : gymList){
-				int ownerNo = g.getOwnerNo();
-				String gymName = g.getName();
-				String gymAddr = g.getAddr();
-				double distance = g.getDistance();
-				double avgStar = g.getAvgStar();
-				
-				System.out.println(g);
-			}
-			
+			System.out.println(dao.gymDetail(1, 0, 0));
 		} catch (FindException e) {
 			e.printStackTrace();
 		}
@@ -369,8 +358,67 @@ public class GymDAOOracle implements GymDAOInterface {
 		return gymList;
 	}
 	@Override
-	public Gym gymDetail(int ownerNo) throws FindException {
+	public Gym gymDetail(int ownerNo, double latitude, double longitude) throws FindException {//헬스장 상세페이지용
+		Gym g = new Gym();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		if(latitude == 0.0 && longitude == 0.0) {
+			latitude = 37.554837;
+			longitude = 126.971732;
+		}
+		String selectSQL = "SELECT owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice,\r\n"
+				+ "operating_time, operating_program, extra_service, etc,\r\n"
+				+ "ROUND((total_star / total_member), 2) AS avg_star,\r\n"
+				+ "NVL((POWER(total_star, 7) / POWER(total_member, 6)), 0) AS best,\r\n"
+				+ "DISTANCE_WGS84(?, ?, lat, lon) AS distance\r\n"
+				+ "FROM gym\r\n"
+				+ "WHERE owner_no = ?";
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setDouble(1, latitude);
+			pstmt.setDouble(2, longitude);
+			pstmt.setInt(3, ownerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ownerNo = rs.getInt("owner_no");//미완성
+				String name = rs.getString("name");
+				String phoneNo = rs.getString("phone_no");
+				String zipcode = rs.getString("zipcode");
+				String addr = rs.getString("addr");
+				String addrDetail = rs.getString("addr_detail");
+				String introduce = rs.getString("introduce");
+				String notice = rs.getString("notice");
+				String operatingTime = rs.getString("operating_time");
+				String operatingProgram = rs.getString("operating_program");
+				String extraService = rs.getString("extra_service");
+				String etc = rs.getString("etc");
+				double distance = rs.getDouble("distance");
+				double avgStar = rs.getDouble("avg_star");
+				
+				g.setOwnerNo(ownerNo);
+				g.setName(name);
+				g.setPhoneNo(phoneNo);
+				g.setZipcode(zipcode);
+				g.setAddr(addr);
+				g.setAddrDetail(addrDetail);
+				g.setIntroduce(introduce);
+				g.setNotice(notice);
+				g.setOperatingTime(operatingTime);
+				g.setOperatingProgram(operatingProgram);
+				g.setExtraService(extraService);
+				g.setEtc(etc);
+				g.setDistance(distance);
+				g.setAvgStar(avgStar);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
+		return g;
 		
-		return null;
 	}
 }

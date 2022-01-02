@@ -6,4 +6,6 @@ import com.passgym.payment.vo.Payment;
 public interface PaymentDAOInterface {
 
 	public void addPayment(Payment p) throws AddException;
+	
+	
 }

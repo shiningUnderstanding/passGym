@@ -52,10 +52,12 @@ public interface GymDAOInterface {
 	/**
 	 * 헬스장 상세 페이지에 넘겨줄 gym정보 모두 출력
 	 * @param ownerNo 사업자번호
+	 * @param latitude 위도
+	 * @param longitude 경도
 	 * @return 사업자번호에 해당하는 헬스장 상세 정보
 	 * @throws FindException
 	 */
-	public Gym gymDetail(int ownerNo) throws FindException;
+	public Gym gymDetail(int ownerNo, double latitude, double longitude) throws FindException;
 	
 	/**
 	 * 판매자회원가입화면에서 입력한 정보를 저장한다.

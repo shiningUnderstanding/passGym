@@ -16,7 +16,12 @@ import com.passgym.user.dao.UserDAOOracle;
 import com.passgym.user.vo.User;
 
 public class GymPassDAOOracle implements GymPassDAOInterface {
-
+	private static GymPassDAOOracle dao = new GymPassDAOOracle();
+	private GymPassDAOOracle() {}
+	public GymPassDAOOracle getInstance() {
+		return dao;
+	}
+	
 	@Override
 	public void addGymPass(GymPass gp) throws AddException {
 		Connection con = null;

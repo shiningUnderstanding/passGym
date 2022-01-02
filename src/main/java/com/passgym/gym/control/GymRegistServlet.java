@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/gymregist")
 public class GymRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private GymService service = GymService.getInstance();
       
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -29,7 +30,6 @@ public class GymRegistServlet extends HttpServlet {
 		Owner sessionOwner = (Owner)session.getAttribute("signupInfo");
 		
 		int ownerNo = sessionOwner.getOwnerNo();
-		GymService service = new GymService();
 		Gym gym;
 		Pass pass;
 		
