@@ -1,0 +1,62 @@
+.qna {
+  width: 800px;
+  max-width: 100%;
+  height: 600px;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+.qna__list {
+  width: 100%;
+}
+
+.qna__detail {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 1px solid;
+}
+
+.qna__infos {
+  width: 100%;
+}
+
+.qna__info-show {
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid;
+}
+
+.qna__detailTitle {
+  width: 300px;
+  max-width: 35%;
+}
+
+.qna__info-hidden {
+  display: none;
+}
+
+.qna_content {
+  border-bottom: 1px solid;
+  padding: 10px;
+}
+
+.qna__reply {
+  padding: 10px;
+}
+
+.question {
+  margin-bottom: 100px;
+}
+
+.question__btn {
+  width: 100px;
+  padding: 5px;
+}

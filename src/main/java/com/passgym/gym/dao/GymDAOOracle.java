@@ -86,8 +86,8 @@ public class GymDAOOracle implements GymDAOInterface {
 					pass.setPauseCount(pauseCount);
 					pass.setPauseDate(pauseDate);
 					
-					pass.setGympasses(gympasses);   ///  ??
 					gympasses = new ArrayList<>();  //?
+					pass.setGympasses(gympasses);   ///  ??
 					
 					passes.add(pass);
 					oldPassNo = passNo;
@@ -124,6 +124,7 @@ public class GymDAOOracle implements GymDAOInterface {
 			if(passes.size() == 0) {
 				throw new FindException("이용권이 없습니다.");
 			}
+			
 			return passes;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -156,11 +157,11 @@ public class GymDAOOracle implements GymDAOInterface {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int ownerNo = rs.getInt("owner_no");
-				String gymName = rs.getString("name");
-				String gymAddr = rs.getString("addr");
+				String Name = rs.getString("name");
+				String addr = rs.getString("addr");
 				double distance = rs.getDouble("distance");
 				double avgStar = rs.getDouble("avg_star");
-				Gym g = new Gym(ownerNo, gymName, null, null, gymAddr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
+				Gym g = new Gym(ownerNo, Name, null, null, addr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
 				
 				gymList.add(g);
 			}
@@ -177,45 +178,32 @@ public class GymDAOOracle implements GymDAOInterface {
 	
 	public static void main(String[] args) {
 		
-//		GymDAOOracle dao = new GymDAOOracle();
-////		Pass pass  = new Pass();
-//		try {
-//			int ownerNo = 1;
-//			List<Pass> passes = dao.findByOwnerNo(ownerNo);
-//			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
-//			for(Pass p: passes) {
-//				System.out.println("<이용권 정보>");
-//				System.out.println(p);
-//				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
-//				System.out.println("id : name : paymentNo :paymentPrice");
-//				for(GymPass gp: p.getGympasses()) {
-//					User u = gp.getUser();
-//					Payment pay = gp.getPayment();
-//					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
-//				}
-//				System.out.println("-----------------------");
-//				
-//				
-//			}
-//		} catch (FindException e) {
-//			e.printStackTrace();
-//		}
+		GymDAOOracle dao = new GymDAOOracle();
+//		Pass pass  = new Pass();
 		try {
-			Zzim zzim = new Zzim();
-			List<Gym> gymList = dao.findZzim(3, 0, 0);
-			for(Gym g : gymList){
-				int ownerNo = g.getOwnerNo();
-				String gymName = g.getName();
-				String gymAddr = g.getAddr();
-				double distance = g.getDistance();
-				double avgStar = g.getAvgStar();
+			int ownerNo = 1;
+			List<Pass> passes = dao.findByOwnerNo(ownerNo);
+			System.out.println(ownerNo + "이용권 종류 : "+ passes.size());
+			for(Pass p: passes) {
+				System.out.println("<이용권 정보>");
+				System.out.println(p);
+				System.out.println("-----헬스장 이용권 구매한 회원 내역 --------");
+				System.out.println("id : name : paymentNo :paymentPrice");
+				for(GymPass gp: p.getGympasses()) {
+					User u = gp.getUser();
+					Payment pay = gp.getPayment();
+					System.out.println(u.getId() + ":" + u.getName() + ":" + pay.getPaymentNo() + ":" + pay.getPaymentPrice());
+				}
+				System.out.println("-----------------------");
 				
-				System.out.println(g);
+				
 			}
-			
 		} catch (FindException e) {
 			e.printStackTrace();
 		}
+		
+	 
+		 
 	}
 
 	@Override
@@ -363,8 +351,56 @@ public class GymDAOOracle implements GymDAOInterface {
 		return gymList;
 	}
 	@Override
-	public Gym gymDetail(int ownerNo) throws FindException {
+	public Gym gymDetail(int ownerNo) throws FindException {//헬스장 상세페이지용
+		Gym g = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String selectSQL = "SELECT * FROM gym WHERE owner_no = ?";
 		
-		return null;
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setInt(1, ownerNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				ownerNo = rs.getInt("owner_no");//미완성
+				String name = rs.getString("name");
+				String phoneNo = rs.getString("phone_no");
+				String zipcode = rs.getString("zipcode");
+				String addr = rs.getString("addr");
+				String addrDetail = rs.getString("addr_detail");
+				String introduce = rs.getString("introduce");
+				String notice = rs.getString("notice");
+				String operatingTime = rs.getString("operating_time");
+				String operatingProgram = rs.getString("operating_program");
+				String extraService = rs.getString("extra_service");
+				String etc = rs.getString("etc");
+				double distance = rs.getDouble("distance");
+				double avgStar = rs.getDouble("avg_star");
+				
+				g.setOwnerNo(ownerNo);
+				g.setName(name);
+				g.setPhoneNo(phoneNo);
+				g.setZipcode(zipcode);
+				g.setAddr(addr);
+				g.setAddrDetail(addrDetail);
+				g.setIntroduce(introduce);
+				g.setNotice(notice);
+				g.setOperatingTime(operatingTime);
+				g.setOperatingProgram(operatingProgram);
+				g.setExtraService(extraService);
+				g.setEtc(etc);
+				g.setDistance(distance);
+				g.setAvgStar(avgStar);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
+		return g;
+		
 	}
 }

@@ -1,6 +1,8 @@
 package com.passgym.owner.vo;
 
-import com.passgym.gym.vo.Gym;
+import java.util.List;
+
+import com.passgym.ownerqna.vo.OwnerQna;
 
 public class Owner {
 	private int ownerNo;
@@ -8,8 +10,24 @@ public class Owner {
 	private String pwd;
 	private int ownerStatus;
 	
-	public Owner() {}
+	private List<OwnerQna> ownerQnas;
+	
+	public List<OwnerQna> getOwnerQnas() {
+		return ownerQnas;
+	}
 
+
+
+	public void setOwnerQnas(List<OwnerQna> ownerQnas) {
+		this.ownerQnas = ownerQnas;
+	}
+
+
+
+	public Owner() {}
+ 
+	
+	
 	public Owner(int ownerNo, String id, String pwd, int ownerStatus) {
 		super();
 		this.ownerNo = ownerNo;
@@ -50,8 +68,13 @@ public class Owner {
 		this.ownerStatus = ownerStatus;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Owner [ownerNo=" + ownerNo + ", id=" + id + ", pwd=" + pwd + ", ownerStatus=" + ownerStatus + "]";
+		return "Owner [ownerNo=" + ownerNo + ", id=" + id + ", pwd=" + pwd + ", ownerStatus=" + ownerStatus
+				+ ", ownerQnas=" + ownerQnas + "]";
 	}
+
+ 
 }

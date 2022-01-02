@@ -9,14 +9,14 @@ import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
+
 import com.passgym.gymequip.dao.GymEquipDAOOracle;
 import com.passgym.gymequip.vo.GymEquip;
 import com.passgym.pass.dao.PassDAOOracle;
 import com.passgym.pass.vo.Pass;
 
 public class GymService {
-
-GymDAOOracle gymDAO = new GymDAOOracle();
+private GymDAOOracle gymDAO = GymDAOOracle.getInstance();
 PassDAOOracle passDAO = new PassDAOOracle();
 GymEquipDAOOracle gymEquipDAO = new GymEquipDAOOracle();
 
@@ -25,10 +25,14 @@ public void gymRegist(Gym gym, List<Pass> passes, List<GymEquip> gymEquips) thro
 	passDAO.add(passes);
 	gymEquipDAO.add(gymEquips);
 }
+  
+public List<Pass> findByOwnerNo(int ownerNo) throws FindException {
+		return dao.findByOwnerNo(ownerNo);
+	}
 
 public Gym findGym(int ownerNo) throws FindException{
 	Gym gym = gymDAO.findGymByOwnerNo(ownerNo);
-		return gym;
+	return gym;
 	}
 	
 	public List<Gym> findByDistance(double latitude, double longitude) throws FindException{
