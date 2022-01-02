@@ -32,6 +32,8 @@ public class StarDAOOracle implements StarDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new AddException("별점이 추가되지 못했습니다.");
+		} finally {
+			PassGymConnection.close(pstmt, con);
 		}
 	}
 	

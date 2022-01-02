@@ -6,6 +6,7 @@ import java.util.List;
 import com.passgym.exception.FindException;
 import com.passgym.gym.service.GymService;
 import com.passgym.gym.vo.Gym;
+import com.passgym.sql.PassGymConnection;
 import com.passgym.user.vo.User;
 
 import jakarta.servlet.RequestDispatcher;
