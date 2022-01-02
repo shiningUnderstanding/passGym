@@ -18,10 +18,13 @@ User user = (User) request.getAttribute("user");
 <link rel="stylesheet" href="./css/index.css" />
 <link rel="stylesheet" href="./css/mypage.css" />
 <link rel="stylesheet" href="./css/footer.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./js/menu.js"></script>
 <script>
 	$(function() {
+        /*--메뉴가 클릭되었을 때 START*/
+        menuClick();
+        /*--메뉴가 클릭되었을 때 END*/
 		//----------------edit 시작----------------------
 		let $editBtn = $(".profile__editBtn");
 
@@ -63,7 +66,8 @@ User user = (User) request.getAttribute("user");
 					console.log("응답성공");
 					if (responseObj.status == 1) {
 						console.log("별점 추가 성공");
-						$(".mypageBtn").trigger("click");
+						location.href = "./mypage";
+						//$(".mypageBtn").trigger("click");
 					} else {
 						alert(responseObj.status);
 					}
@@ -93,7 +97,8 @@ User user = (User) request.getAttribute("user");
 					console.log("응답성공");
 					if (responseObj.status == 1) {
 						console.log("찜 삭제 성공");
-						$(".mypageBtn").trigger("click");
+						location.href = "./mypage";
+						//$(".mypageBtn").trigger("click");
 					} else {
 						alert(responseObj.status);
 					}
@@ -117,7 +122,42 @@ User user = (User) request.getAttribute("user");
 				$(this).children().html("내용보기");
 			}
 		})
-		//----------------qna내용보기  끝-------------------
+		//----------------qna 내용보기  끝-------------------
+		//---------------qna 작성버튼 클릭 시작------------------
+		let $qnaBtn = $(".question__btn");
+
+		$qnaBtn.click(function() {
+			let ajaxUrl = "userqna.html";
+			let ajaxMethod = "get";
+	        $("section").empty();
+	        $("section").load(ajaxUrl, function (responseText, textStatus, jqXHR) {
+	          if (jqXHR.status != 200) {
+	            alert("응답실패:" + jqXHR.status);
+	          }
+	        });
+	        return false;
+		})
+		//---------------qna 작성버튼 클릭  끝-----------------
+		//----이미지 다운로드하기 시작
+		let $img = $('.profile__img>img');
+		$img.each(function(i, element){	
+			$.ajax({
+				url: './download',
+				 cache:false,
+		         xhrFields:{
+		            responseType: 'blob'
+		        } , 
+		        success: function(responseData, textStatus, jqXhr){
+		        	let contentType = jqXhr.getResponseHeader("content-type");
+		        	let contentDisposition = decodeURI(jqXhr.getResponseHeader("content-disposition"));
+		       		var url = URL.createObjectURL(responseData);
+		       		$(element).attr('src', url); 
+		        },
+		        error:function(){
+		        }
+			}); //end $.ajax
+		});//end each
+		//----이미지 다운로드하기 끝
 	});
 </script>
 </head>
@@ -130,7 +170,7 @@ User user = (User) request.getAttribute("user");
 		<div class="profile_title">my profile</div>
 		<div class="profile">
 			<div class="profile__img">
-				<img src="./images/user/<%=user.getUserNo()%>.jpg" />
+				<img src="" />
 			</div>
 			<div class="profile__info">
 				<span>이름 : <%=user.getName()%></span> <span>이메일 : <%=user.getId()%></span>

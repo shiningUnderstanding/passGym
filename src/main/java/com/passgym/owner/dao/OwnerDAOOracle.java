@@ -2,19 +2,50 @@ package com.passgym.owner.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.passgym.exception.AddException;
+import com.passgym.exception.FindException;
+import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 import com.passgym.owner.vo.Owner;
 import com.passgym.sql.PassGymConnection;
 
 public class OwnerDAOOracle implements OwnerDAOInterface {
-
+	private static OwnerDAOOracle dao = new OwnerDAOOracle();
+	private OwnerDAOOracle() {}
+	public static OwnerDAOOracle getInstance() {
+		return dao;
+	}
 	@Override
-	public Owner findByOwnerId(String ownerNo) {
+	public Owner findByOwnerId(String id) throws FindException {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String selectSQL = "SELECT * FROM owner WHERE id=?";
 		
-		return null;
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int ownerNo = rs.getInt("owner_no");
+				String pwd = rs.getString("pwd");
+				int ownerStatus = rs.getInt("owner_status");
+				Owner owner = new Owner(ownerNo, id, pwd, ownerStatus);
+				return owner;
+			}else {
+				throw new FindException("아이디에 해당하는 고객이 없습니다.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new FindException(e.getMessage());
+		}finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
 	}
 
 	@Override

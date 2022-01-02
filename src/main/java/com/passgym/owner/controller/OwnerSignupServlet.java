@@ -8,6 +8,7 @@ import com.passgym.gym.vo.Gym;
 import com.passgym.owner.service.OwnerService;
 import com.passgym.owner.vo.Owner;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,8 +30,8 @@ public class OwnerSignupServlet extends HttpServlet {
 		String zipCode = request.getParameter("zipcode");
 		String addr = request.getParameter("addr");
 		String addrDetail = request.getParameter("addrdetail");
-		double lat = 0.0;
-		double lon = 0.0;
+		double lat = Double.parseDouble(request.getParameter("lat"));
+		double lon = Double.parseDouble(request.getParameter("lon"));
 		
 		Owner owner = new Owner(ownerNo, id, pwd, 1);
 		Gym gym = new Gym(ownerNo, name, phoneNo, zipCode, 
@@ -38,26 +39,34 @@ public class OwnerSignupServlet extends HttpServlet {
 		
 		OwnerService service = new OwnerService();
 		
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		
 		session.removeAttribute("signupInfo");
 		session.removeAttribute("gymInfo");
+		
+		String path = "jsonresult.jsp";
+		String resultMsg = "";
 		
 		try {
 			service.ownerSignup(owner, gym);
 			session.setAttribute("signupInfo", owner);
 			session.setAttribute("gymInfo", gym);
-			out.print("1");
 			
 			Owner ownerSession = (Owner)session.getAttribute("signupInfo");
 			System.out.println("세션저장객체 : " + ownerSession.toString());
 			
+			request.setAttribute("status", 2);
+			resultMsg = "가입성공";
 		} catch (AddException e) {
-			out.print("0");
+			request.setAttribute("status", 3);
+			resultMsg = "가입실패";
 			e.printStackTrace();
 		}
+		
+
+		request.setAttribute("msg", resultMsg);
+
+		RequestDispatcher rd = request.getRequestDispatcher(path);
+		rd.forward(request, response);
 	}
 
 }

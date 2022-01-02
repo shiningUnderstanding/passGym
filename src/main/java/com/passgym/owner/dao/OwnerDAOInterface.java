@@ -1,6 +1,7 @@
 package com.passgym.owner.dao;
 
 import com.passgym.exception.AddException;
+import com.passgym.exception.FindException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.owner.vo.Owner;
 
@@ -10,8 +11,9 @@ public interface OwnerDAOInterface {
 	 * 해당 ownerNo를 가진 Owner객체를 반환한다
 	 * @param ownerNo 회원가입시에 부여된 판매자 번호.
 	 * @return Owner객체
+	 * @throws FindException 
 	 */
-	public Owner findByOwnerId(String ownerNo);
+	public Owner findByOwnerId(String ownerNo) throws FindException;
 	
 	/**
 	 * 저장소에 판매자를 추가한다

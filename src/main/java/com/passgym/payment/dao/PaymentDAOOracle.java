@@ -9,6 +9,11 @@ import com.passgym.payment.vo.Payment;
 import com.passgym.sql.PassGymConnection;
 
 public class PaymentDAOOracle implements PaymentDAOInterface{
+	private static PaymentDAOOracle dao = new PaymentDAOOracle();
+	private PaymentDAOOracle() {}
+	public static PaymentDAOOracle getInstance() {
+		return dao;
+	}
 	
 	@Override
 	public void addPayment(Payment p) throws AddException {

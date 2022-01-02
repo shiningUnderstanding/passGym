@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/menu.js"></script>
-    <script src="./js/gymlist.js"></script>
+    <script src="./js/gymlistresult.js"></script>
     <script>
       $(function () {
         /*---index load될 때 START---*/

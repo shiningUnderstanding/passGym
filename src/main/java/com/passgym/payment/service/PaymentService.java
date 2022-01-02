@@ -5,7 +5,7 @@ import com.passgym.payment.dao.PaymentDAOOracle;
 import com.passgym.payment.vo.Payment;
 
 public class PaymentService {
-	private PaymentDAOOracle dao = new PaymentDAOOracle();
+	private PaymentDAOOracle dao = PaymentDAOOracle.getInstance();
 	private static PaymentService service = new PaymentService();
 	private PaymentService() {}
 	public static PaymentService getInstance() {

@@ -6,7 +6,6 @@ import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.vo.Gym;
 import com.passgym.pass.vo.Pass;
-import com.passgym.zzim.vo.Zzim;
 
 public interface GymDAOInterface {
 	/**
@@ -17,6 +16,7 @@ public interface GymDAOInterface {
 	 */
 	public List<Pass> findByOwnerNo(int ownerNo) throws FindException;
 	
+	 
 	/**
 	 * 판매자 회원가입 후 상세내용을 등록할 Gym을 찾는다.
 	 * @param ownerNo Gym를 찾기 위한 사업자번호
@@ -52,10 +52,12 @@ public interface GymDAOInterface {
 	/**
 	 * 헬스장 상세 페이지에 넘겨줄 gym정보 모두 출력
 	 * @param ownerNo 사업자번호
+	 * @param latitude 위도
+	 * @param longitude 경도
 	 * @return 사업자번호에 해당하는 헬스장 상세 정보
 	 * @throws FindException
 	 */
-	public Gym gymDetail(int ownerNo) throws FindException;
+	public Gym gymDetail(int ownerNo, double latitude, double longitude) throws FindException;
 	
 	/**
 	 * 판매자회원가입화면에서 입력한 정보를 저장한다.
@@ -63,6 +65,5 @@ public interface GymDAOInterface {
 	 * @throws AddException
 	 */
 	public void signupAdd(Gym gym) throws AddException;
-
-
+	 
 }

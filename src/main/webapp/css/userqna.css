@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+.userqna {
+  width: 800px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userqna__form {
+  width: 100%;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+}
+
+.qna__title {
+  width: 400px;
+  margin-bottom: 10px;
+}
+
+.qna__title input {
+  width: 305px;
+  height: 32px;
+}
+
+.qna__content {
+  width: 400px;
+  margin-bottom: 40px;
+}
+
+.qna__content-label {
+  margin-bottom: 5px;
+}
+
+.qna__content textarea {
+  width: 400px;
+  height: 200px;
+}

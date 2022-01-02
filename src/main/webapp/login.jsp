@@ -128,6 +128,7 @@ body {
 	cursor: pointer;
 }
 
+
 .login__hr {
 	display: flex;
 	justify-content: center;
@@ -138,6 +139,7 @@ body {
 	display: flex;
 	justify-content: center;
 }
+
 
 .login__kakao, .login__naver {
 	margin: 10px;
@@ -169,6 +171,16 @@ body {
     				});
     				return false;
             	});
+
+				// $('div.login__body div.signup>button.owner').click(function(){
+            	// 	let ajaxUrl = './ownersignup.html';
+            	// 	$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
+    			// 		if(jqXHR.status != 200){
+    			// 			alert('응답실패:' + jqXHR.status);
+    			// 		}
+    			// 	});
+    			// 	return false;
+            	// });
             });
         </script>
 </head>
@@ -194,38 +206,37 @@ body {
 						type="radio" class="login__ownerChk" name="check" id="ownerChk"
 						value="owner">사업자</label>
 				</div>
+
 				<div class="login__input">
 					<input type="email" class="login__id" name="id" required
 						placeholder="이메일"><br> <input type="password"
 						class="login__pwd" name="pwd" required placeholder="비밀번호"><br>
 					<button type="submit" class="login__submit" value="로그인">로그인</button>
 					<br>
-				</div>
-			</form>
-
-			<div class="login__find">
+        <div class="login__find">
 				<!-- <button type="button" value="이메일/비밀번호 찾기">이메일/비밀번호 찾기</button> -->
 				<a href="./findemail.html" class="login__searchid">이메일 찾기</a> <a
 					href="./findpassword.html" class="login__searchpwd">비밀번호 찾기</a>
 			</div>
 			<br>
-			<div class="login__hr">간편로그인</div>
-				<!-- <hr class="login__line">
-				<span clsss="login__title">간편로그인</span><br> -->
-				<div class="login__sns">
-				<a href=""> <img src="./images/kakao.png"
-					class="login__kakao" alt="카카오톡으로 로그인"></a> <a href=""> <img
-					src="./images/naver.png" class="login__naver" alt="네이버로 로그인"></a>
-				</div>
-				<br>
-			<div class="login__hr">회원가입</div>
-			<div class="signup">
-				<!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
-				<button type="button" value="사용자용" class="user">사용자 회원가입</button>
-				<button type="button" onClick="location.href='./ownersignup.html'"
-					class="owner">사업자 회원가입</button>
-			</div>
 
+				<hr>
+				<div class="login__hr">간편로그인</div>
+				<div class="login__sns">
+					<a href=""> <img src="./images/kakao.png"
+						class="login__kakao" alt="카카오톡으로 로그인"></a> <a href=""> <img
+						src="./images/naver.png" class="login__naver" alt="네이버로 로그인"></a>
+				</div>
+				<hr>
+				<div class="login__hr">회원가입</div>
+				<div class="signup">
+					<!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
+					<button type="button" value="사용자용" class="user">사용자 회원가입</button>
+					<button type="button" class="owner" onClick="location.href='./ownersignup.html'">사업자 회원가입</button>
+				</div>
+			</form>
+
+			
 		</div>
 	</div>
 </body>

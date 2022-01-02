@@ -57,7 +57,7 @@ function gymList() {
 	$.ajax({
 		url: ajaxUrl,
 		method: ajaxMethod,
-		data: {latitude: latitude, longitude: longitude},
+		//data: {latitude: latitude, longitude: longitude},
 		success: function(responseData) {
 			$("section").html(responseData);
 		}
