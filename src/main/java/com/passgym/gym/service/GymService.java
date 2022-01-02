@@ -7,9 +7,15 @@ import com.passgym.exception.AddException;
 import com.passgym.exception.FindException;
 import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
+import com.passgym.pass.vo.Pass;
 
 public class GymService {
-	private GymDAOOracle dao = new GymDAOOracle();
+	private GymDAOOracle dao = GymDAOOracle.getInstance();
+	
+	public List<Pass> findByOwnerNo(int ownerNo) throws FindException {
+		return dao.findByOwnerNo(ownerNo);
+	}
+	
 	
 	public void gymRegist(Gym gym) throws AddException {
 		dao.add(gym);

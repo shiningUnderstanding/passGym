@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
+.title {
+  border: solid 1px;
+  display: flex;
+
+  margin: 50px 450px;
+
+  flex-direction: column;
+  align-items: center;
+  background-color: white(223, 205, 255);
+}
+.form {
+  border: solid 1px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  width: 1000px;
+  height: 155px;
+  margin: 0 auto;
+}
+
+.pass__name {
+  border: 1px solid black;
+  width: 200px;
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.th__content__1 {
+  padding: 5px;
+  background-color: dodgerblue;
+  color: #fff;
+  border: 1px solid lightgray;
+}
+.td__content__1 {
+  text-align: center;
+  padding: 5px;
+}
+.payment__info {
+  display: flex;
+}
+
+.pass_info {
+  display: flex;
+  margin-top: 20px;
+}
+.tb__2 {
+  border-collapse: collapse;
+  width: 1000px;
+}
+.th__content__2 {
+  margin-top: 10px;
+  background-color: dodgerblue;
+  color: #fff;
+  border: 1px solid lightgray;
+}
+.td__content__2 {
+  text-align: center;
+  padding: 5px;
+}
+
+.th__content__3 {
+  margin-top: 10px;
+  background-color: dodgerblue;
+  color: #fff;
+  border: 1px solid lightgray;
+}
+
+.td__content__3 {
+  text-align: center;
+  padding: 5px;
+}

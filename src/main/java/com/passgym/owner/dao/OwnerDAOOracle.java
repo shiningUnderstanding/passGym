@@ -5,12 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.passgym.exception.AddException;
+import com.passgym.gym.dao.GymDAOOracle;
 import com.passgym.gym.vo.Gym;
 import com.passgym.owner.vo.Owner;
 import com.passgym.sql.PassGymConnection;
 
 public class OwnerDAOOracle implements OwnerDAOInterface {
-
+	private static OwnerDAOOracle dao = new OwnerDAOOracle();
+	private OwnerDAOOracle() {}
+	public static OwnerDAOOracle getInstance() {
+		return dao;
+	}
 	@Override
 	public Owner findByOwnerId(String ownerNo) {
 		
