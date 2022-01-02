@@ -9,14 +9,6 @@
   				font-family: "Noto Sans kr", sans-serif;
 			}
             
-            /* .usersignup__header{
-                width: 100px;
-                text-align: center;
-            }
-            .usersignup__mainLogo{
-                width: 100%;
-            } */
-            
 			.usersignup__container{
 				width: 312px;
 				height: 50vh 100%;
@@ -115,6 +107,41 @@
                 color: darkslategray;
 			    cursor: pointer;
             }
+
+            .sns{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sns__line{
+                position: relative;
+                bottom: -8px;
+                display: block;
+                margin: 0;
+                width: 100%;
+                height: 1px;
+                background-color: #f1f3f5;
+                border: none;
+            }
+
+            .sns__title{
+                padding: 0 8px;
+                margin-bottom: 16px;
+                font-size: 11px;
+                line-height: 16px;
+                letter-spacing: -.3px;
+                color: #abb0b5;
+                z-index: 11;
+                background-color: #fff;
+            }
+
+            .sns__button{
+                display: flex;
+                margin: auto;
+                -moz-column-gap: 12px;
+                column-gap: 12px;
+            }
         </style>
         <script src="./js/usersignup.js"></script>
         <script>
@@ -197,12 +224,16 @@
                 </form>
             </div>
             <br>
-            <div class="usersignup__hr">간편회원가입</div>
-            <div class="usersignup__sns">
+
+            <div class="sns">
+                <hr class="sns__line">
+                <span class="sns__title">간편회원가입</span>
+            <div class="sns__button">
                 <a href="./" >
                 <img src="./images/kakao.png" class="usersignup__kakao" alt="카카오톡으로 가입"></a>
                 <a href="./">
                 <img src="./images/naver.png" class="usersignup__naver" alt="네이버로 가입"></a>
+            </div>
             </div>
         </div>
     </body>
