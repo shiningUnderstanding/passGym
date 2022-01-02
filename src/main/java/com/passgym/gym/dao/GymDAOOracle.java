@@ -331,8 +331,8 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 		String selectSQL = "SELECT owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice,\r\n"
 				+ "operating_time, operating_program, extra_service, etc,\r\n"
-				+ "ROUND((total_star / total_member), 2) AS avg_star,\r\n"
-				+ "NVL((POWER(total_star, 7) / POWER(total_member, 6)), 0) AS best,\r\n"
+				+ "ROUND(NVL(total_star / DECODE(total_member, 0, NULL, total_member), 0), 2) AS avg_star,\r\n"
+				+ "NVL((POWER(g.total_star, 7) / DECODE(POWER(total_member, 6), 0, NULL, total_member)), 0) AS best,\r\n"
 				+ "DISTANCE_WGS84(?, ?, lat, lon) AS distance\r\n"
 				+ "FROM gym\r\n"
 				+ "WHERE owner_no = ?";
