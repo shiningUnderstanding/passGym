@@ -168,7 +168,7 @@ String path = (String)session.getAttribute("photoPath");
             </div>
             
              헬스장 정보<br>
-            <input class="regist__gymnotice" type="text" name="notice"><br>
+            <textarea class="regist__gymnotice" type="text" name="notice"></textarea><br>
 
             <div class="regist__operationinfo">
                 운영시간<br>
