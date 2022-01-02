@@ -1,77 +1,86 @@
 @charset "UTF-8";
 
 .gymlist {
-  width: 1000px;
-  max-width: 100%;
-  margin: 20px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	width: 1000px;
+	max-width: 100%;
+	margin: 20px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .gymlist__title {
-  width: 900px;
-  max-width: 90%;
+	width: 900px;
+	max-width: 90%;
 }
 
 .gymlist__details {
-  width: 100%;
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+	width: 100%;
+	margin: 10px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .gymlist__detail {
-  border: 1px solid;
-  border-radius: 15px;
-  margin: 15px 0.5vw;
-  width: 290px;
-  max-width: 29vw;
-  height: 290px;
-  max-height: 29vw;
+	border: 1px solid;
+	border-radius: 15px;
+	margin: 15px 0.5vw;
+	width: 290px;
+	max-width: 29vw;
+	height: 290px;
+	max-height: 29vw;
+}
+
+.gymlist__detail a {
+	color: inherit;
+	text-decoration: inherit;
 }
 
 .gymlist__detail ul {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .gymlist__detail li {
-  width: 100%;
-  height: 50%;
-  list-style-type: none;
-  /*align-items: center;*/
-  /*border-bottom: 1px solid;*/
+	width: 100%;
+	height: 50%;
+	list-style-type: none;
+	/*align-items: center;*/
+	/*border-bottom: 1px solid;*/
 }
-.gymlist__detail li>img{
-    border-top-right-radius: 15px;
-    border-top-left-radius: 15px;
-    width:100%;
-    height: 100%;
-    object-fit: cover;
-    overflow: hidden;
-    /* max-width: 100%; */
-}
-.gymlist__infos{
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  /*justify-content: center;*/
 
+.gymlist__detail li>img {
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	overflow: hidden;
+	/* max-width: 100%; */
 }
-.gymlist__info-top{
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+
+.gymlist__infos {
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	/*justify-content: center;*/
 }
-.gymlist__name{
-  margin-right: 15px;
+
+.gymlist__info-top {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
 }
-.gymlist__distance{
-  margin-top: 20px;
+
+.gymlist__name {
+	margin-right: 15px;
+}
+
+.gymlist__distance {
+	margin-top: 20px;
 }

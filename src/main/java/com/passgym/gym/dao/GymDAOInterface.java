@@ -65,5 +65,13 @@ public interface GymDAOInterface {
 	 * @throws AddException
 	 */
 	public void signupAdd(Gym gym) throws AddException;
+	/**
+	 * 별점순 출력
+	 * @param latitude 위도
+	 * @param longitude 경도
+	 * @return 별점순 헬스장 정렬
+	 * @throws FindException
+	 */
+	public List<Gym> findByAvgStar(double latitude, double longitude) throws FindException;
 	 
 }

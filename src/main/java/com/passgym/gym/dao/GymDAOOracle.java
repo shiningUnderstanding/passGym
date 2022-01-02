@@ -290,8 +290,8 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 		try {
 			con = PassGymConnection.getConnection();
-			String selectSQL = "SELECT g.owner_no, name, g.addr, ROUND((g.total_star / g.total_member), 2) AS avg_star,\r\n"
-					+ "NVL((POWER(g.total_star, 7) / POWER(g.total_member, 6)), 0) AS best, DISTANCE_WGS84(" + latitude + ", "+ longitude + ", lat, lon) AS distance\r\n"
+			String selectSQL = "SELECT g.owner_no, name, g.addr, ROUND(NVL(total_star / DECODE(total_member, 0, NULL, total_member), 0), 2) AS avg_star,\r\n"
+					+ "NVL((POWER(g.total_star, 7) / DECODE(POWER(total_member, 6), 0, NULL, total_member)), 0) AS best, DISTANCE_WGS84(" + latitude + ", "+ longitude + ", lat, lon) AS distance\r\n"
 					+ "FROM gym g JOIN zzim z ON g.owner_no = z.owner_no\r\n"
 					+ "WHERE z.user_no = " + userNo + "\r\n"
 					+ "ORDER BY distance, best DESC";
@@ -382,5 +382,44 @@ public class GymDAOOracle implements GymDAOInterface {
 		}
 		return g;
 		
+	}
+	@Override
+	public List<Gym> findByAvgStar(double latitude, double longitude) throws FindException {
+		List<Gym> gymList = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String selectSQL = "SELECT owner_no, name, addr, ROUND(NVL(total_star / DECODE(total_member, 0, NULL, total_member), 0), 2) AS avg_star,\r\n"
+				+ "NVL((POWER(total_star, 7) / DECODE(POWER(total_member, 6), 0, NULL, total_member)), 0) AS best, DISTANCE_WGS84(?, ?, lat, lon) AS distance\r\n"
+				+ "FROM gym\r\n"
+				+ "ORDER BY best DESC";
+		if(latitude == 0.0 && longitude == 0.0) {
+			latitude = 37.554837;
+			longitude = 126.971732;
+		}
+		try {
+			con = PassGymConnection.getConnection();
+			pstmt = con.prepareStatement(selectSQL);
+			pstmt.setDouble(1, latitude);
+			pstmt.setDouble(2, longitude);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int ownerNo = rs.getInt("owner_no");
+				String Name = rs.getString("name");
+				String addr = rs.getString("addr");
+				double distance = rs.getDouble("distance");
+				double avgStar = rs.getDouble("avg_star");
+				Gym g = new Gym(ownerNo, Name, null, null, addr, null, null, null, null, null, null, null, 0, 0, avgStar, 0, 0, distance);
+				
+				gymList.add(g);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			PassGymConnection.close(rs, pstmt, con);
+		}
+		
+		return gymList;
 	}
 }
