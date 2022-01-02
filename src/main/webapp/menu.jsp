@@ -31,7 +31,7 @@
 		</h1>
 		<div class="nav-bar__links">
 			<!--메뉴-->
-			<a class="link" href="">홈</a> <a class="link" href="">지도</a> <a class="link" href="">고객센터</a>
+			<a class="link" href="./index.jsp">홈</a> <a class="link" href="./">지도</a> <a class="link" href="./">고객센터</a>
 		</div>
 	</div>
 </nav>

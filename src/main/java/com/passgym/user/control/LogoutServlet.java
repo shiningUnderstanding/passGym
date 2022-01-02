@@ -33,6 +33,7 @@ public class LogoutServlet extends HttpServlet {
 		session.removeAttribute("userLoginInfo");
 		session.removeAttribute("ownerLoginInfo");
 		session.invalidate();
+		response.sendRedirect("./index.jsp");
 	}
 
 }

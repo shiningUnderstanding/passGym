@@ -26,7 +26,7 @@ public class GymListServlet extends HttpServlet {
 		User u = (User)session.getAttribute("userLoginInfo");
 		String path = "";
 		String lat = (String)request.getAttribute("latitude");
-		String lon = (String)request.getAttribute("latitude");
+		String lon = (String)request.getAttribute("longitude");
 		double latitude = 0.0;
 		double longitude = 0.0;
 		if(lat == null && lon == null) {

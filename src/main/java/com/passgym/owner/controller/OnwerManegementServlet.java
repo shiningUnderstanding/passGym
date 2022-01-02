@@ -52,6 +52,7 @@ public class OnwerManegementServlet extends HttpServlet {
 				request.setAttribute("msg", e.getMessage());
 			}
 
+
 		}
 		String path = "usermanagement.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(path);
