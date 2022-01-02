@@ -218,9 +218,6 @@ public class GymDAOOracle implements GymDAOInterface {
 				+ "                etc=?"
 				+ "				   WHERE owner_no=?";
 		
-//		String insertSQL = "INSERT INTO gym(owner_no, name, phone_no, zipcode, addr, addr_detail, introduce, notice, \r\n"
-//				+ "operating_time, operating_program, extra_service, etc, total_star, total_member, lat, lon)\r\n"
-//				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)";
 		
 		try {
 			con = PassGymConnection.getConnection();
@@ -234,7 +231,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setInt(7, gym.getOwnerNo());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);
@@ -264,8 +260,6 @@ public class GymDAOOracle implements GymDAOInterface {
 			pstmt.setDouble(8, gym.getLon());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			int errorCode = e.getErrorCode();
-			System.out.println(errorCode);
 			e.printStackTrace();
 		}finally {
 			PassGymConnection.close(pstmt, con);
