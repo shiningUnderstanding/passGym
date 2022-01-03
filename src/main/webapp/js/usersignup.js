@@ -91,8 +91,8 @@ function userSignupClick($userSignupFormObj){
                 alert(responseObj.msg);*/
                 if(responseObj.status == 1){
 					alert("회원가입이 완료되었습니다.");
-                    /*location.href='./index.jsp';*/
-					$('.loginBtn link').trigger('click');
+                    location.href='./index.jsp';
+					/* $('.loginBtn link').trigger('click'); */
 					
 
                 }
