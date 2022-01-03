@@ -128,18 +128,40 @@ body {
 	cursor: pointer;
 }
 
-
-.login__hr {
-	display: flex;
-	justify-content: center;
-	color: darkslategray;
+.sns, .signup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.login__sns{
-	display: flex;
-	justify-content: center;
+.sns__line, .signup__line{
+    position: relative;
+    bottom: -8px;
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #f1f3f5;
+    border: none;
 }
 
+.sns__title, .signup__title{
+    padding: 0 8px;
+    margin-bottom: 16px;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -.3px;
+    color: #abb0b5;
+    z-index: 11;
+    background-color: #fff;
+}
+
+.sns__button, .singup__button{
+    display: flex;
+    margin: auto;
+    -moz-column-gap: 12px;
+    column-gap: 12px;
+}
 
 .login__kakao, .login__naver {
 	margin: 10px;
@@ -161,8 +183,7 @@ body {
 <script>
             $(function(){
             	loginClick();
-            	//body > section > div > div > div > div.signin > button.user
-            	$('div.login__body div.signup>button.user').click(function(){
+            	$('.user').click(function(){
             		let ajaxUrl = './usersignup.jsp';
             		$("section").load(ajaxUrl, function(responseText, textStatus, jqXHR){
     					if(jqXHR.status != 200){
@@ -219,25 +240,28 @@ body {
 					href="./findpassword.html" class="login__searchpwd">비밀번호 찾기</a>
 			</div>
 			<br>
-
-				<hr>
-				<div class="login__hr">간편로그인</div>
-				<div class="login__sns">
+            <div class="sns">
+				<hr class="sns__line">
+                <span class="sns__title">간편로그인</span>
+				<div class="sns__button">
 					<a href=""> <img src="./images/kakao.png"
 						class="login__kakao" alt="카카오톡으로 로그인"></a> <a href=""> <img
 						src="./images/naver.png" class="login__naver" alt="네이버로 로그인"></a>
 				</div>
-				<hr>
-				<div class="login__hr">회원가입</div>
-				<div class="signup">
+            </div>
+            <br>
+            <div class="signup">
+				<hr class="signup__line">
+                <span class="signup__title">회원가입</span>
+				<div class="signup__button">
 					<!--  <button type="button" value="사용자용" onclick="location.href='./usersignup.jsp'">사용자 회원가입</button> -->
 					<button type="button" value="사용자용" class="user">사용자 회원가입</button>
 					<button type="button" class="owner" onClick="location.href='./ownersignup.html'">사업자 회원가입</button>
 				</div>
+            </div>
 			</form>
 
 			
-		</div>
 	</div>
 </body>
 </html>
